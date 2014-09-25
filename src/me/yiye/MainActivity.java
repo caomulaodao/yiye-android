@@ -5,12 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.ListFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -21,6 +26,9 @@ public class MainActivity extends SlidingFragmentActivity {
 	private SimpleAdapter adapter;
 	private List<HashMap<String,Object>> data;
 	
+	private GridView gv;
+	private PullToRefreshGridView ptgv;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,6 +38,10 @@ public class MainActivity extends SlidingFragmentActivity {
 		setBehindContentView(R.layout.view_main_behind);
 		
 		initSM();
+		
+		ptgv = (PullToRefreshGridView) findViewById(R.id.gridview_main_content);
+		gv = ptgv.getRefreshableView();
+		gv.setAdapter(new GvAdapter(this));
 	}
 
 	private void initSM() {
@@ -80,5 +92,53 @@ public class MainActivity extends SlidingFragmentActivity {
 		
 		sm.setMenu(v);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	}
+
+	class GvAdapter extends BaseAdapter {
+		private Context context;
+		private int[] imgs = {
+				R.drawable.home,R.drawable.message,
+				R.drawable.myfavor,R.drawable.myup,
+				R.drawable.setting
+		};
+		
+		GvAdapter(Context context) {
+			this.context = context;
+		}
+		
+		@Override
+		public int getCount() {
+			return imgs.length;
+		}
+		
+		@Override
+		public Object getItem(int item) {
+			return item;
+		}
+		
+		@Override
+		public long getItemId(int id) {
+			 return id;
+		}
+		
+		@Override
+		public View getView(int pos,View convertView,ViewGroup parent) {
+			
+			View v;
+			ImageView imageView;
+			
+			if(convertView == null) {
+				v = View.inflate(context, R.layout.item_over_style, null);
+				v.setLayoutParams(new GridView.LayoutParams(300, 300));
+			} else {
+				v = convertView;
+			}
+			
+			imageView = (ImageView) v.findViewById(R.id.imageview_over_item_background);
+			imageView.setAdjustViewBounds(false);
+			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+			imageView.setImageResource(imgs[pos]);
+			return v;
+		}
 	}
 }

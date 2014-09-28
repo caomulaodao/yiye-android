@@ -10,13 +10,13 @@
         android:layout_marginTop="20dp"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:background="#3e3e3e" />
+        android:background="@drawable/divider_style" />
 
     <ListView
-        android:id="@+id/listview_main_behind"
+        android:id="@+id/listview_main_behind_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="#3e3e3e"
+        android:divider="@drawable/divider_style"
         android:dividerHeight="1dp" >
     </ListView>
 

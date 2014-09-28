@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/main"
-        android:icon="@drawable/ic_launcher"
+        android:id="@+id/menu_find"
+        android:icon="@drawable/find"
         android:showAsAction="always"
-        android:title="待定"
+        android:title="@string/menu_find"
         android:titleCondensed="？？？"
         android:visible="true">
     </item>

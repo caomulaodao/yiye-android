@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:background="@drawable/girditem_style">
 
     <ImageView
-        android:id="@+id/imageview_over_item_background"
+        android:id="@+id/imageview_main_above_item_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/balidao" />
 
     <View 
         android:layout_width="match_parent"
@@ -22,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:text="unknown"
+        android:text="巴厘岛"
         android:textColor="#3ff"
         android:textSize="20sp" />
 

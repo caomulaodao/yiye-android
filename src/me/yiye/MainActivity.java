@@ -49,7 +49,6 @@ public class MainActivity extends SlidingFragmentActivity {
 			@Override
 			public void onClick(View arg0) {
 				Toast.makeText(MainActivity.this, "mid button clicked", Toast.LENGTH_LONG).show();
-				
 			}
 			
 		});

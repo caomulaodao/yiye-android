@@ -14,9 +14,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation|screenSize|screenLayout"
-            android:theme="@style/Theme.Sherlock.Light.DarkActionBar"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:configChanges="orientation|screenSize|screenLayout">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -109,7 +109,8 @@ public class MainActivity extends SlidingFragmentActivity {
 			toggle();
 			return true;
 		case R.id.menu_find:
-			Toast.makeText(this, "menu clicked", Toast.LENGTH_SHORT).show();
+			// Toast.makeText(this, "menu clicked", Toast.LENGTH_SHORT).show();
+			SearchActivity.launch(this);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

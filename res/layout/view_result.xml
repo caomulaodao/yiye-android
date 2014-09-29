@@ -3,17 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <include layout="@layout/view_list_header" />
-	
-    <include layout="@layout/item_commom_divider_style" />
-
-    <ListView
-        android:id="@+id/listview_main_behind_menu"
+        <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" 
+        android:id="@+id/listview_result"
         android:divider="@drawable/divider_style"
-        android:dividerHeight="1dp" >
-    </ListView>
+        android:dividerHeight="1dp" />
 
 </LinearLayout>

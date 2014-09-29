@@ -15,12 +15,27 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|screenLayout"
-            android:theme="@android:style/Theme.Holo.Light">
+            android:theme="@android:style/Theme.Holo.Light" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".SearchActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Holo.Light" >
+        </activity>
+        <activity
+            android:name=".ChannelActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Holo.Light" >
+        </activity>
+        <activity
+            android:name=".ResultActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Holo.Light" >
         </activity>
     </application>
 

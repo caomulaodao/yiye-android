@@ -1,11 +1,15 @@
 package me.yiye.contents;
 
+import android.graphics.Bitmap;
+
 public class BookMark {
 	private String title;
 	private String summary;
 	private String url;
-	private String img;
-
+	private String imgurl;
+	private String uploaddate;
+	private Bitmap img;
+	
 	public String getTitle() {
 		return title;
 	}
@@ -31,11 +35,22 @@ public class BookMark {
 	}
 
 	public String getImg() {
-		return img;
+		return imgurl;
 	}
 
 	public void setImg(String img) {
-		this.img = img;
+		this.imgurl = img;
 	}
 
+	public String getUploaddate() {
+		return uploaddate;
+	}
+
+	public void setUploaddate(String uploaddate) {
+		this.uploaddate = uploaddate;
+	}
+
+	public Bitmap loadImage() {
+		return img;
+	}
 }

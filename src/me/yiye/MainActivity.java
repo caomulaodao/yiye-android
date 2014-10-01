@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import me.yiye.contents.Channel;
+import me.yiye.utils.YiyeApi;
+import me.yiye.utils.YiyeApiTestImp;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +20,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
@@ -43,7 +47,11 @@ public class MainActivity extends SlidingFragmentActivity {
 		PullToRefreshGridView pullableView;
 		pullableView = (PullToRefreshGridView) findViewById(R.id.gridview_main_content);
 		mainDataGridView = pullableView.getRefreshableView();
-		mainDataGridView.setAdapter(new MainDataGridAdapter(this));
+		ChannelsGridAdapter dataadpter = new ChannelsGridAdapter(this);
+		YiyeApi api = new YiyeApiTestImp();
+		dataadpter.setData(api.getBookedChannels());
+		mainDataGridView.setAdapter(dataadpter);
+		dataadpter.notifyDataSetChanged();
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setCustomView(R.layout.view_main_actionbar);
@@ -61,24 +69,25 @@ public class MainActivity extends SlidingFragmentActivity {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int pos,long id) {
-				TodayActivity.launch(MainActivity.this);
+				ChannelActivity.launch(MainActivity.this);
 
 			}
 		});
 	}
 
-	class MainDataGridAdapter extends BaseAdapter {
+	class ChannelsGridAdapter extends BaseAdapter {
 		private Context context;
-		private int[] imgs = { R.drawable.home, R.drawable.message,
-				R.drawable.myfavor, R.drawable.myup, R.drawable.balidao};
 
-		MainDataGridAdapter(Context context) {
+		private List<Channel> channels;
+		
+		ChannelsGridAdapter(Context context) {
 			this.context = context;
+			Channel.setDefaultPic(context, R.drawable.balidao);
 		}
 
 		@Override
 		public int getCount() {
-			return imgs.length;
+			return channels.size();
 		}
 
 		@Override
@@ -96,19 +105,28 @@ public class MainActivity extends SlidingFragmentActivity {
 
 			View v;
 			ImageView imageView;
-
+			TextView textView;
+			Channel c = channels.get(pos);
 			if (convertView == null) {
 				v = View.inflate(context, R.layout.item_main_above_style, null);
 				v.setLayoutParams(new GridView.LayoutParams(300, 300));
 			} else {
 				v = convertView;
 			}
-
+			
 			imageView = (ImageView) v.findViewById(R.id.imageview_main_above_item_background);
 			imageView.setAdjustViewBounds(false);
 			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			imageView.setImageResource(imgs[pos]);
+			imageView.setImageBitmap(c.getPic());
+			
+			textView = (TextView) v.findViewById(R.id.textview_over_item_notice);
+			textView.setText(c.getTitle());
+			
 			return v;
+		}
+		
+		public void setData(List<Channel> channels){
+			this.channels = channels;
 		}
 	}
 
@@ -119,7 +137,6 @@ public class MainActivity extends SlidingFragmentActivity {
 			toggle();
 			return true;
 		case R.id.menu_find:
-			// Toast.makeText(this, "menu clicked", Toast.LENGTH_SHORT).show();
 			SearchActivity.launch(this);
 			return true;
 		}

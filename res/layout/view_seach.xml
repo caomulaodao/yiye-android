@@ -35,7 +35,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent" 
-        android:id="@+id/listview_search_classes"
+        android:id="@+id/listview_search_channelsets"
         android:divider="@drawable/divider_style"
         android:dividerHeight="1dp" />
 </LinearLayout>

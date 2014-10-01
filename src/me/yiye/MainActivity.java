@@ -34,10 +34,11 @@ public class MainActivity extends SlidingFragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setTitle("订阅/管理");
+		this.setTitle("订阅");
 		setContentView(R.layout.view_main_above);
 		setBehindContentView(R.layout.view_main_behind);
-
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		initSlidingMenu();
 		initAbovePanal();
 	}
@@ -53,18 +54,6 @@ public class MainActivity extends SlidingFragmentActivity {
 		mainDataGridView.setAdapter(dataadpter);
 		dataadpter.notifyDataSetChanged();
 		
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setCustomView(R.layout.view_main_actionbar);
-		getSupportActionBar().setDisplayShowCustomEnabled(true);
-		View v = getSupportActionBar().getCustomView();
-		((Button)v.findViewById(R.id.btn_main_above_actionbar_booknmanager)).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				Toast.makeText(MainActivity.this, "mid button clicked", Toast.LENGTH_LONG).show();
-			}
-			
-		});
 		mainDataGridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

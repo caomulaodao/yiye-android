@@ -7,6 +7,9 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -39,10 +42,18 @@ public class ResultActivity extends SherlockActivity {
 		resultListView.setAdapter(resultAdpater);
 		
 		if(title != null) {
-			this.setTitle("有关于+\"" + title + "\"的频道");
+			this.setTitle("关于\"" + title + "\"的频道");
 		}
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		resultListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View v, int pos,long id) {
+				ContentActivity.launch(ResultActivity.this);
+			}
+		});
 	}
 	
 	public static void launch(Context context) {

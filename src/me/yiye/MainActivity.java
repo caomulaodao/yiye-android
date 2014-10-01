@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
@@ -54,6 +56,14 @@ public class MainActivity extends SlidingFragmentActivity {
 				Toast.makeText(MainActivity.this, "mid button clicked", Toast.LENGTH_LONG).show();
 			}
 			
+		});
+		mainDataGridView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View v, int pos,long id) {
+				TodayActivity.launch(MainActivity.this);
+
+			}
 		});
 	}
 

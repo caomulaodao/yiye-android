@@ -7,6 +7,9 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -41,6 +44,13 @@ public class ChannelActivity extends SherlockActivity{
 		channelListView.setAdapter(channelListAdapter);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		channelListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View v, int pos,long id) {
+				ContentActivity.launch(ChannelActivity.this);
+			}
+		});
 	}
 
 	public static void launch(Context context) {

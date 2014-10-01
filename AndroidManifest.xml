@@ -3,6 +3,9 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="17" />
@@ -34,6 +37,17 @@
         </activity>
         <activity
             android:name=".ResultActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Holo.Light" >
+        </activity>
+        <activity
+            android:name=".ContentActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Holo.Light" >
+        </activity>
+        
+        <activity
+            android:name=".TodayActivity"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.Holo.Light" >
         </activity>

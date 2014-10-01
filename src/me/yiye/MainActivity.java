@@ -47,7 +47,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		PullToRefreshGridView pullableView;
 		pullableView = (PullToRefreshGridView) findViewById(R.id.gridview_main_content);
 		mainDataGridView = pullableView.getRefreshableView();
-		ChannelsGridAdapter dataadpter = new ChannelsGridAdapter(this);
+		final ChannelsGridAdapter dataadpter = new ChannelsGridAdapter(this);
 		YiyeApi api = new YiyeApiTestImp();
 		dataadpter.setData(api.getBookedChannels());
 		mainDataGridView.setAdapter(dataadpter);
@@ -69,7 +69,7 @@ public class MainActivity extends SlidingFragmentActivity {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int pos,long id) {
-				ChannelActivity.launch(MainActivity.this);
+				ChannelActivity.launch(MainActivity.this,dataadpter.getItem(pos));
 
 			}
 		});
@@ -91,8 +91,8 @@ public class MainActivity extends SlidingFragmentActivity {
 		}
 
 		@Override
-		public Object getItem(int item) {
-			return item;
+		public Channel getItem(int item) {
+			return channels.get(item);
 		}
 
 		@Override

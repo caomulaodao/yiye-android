@@ -1,6 +1,8 @@
 package me.yiye.contents;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class BookMark {
 	private String title;
@@ -52,5 +54,20 @@ public class BookMark {
 
 	public Bitmap loadImage() {
 		return img;
+	}
+	
+	private Bitmap pic;
+	private static Bitmap defaultpic;
+	
+	public static void setDefaultPic(Context context,int res){ 
+		defaultpic = BitmapFactory.decodeResource(context.getResources(), res);
+	}
+	
+	public Bitmap getPic() {
+		if(pic != null) {
+			return pic;
+		}
+		
+		return defaultpic;
 	}
 }

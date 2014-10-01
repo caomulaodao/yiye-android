@@ -37,7 +37,7 @@ public class ContentActivity extends SherlockActivity {
 				return true;
 			}
 		});
-		web.loadUrl("http://www.baidu.com");
+		web.loadUrl(bookmark.getUrl());
 
 		MLog.d(TAG, "onCreate### set webview done");
 	}
@@ -57,7 +57,7 @@ public class ContentActivity extends SherlockActivity {
 	}  
 
 	
-	public static void launch(Context context) {
+	private static void launch(Context context) {
 		Intent i = new Intent();
 		i.setClass(context, ContentActivity.class);
 		context.startActivity(i);

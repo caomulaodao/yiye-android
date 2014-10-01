@@ -51,7 +51,7 @@ public class ResultActivity extends SherlockActivity {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int pos,long id) {
-				ContentActivity.launch(ResultActivity.this);
+
 			}
 		});
 	}

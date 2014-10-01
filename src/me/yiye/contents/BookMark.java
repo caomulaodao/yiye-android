@@ -1,5 +1,10 @@
 package me.yiye.contents;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import me.yiye.utils.DateUtil;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,7 +14,7 @@ public class BookMark {
 	private String summary;
 	private String url;
 	private String imgurl;
-	private String uploaddate;
+	private long uploaddate;
 	private Bitmap img;
 	
 	public String getTitle() {
@@ -45,10 +50,11 @@ public class BookMark {
 	}
 
 	public String getUploaddate() {
-		return uploaddate;
+
+		return DateUtil.timeStampToString(uploaddate);
 	}
 
-	public void setUploaddate(String uploaddate) {
+	public void setUploaddate(long uploaddate) {
 		this.uploaddate = uploaddate;
 	}
 

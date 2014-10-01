@@ -141,3 +141,6 @@ hs_err_pid*
 # project setting 
 project.properties
 proguard-project.txt
+
+#测试暂时不要
+test

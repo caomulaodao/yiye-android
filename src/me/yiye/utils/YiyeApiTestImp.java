@@ -20,13 +20,13 @@ public class YiyeApiTestImp implements YiyeApi{
 		t.setSummary("百度一下 你就知道");
 		t.setTitle("百度");
 		t.setUrl("www.baidu.com");
-		t.setUploaddate("今天");
+		t.setUploaddate(System.currentTimeMillis());
 		technologyChannel.add(t);
 		
 		t = new BookMark();
 		t.setTitle("CSDN");
 		t.setUrl("http://www.csdn.net/");
-		t.setUploaddate("昨天");
+		t.setUploaddate(System.currentTimeMillis() - 10000000);
 		t.setSummary("专业的技术论坛");
 		t.setImg("http://bbs.csdn.net/assets/guest.jpg");
 		technologyChannel.add(t);
@@ -34,7 +34,7 @@ public class YiyeApiTestImp implements YiyeApi{
 		t = new BookMark();
 		t.setTitle("github");
 		t.setUrl("http://github.com");
-		t.setUploaddate("昨天");
+		t.setUploaddate(System.currentTimeMillis() - 10000000);
 		t.setSummary("GitHub · Build software better, together.");
 		t.setImg("http://t11.baidu.com/it/u=3896377702,3215289161&fm=58");
 		technologyChannel.add(t);
@@ -42,7 +42,7 @@ public class YiyeApiTestImp implements YiyeApi{
 		t = new BookMark();
 		t.setTitle("Google");
 		t.setUrl("www.google.com");
-		t.setUploaddate("昨天");
+		t.setUploaddate(System.currentTimeMillis() - 100000000);
 		t.setSummary("谷歌是Google公司开发的互联网搜索引擎");
 		t.setImg("http://t11.baidu.com/it/u=1891683652,4023211487&fm=58");
 		technologyChannel.add(t);
@@ -50,7 +50,7 @@ public class YiyeApiTestImp implements YiyeApi{
 		t = new BookMark();
 		t.setTitle("Java");
 		t.setUrl("www.java.com/");
-		t.setUploaddate("前天");
+		t.setUploaddate(System.currentTimeMillis() - 200000000);
 		t.setSummary("java是一种可以撰写跨平台应用软件的面向对象的程序设计语言");
 		t.setImg("http://t11.baidu.com/it/u=3695155492,3500119636&fm=58");
 		technologyChannel.add(t);
@@ -58,7 +58,7 @@ public class YiyeApiTestImp implements YiyeApi{
 		t = new BookMark();
 		t.setTitle("c");
 		t.setUrl("baike.baidu.com/");
-		t.setUploaddate("前天");
+		t.setUploaddate(System.currentTimeMillis() - 20000000);
 		t.setSummary("语言是一种计算机程序设计语言，它既具有高级语言的特点，又具有汇编语言的特点。");
 		t.setImg("http://t11.baidu.com/it/u=2980528525,2674288977&fm=58");
 		technologyChannel.add(t);
@@ -66,7 +66,7 @@ public class YiyeApiTestImp implements YiyeApi{
 		t = new BookMark();
 		t.setTitle("python");
 		t.setUrl("www.python.org");
-		t.setUploaddate("前天");
+		t.setUploaddate(System.currentTimeMillis() - 20000000);
 		t.setSummary("Python（英语发音：/ˈpaɪθən/）, 是一种面向对象、解释型计算机程序设计语言，由Guido van Rossum于1989年底发明，第一个公开发行版发行于1991年。");
 		t.setImg("http://t12.baidu.com/it/u=2249553257,3895267356&fm=58");
 		technologyChannel.add(t);
@@ -74,7 +74,7 @@ public class YiyeApiTestImp implements YiyeApi{
 		t = new BookMark();
 		t.setTitle("android");
 		t.setUrl("developer.android.com/");
-		t.setUploaddate("前天");
+		t.setUploaddate(System.currentTimeMillis() - 30000000);
 		t.setSummary("Android是一种基于Linux的自由及开放源代码的操作系统");
 		t.setImg("http://t12.baidu.com/it/u=1574734811,2290912573&fm=58");
 		technologyChannel.add(t);
@@ -82,7 +82,7 @@ public class YiyeApiTestImp implements YiyeApi{
 		t = new BookMark();
 		t.setTitle("moli");
 		t.setUrl("http://www.moli.org.cn/");
-		t.setUploaddate("1992");
+		t.setUploaddate(System.currentTimeMillis() - 300000000);
 		t.setSummary("走走走，养猪去");
 		t.setImg("http://t12.baidu.com/it/u=423422024,921799086&fm=58");
 		technologyChannel.add(t);
@@ -90,7 +90,7 @@ public class YiyeApiTestImp implements YiyeApi{
 		t = new BookMark();
 		t.setTitle("moli");
 		t.setUrl("http://www.moli.org.cn/");
-		t.setUploaddate("1992");
+		t.setUploaddate(System.currentTimeMillis() - 30000000);
 		t.setSummary("走走走，养猪去");
 		t.setImg("http://t12.baidu.com/it/u=423422024,921799086&fm=58");
 		technologyChannel.add(t);
@@ -98,7 +98,7 @@ public class YiyeApiTestImp implements YiyeApi{
 		t = new BookMark();
 		t.setTitle("moli");
 		t.setUrl("http://www.moli.org.cn/");
-		t.setUploaddate("1992");
+		t.setUploaddate(System.currentTimeMillis() - 30000000);
 		t.setSummary("走走走，养猪去");
 		t.setImg("http://t12.baidu.com/it/u=423422024,921799086&fm=58");
 		technologyChannel.add(t);
@@ -106,7 +106,7 @@ public class YiyeApiTestImp implements YiyeApi{
 		t = new BookMark();
 		t.setTitle("moli");
 		t.setUrl("http://www.moli.org.cn/");
-		t.setUploaddate("1992");
+		t.setUploaddate(System.currentTimeMillis() - 400000000);
 		t.setSummary("走走走，养猪去");
 		t.setImg("http://t12.baidu.com/it/u=423422024,921799086&fm=58");
 		technologyChannel.add(t);
@@ -114,7 +114,7 @@ public class YiyeApiTestImp implements YiyeApi{
 		t = new BookMark();
 		t.setTitle("moli");
 		t.setUrl("http://www.moli.org.cn/");
-		t.setUploaddate("1992");
+		t.setUploaddate(System.currentTimeMillis() - 400000000);
 		t.setSummary("走走走，养猪去");
 		t.setImg("http://t12.baidu.com/it/u=423422024,921799086&fm=58");
 		technologyChannel.add(t);
@@ -125,7 +125,7 @@ public class YiyeApiTestImp implements YiyeApi{
 		t.setSummary("十年寒窗磨一剑，今朝出鞘试锋芒");
 		t.setTitle("好玩吧");
 		t.setUrl("http://www.9haow.cn/");
-		t.setUploaddate("明天");
+		t.setUploaddate(System.currentTimeMillis() - 400000000);
 		entertainmentChannel.add(t);
 		
 		Channel c = new Channel();

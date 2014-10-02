@@ -163,6 +163,10 @@ public class YiyeApiTestImp implements YiyeApi{
 		cs.addLabel("糗百");
 		cs.addLabel("万万没想到");
 		cs.addLabel("好玩吧");
+		cs.addLabel("吃饭");
+		cs.addLabel("海贼王");
+		cs.addLabel("火影");
+		cs.addLabel("中国好声音就要吃香辣里脊");
 		channelsets.add(cs);
 		
 	}

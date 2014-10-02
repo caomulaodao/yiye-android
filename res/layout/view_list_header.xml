@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal" >
 
-    <me.yiye.image.CircularImage
+    <me.yiye.customwidget.CircularImage
         android:id="@+id/imageview_main_behind_userimg"
         android:layout_width="90dp"
         android:layout_height="90dp"

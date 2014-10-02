@@ -6,6 +6,7 @@ import java.util.List;
 
 import me.yiye.contents.Channel;
 import me.yiye.contents.ChannelSet;
+import me.yiye.customwidget.AutoNewLineLinearLayout;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiTestImp;
 import android.content.Context;
@@ -13,7 +14,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
@@ -89,7 +89,8 @@ public class LabelClassActivity extends SherlockActivity{
 	}
 	
 	private void initLabels() {
-		ViewGroup labelContainer = (ViewGroup) this.findViewById(R.id.linearlayout_labelclass_labelsparent);
+		AutoNewLineLinearLayout labelContainer = (AutoNewLineLinearLayout) this.findViewById(R.id.linearlayout_labelclass_labelsparent);
+		labelContainer.removeAllViewsInLayout();
 		for(String label:topic.getLabels()) {
 			View labelView = View.inflate(this, R.layout.item_label_style, null);
 			TextView tv = (TextView)labelView.findViewById(R.id.textview_label_item);
@@ -97,6 +98,8 @@ public class LabelClassActivity extends SherlockActivity{
 			// TODO tv.setOnClickListener()...
 			labelContainer.addView(labelView);
 		}
+		
+		labelContainer.invalidate();
 	}
 	public static void launch(Context context,ChannelSet topic) {
 		if(topic == null) {

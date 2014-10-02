@@ -1,4 +1,4 @@
-package me.yiye.image;
+package me.yiye.customwidget;
 
 import android.content.Context;
 import android.graphics.Bitmap;

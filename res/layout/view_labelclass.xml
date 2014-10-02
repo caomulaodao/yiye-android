@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+   <me.yiye.customwidget.AutoNewLineLinearLayout
         android:id="@+id/linearlayout_labelclass_labelsparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
-       
-    </LinearLayout>
+
+    </me.yiye.customwidget.AutoNewLineLinearLayout>
 
     <include
         android:layout_marginTop="10dp"

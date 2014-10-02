@@ -9,6 +9,10 @@ import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiTestImp;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.AttributeSet;
+import android.view.InflateException;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -36,6 +40,8 @@ public class MainActivity extends SlidingFragmentActivity {
 		setBehindContentView(R.layout.view_main_behind);
 		getSupportActionBar().setLogo(R.drawable.yiye_logo);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		// getSupportActionBar().setDisplayShowCustomEnabled(true);
+		// getSupportActionBar().setCustomView(R.layout.view_main_actionbar);
 		
 		initSlidingMenu();
 		initAbovePanal();
@@ -130,6 +136,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getSupportMenuInflater().inflate(R.menu.main, menu);

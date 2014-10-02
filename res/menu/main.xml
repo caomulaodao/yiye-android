@@ -6,7 +6,6 @@
         android:icon="@drawable/find"
         android:showAsAction="always"
         android:title="@string/menu_find"
-        android:titleCondensed="？？？"
         android:visible="true">
     </item>
 

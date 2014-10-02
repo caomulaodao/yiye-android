@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <Button
+    
+    <ImageView
         android:id="@+id/btn_main_above_actionbar_booknmanager"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="订阅/管理" />
+        android:layout_gravity="right"
+        android:src="@drawable/find"
+        android:layout_margin="5dp" />
 
 </LinearLayout>

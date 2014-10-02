@@ -39,9 +39,9 @@ public class LabelClassActivity extends SherlockActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		this.setContentView(R.layout.view_labelclass);
 		this.setTitle(topic.getTitle());
+		getSupportActionBar().setLogo(R.drawable.yiye_logo);
 		initLabels();
 		initChannelsListView();
 	}

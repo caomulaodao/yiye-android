@@ -40,6 +40,7 @@ public class SearchActivity extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 		this.setTitle("发现");
 		this.setContentView(R.layout.view_seach);
+		getSupportActionBar().setLogo(R.drawable.yiye_logo);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		initChannelSets();

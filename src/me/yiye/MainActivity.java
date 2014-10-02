@@ -34,6 +34,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		this.setTitle("订阅");
 		setContentView(R.layout.view_main_above);
 		setBehindContentView(R.layout.view_main_behind);
+		getSupportActionBar().setLogo(R.drawable.yiye_logo);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		initSlidingMenu();

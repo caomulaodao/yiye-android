@@ -1,7 +1,6 @@
 package me.yiye;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -157,6 +156,7 @@ public class ChannelActivity extends SherlockActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.view_channel);
+		getSupportActionBar().setLogo(R.drawable.yiye_logo);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		this.setTitle(channel.getTitle());

@@ -2,37 +2,46 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-	<WebView 
-	    android:id="@+id/webview_content_data"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:gravity="center"
-	    android:textSize="72sp"/>
-	
-	<LinearLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_gravity="bottom">
-	    <TextView 
-	        android:layout_height="wrap_content"
-	        android:layout_width="match_parent"
-	        android:layout_weight="1"
-	        android:text="评论 12"
-	        android:textSize="18sp"
-	        android:gravity="center"/>
-	    <TextView 
-	        android:layout_height="wrap_content"
-	        android:layout_width="match_parent"
-	        android:layout_weight="1"
-	        android:text="收藏 2"
-	        android:textSize="18sp"
-	        	        android:gravity="center"/>
-	    <TextView
-	        android:layout_height="wrap_content"
-	        android:layout_width="match_parent"
-	        android:layout_weight="1"
-	        android:text="赞 11"
-	        android:textSize="18sp"
-	        	        android:gravity="center"/>
-	</LinearLayout>
+
+    <WebView
+        android:id="@+id/webview_content_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="72sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/SILVER" >
+
+        <TextView
+            android:id="@+id/textview_content_commentary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="评论 12"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textview_content_favour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="收藏 2"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textview_content_praise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="赞 11"
+            android:textSize="18sp" />
+    </LinearLayout>
+
 </FrameLayout>

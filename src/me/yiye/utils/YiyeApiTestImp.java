@@ -21,6 +21,9 @@ public class YiyeApiTestImp implements YiyeApi{
 		t.setTitle("百度");
 		t.setUrl("www.baidu.com");
 		t.setUploaddate(System.currentTimeMillis());
+		t.setFavour(7);
+		t.setPraise(2);
+		t.setCommentary(9);
 		technologyChannel.add(t);
 		
 		t = new BookMark();

@@ -13,6 +13,10 @@ public class BookMark {
 	private long uploaddate;
 	private Bitmap img;
 	
+	private int favour;	// 收藏
+	private int praise;	// 赞
+	private int commentary;	//评论
+	
 	public String getTitle() {
 		return title;
 	}
@@ -75,5 +79,29 @@ public class BookMark {
 	
 	public long getUploadDateTimeStamp() {
 		return uploaddate;
+	}
+
+	public int getFavour() {
+		return favour;
+	}
+
+	public void setFavour(int favour) {
+		this.favour = favour;
+	}
+
+	public int getPraise() {
+		return praise;
+	}
+
+	public void setPraise(int praise) {
+		this.praise = praise;
+	}
+
+	public int getCommentary() {
+		return commentary;
+	}
+
+	public void setCommentary(int commentary) {
+		this.commentary = commentary;
 	}
 }

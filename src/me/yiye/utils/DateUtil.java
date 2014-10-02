@@ -6,7 +6,8 @@ import java.util.Date;
 
 public class DateUtil {
 
-	private final static String TAG = "DateUtil";
+	// private final static String TAG = "DateUtil";
+	private final static String TAG = null;
 
 	public static String timeStampToString(long time) {
 

@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +23,8 @@ public class ContentActivity extends SherlockActivity {
 	private final static String TAG = "ContentActivity";
 	private static BookMark bookmark;
 	private WebView web;
-
+	private ProgressBar webpgbar;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,6 +37,9 @@ public class ContentActivity extends SherlockActivity {
 	}
 
 	private void initWebView() {
+		
+		webpgbar = (ProgressBar) findViewById(R.id.progressbar_content_webprogress);  
+		webpgbar.setMax(100); 
 		web = (WebView) this.findViewById(R.id.webview_content_data);
 		MLog.d(TAG, "onCreate### found webview");
 		WebSettings webSettings = web.getSettings();
@@ -41,17 +47,34 @@ public class ContentActivity extends SherlockActivity {
 		webSettings.setSupportZoom(false);
 		webSettings.setLoadWithOverviewMode(true);
 		webSettings.setJavaScriptEnabled(true);
+		web.setWebChromeClient(new WebChromeClient() {
+			@Override
+			public void onProgressChanged(WebView view, int newProgress) {
+				if (newProgress == 100) {
+					webpgbar.setVisibility(View.GONE);
+				} else {
+					if (webpgbar.getVisibility() == View.GONE)
+						webpgbar.setVisibility(View.VISIBLE);
+					webpgbar.setProgress(newProgress);
+				}
+				super.onProgressChanged(view, newProgress);
+			}
+		});
+		
 		web.setWebViewClient(new WebViewClient() {
+			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				view.loadUrl(url);
 				return true;
 			}
 		});
+		
+		
 		web.loadUrl(bookmark.getUrl());
 
 		MLog.d(TAG, "onCreate### set webview done");
 	}
-
+	
 	private void initBottomBar() {
 		TextView commentary = (TextView) this.findViewById(R.id.textview_content_commentary);
 		TextView favour = (TextView) this.findViewById(R.id.textview_content_favour);

@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">yiye</string>
+    <string name="app_name">一叶书签</string>
 
     <string-array name="main_behind_memu_contents">
         <item>首页</item>

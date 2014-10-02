@@ -173,7 +173,7 @@ public class ChannelActivity extends SherlockActivity{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int pos,
 					long id) {
-				Item it = ca.getItem(pos);
+				Item it = ca.getItem(pos - 1);
 				if(it.type == Item.ITEM) {
 					ContentActivity.launch(ChannelActivity.this, it.bookmark);
 				}

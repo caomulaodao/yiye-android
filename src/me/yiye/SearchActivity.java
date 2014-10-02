@@ -14,9 +14,11 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -30,7 +32,6 @@ public class SearchActivity extends SherlockActivity {
 	private static final String TAG = "SearchActivity";
 	private EditText searchEditText;
 	private ListView channelSetsListView;
-	
 	private List<HashMap<String,Object>> channelSetsList = new ArrayList<HashMap<String,Object>>();
 	private SimpleAdapter classesListAdapter;
 	
@@ -42,22 +43,28 @@ public class SearchActivity extends SherlockActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		initChannelSets();
-		initSerchEdit();
+		initSearch();
 	}
 
-	private void initSerchEdit() {
+	private void initSearch() {
 		searchEditText = (EditText) this.findViewById(R.id.edittext_search_keyword);
 		searchEditText.setOnKeyListener(new OnKeyListener() {
 
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent e) {
 				if (KeyEvent.KEYCODE_ENTER == keyCode && e.getAction() == KeyEvent.ACTION_DOWN) {
-					String content = searchEditText.getText().toString();
-					MLog.d(TAG, "onKey### search edit content:" + content);
-					ResultActivity.launch(SearchActivity.this, content);
-					
+					doSearch();
 				}
 				return false;
+			}
+		});
+		
+		Button search = (Button) this.findViewById(R.id.btn_search);
+		search.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				doSearch();
 			}
 		});
 	}
@@ -130,4 +137,9 @@ public class SearchActivity extends SherlockActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	private void doSearch() {
+		String content = searchEditText.getText().toString();
+		MLog.d(TAG, "onKey### search edit content:" + content);
+		ResultActivity.launch(SearchActivity.this, content);
+	}
 }

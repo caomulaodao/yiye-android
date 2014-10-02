@@ -5,34 +5,31 @@
     android:orientation="vertical" >
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/TURQUOISE" >
-
-        <TextView
-            android:id="@+id/textview_search_tip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="发现网络之美"
-            android:textSize="32sp" />
+        android:layout_gravity="center"
+        android:layout_margin="10dp" >
 
         <EditText
             android:id="@+id/edittext_search_keyword"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textview_search_tip"
-            android:layout_alignRight="@+id/textview_search_tip"
-            android:layout_below="@id/textview_search_tip"
-            android:layout_marginTop="10dp"
+            android:hint="发现网络之美"
             android:inputType="text"
             android:singleLine="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/edittext_search_keyword"
+            android:layout_toRightOf="@id/edittext_search_keyword"
+            android:text="搜索" />
     </RelativeLayout>
 
-    <include
-        android:layout_marginTop="10dp"
-        layout="@layout/item_commom_divider_style" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/divider_style" />
 
     <ListView
         android:id="@+id/listview_search_channelsets"

@@ -1,10 +1,6 @@
 package me.yiye.contents;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import me.yiye.utils.DateUtil;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -75,5 +71,9 @@ public class BookMark {
 		}
 		
 		return defaultpic;
+	}
+	
+	public long getUploadDateTimeStamp() {
+		return uploaddate;
 	}
 }

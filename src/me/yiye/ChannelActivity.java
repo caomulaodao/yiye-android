@@ -1,6 +1,9 @@
 package me.yiye;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import me.yiye.contents.BookMark;
@@ -39,6 +42,19 @@ public class ChannelActivity extends SherlockActivity{
 		}
 	}
 	
+	
+	// 按时间排序
+	public class ComparatorBookMark implements Comparator<BookMark>{
+
+		@Override
+		 public int compare(BookMark b0, BookMark b1) {
+			 return b0.getUploadDateTimeStamp() < b1.getUploadDateTimeStamp() ? 1 : -1;
+		}
+	}
+
+
+	
+	
 	private class ChannelAdapter extends BaseAdapter implements PinnedSectionListAdapter{
 
 		private List<Item> itemList = new ArrayList<Item>();
@@ -49,6 +65,8 @@ public class ChannelActivity extends SherlockActivity{
 			this.context = context;
 			String currentDate = null;
 			Item it;
+
+			Collections.sort(bookMarkList,new ComparatorBookMark());
 			
 			for(BookMark bm:bookMarkList) {
 				if(currentDate == null || !currentDate.equals(bm.getUploaddate())){ 
@@ -183,4 +201,6 @@ public class ChannelActivity extends SherlockActivity{
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+
 }

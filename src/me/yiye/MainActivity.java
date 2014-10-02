@@ -10,18 +10,15 @@ import me.yiye.utils.YiyeApiTestImp;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -53,7 +50,6 @@ public class MainActivity extends SlidingFragmentActivity {
 		dataadpter.setData(api.getBookedChannels());
 		mainDataGridView.setAdapter(dataadpter);
 		dataadpter.notifyDataSetChanged();
-		
 		mainDataGridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -98,7 +94,7 @@ public class MainActivity extends SlidingFragmentActivity {
 			Channel c = channels.get(pos);
 			if (convertView == null) {
 				v = View.inflate(context, R.layout.item_main_above_style, null);
-				v.setLayoutParams(new GridView.LayoutParams(300, 300));
+				// v.setLayoutParams(new GridView.LayoutParams(350, 350));
 			} else {
 				v = convertView;
 			}

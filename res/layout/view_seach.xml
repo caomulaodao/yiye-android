@@ -6,7 +6,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="@color/TURQUOISE" >
 
         <TextView
             android:id="@+id/textview_search_tip"
@@ -29,13 +30,16 @@
             android:singleLine="true" />
     </RelativeLayout>
 
-    <include layout="@layout/item_commom_divider_style"
-        android:layout_marginTop="10dp" />
+    <include
+        android:layout_marginTop="10dp"
+        layout="@layout/item_commom_divider_style" />
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" 
         android:id="@+id/listview_search_channelsets"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:divider="@drawable/divider_style"
-        android:dividerHeight="1dp" />
+        android:dividerHeight="1dp" >
+    </ListView>
+
 </LinearLayout>

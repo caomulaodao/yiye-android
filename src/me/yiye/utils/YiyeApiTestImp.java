@@ -140,6 +140,12 @@ public class YiyeApiTestImp implements YiyeApi{
 		c.setSummary("android ios wp等");
 		channels.add(c);
 		
+		c = new Channel();
+		c.setTitle("情感日常");
+		c.setPicurl(null);
+		c.setSummary("我尼玛");
+		channels.add(c);
+		
 		ChannelSet cs =  new ChannelSet();
 		cs.setTitle("科技");
 		cs.addLabel("移动");

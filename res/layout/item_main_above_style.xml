@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    
-    android:layout_margin="10dp"
-    android:background="@drawable/girditem_style">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
 
     <ImageView
         android:id="@+id/imageview_main_above_item_background"
@@ -13,28 +11,29 @@
         android:layout_gravity="center"
         android:src="@drawable/balidao" />
 
-    <View 
+    <View
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_gravity="bottom|center_horizontal"
-        android:background="#afffffff"/>
-    
+        android:background="#cfffffff" />
+
     <TextView
         android:id="@+id/textview_over_item_notice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:layout_margin="3dp"
         android:text="巴厘岛"
         android:textColor="#3e3e3e"
-        android:textSize="15sp" 
-        android:layout_margin="3dp"/>
+        android:textSize="15sp" />
 
-        <TextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
+        android:layout_margin="3dp"
         android:text="赞 5"
         android:textColor="#3e3e3e"
-        android:textSize="15sp" 
-        android:layout_margin="3dp"/>
+        android:textSize="15sp" />
+
 </FrameLayout>

@@ -94,7 +94,8 @@ public class MainActivity extends SlidingFragmentActivity {
 			Channel c = channels.get(pos);
 			if (convertView == null) {
 				v = View.inflate(context, R.layout.item_main_above_style, null);
-				// v.setLayoutParams(new GridView.LayoutParams(350, 350));
+				v.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT, 350));
+				v.setBackgroundResource(R.drawable.girditem_style);
 			} else {
 				v = convertView;
 			}

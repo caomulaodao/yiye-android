@@ -38,8 +38,9 @@ public class ContentActivity extends SherlockActivity {
 
 	private void initWebView() {
 		
-		webpgbar = (ProgressBar) findViewById(R.id.progressbar_content_webprogress);  
+		webpgbar = (ProgressBar) this.findViewById(R.id.progressbar_web);  
 		webpgbar.setMax(100); 
+		
 		web = (WebView) this.findViewById(R.id.webview_content_data);
 		MLog.d(TAG, "onCreate### found webview");
 		WebSettings webSettings = web.getSettings();

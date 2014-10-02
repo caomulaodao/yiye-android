@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.handmark.pulltorefresh.library.PullToRefreshPinnedSectionListView;
 import com.hb.views.PinnedSectionListView;
 import com.hb.views.PinnedSectionListView.PinnedSectionListAdapter;
 
@@ -159,8 +160,8 @@ public class ChannelActivity extends SherlockActivity{
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		this.setTitle(channel.getTitle());
-		bookMarkListView = (PinnedSectionListView) this.findViewById(R.id.listview_channel_bookmarks);
-		
+		PullToRefreshPinnedSectionListView tmpview = (PullToRefreshPinnedSectionListView) this.findViewById(R.id.listview_channel_bookmarks);
+		bookMarkListView = tmpview.getRefreshableView();
 		YiyeApi api = new YiyeApiTestImp();
 		
 		final ChannelAdapter ca = new ChannelAdapter(this, api.getBookMarksByChannel(channel));

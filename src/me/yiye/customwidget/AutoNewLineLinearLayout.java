@@ -12,7 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 public class AutoNewLineLinearLayout extends RelativeLayout {
-	private final static String TAG = "AutoNewLineLinearLayout";
+	// private final static String TAG = "AutoNewLineLinearLayout";
+	private final static String TAG = null;
 	Hashtable<View, Position> map = new Hashtable<View, AutoNewLineLinearLayout.Position>();
 	
 	public AutoNewLineLinearLayout(Context context, AttributeSet attrs,int defStyle) {

@@ -10,7 +10,7 @@
         android:gravity="center"
         android:padding="5dp"
         android:textSize="15sp"
-        android:background="#e3e3e3"
+        android:background="@color/E3GRAY"
         android:layout_margin="5dp"
         android:text="标签"/>
 </LinearLayout>

@@ -29,27 +29,27 @@
         <activity
             android:name=".SearchActivity"
             android:launchMode="singleTask"
-            android:theme="@android:style/Theme.Holo.Light" >
+            android:theme="@style/CustomActivityTheme" >
         </activity>
         <activity
             android:name=".LabelClassActivity"
             android:launchMode="singleTask"
-            android:theme="@android:style/Theme.Holo.Light" >
+            android:theme="@style/CustomActivityTheme" >
         </activity>
         <activity
             android:name=".ResultActivity"
             android:launchMode="singleTask"
-            android:theme="@android:style/Theme.Holo.Light" >
+            android:theme="@style/CustomActivityTheme" >
         </activity>
         <activity
             android:name=".ContentActivity"
             android:launchMode="singleTask"
-            android:theme="@android:style/Theme.Holo.Light" >
+            android:theme="@style/CustomActivityTheme" >
         </activity>
         <activity
             android:name=".ChannelActivity"
             android:launchMode="singleTask"
-            android:theme="@android:style/Theme.Holo.Light" >
+            android:theme="@style/CustomActivityTheme" >
         </activity>
     </application>
 

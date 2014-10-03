@@ -50,7 +50,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		.cacheInMemory(true)
 		.cacheOnDisk(true)
 		.considerExifParams(true)
-		.displayer(new RoundedBitmapDisplayer(20))
+		// .displayer(new RoundedBitmapDisplayer(20))
 		.build();
 		
 	}
@@ -159,18 +159,16 @@ public class MainActivity extends SlidingFragmentActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-
-
 	private void initSlidingMenu() {
 		ListView behindMenuListView;
 		SimpleAdapter behindMenuListAdapter;
 		List<HashMap<String, Object>> contents  = new ArrayList<HashMap<String, Object>>();
 		
 		SlidingMenu sm = this.getSlidingMenu();
-		sm.setShadowWidthRes(R.dimen.shadow_width);
-		sm.setShadowDrawable(R.drawable.shadow);
+		// sm.setShadowWidthRes(R.dimen.shadow_width);
+		// sm.setShadowDrawable(R.drawable.shadow);
 		sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		sm.setFadeDegree(0.35f);
+		// sm.setFadeDegree(0.35f);
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
 		View v = View.inflate(this, R.layout.view_main_behind, null);

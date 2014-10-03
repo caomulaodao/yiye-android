@@ -41,11 +41,11 @@ public class BookMark {
 		this.url = url;
 	}
 
-	public String getImg() {
+	public String getImgUrl() {
 		return imgurl;
 	}
 
-	public void setImg(String img) {
+	public void setImgUrl(String img) {
 		this.imgurl = img;
 	}
 

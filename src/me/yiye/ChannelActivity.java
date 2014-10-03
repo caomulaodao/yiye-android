@@ -25,8 +25,13 @@ import com.actionbarsherlock.view.MenuItem;
 import com.handmark.pulltorefresh.library.PullToRefreshPinnedSectionListView;
 import com.hb.views.PinnedSectionListView;
 import com.hb.views.PinnedSectionListView.PinnedSectionListAdapter;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 public class ChannelActivity extends SherlockActivity{
+	
+	private static DisplayImageOptions imageoptions;
 	
 	private static Channel channel;
 	private class Item {
@@ -51,10 +56,7 @@ public class ChannelActivity extends SherlockActivity{
 			 return b0.getUploadDateTimeStamp() < b1.getUploadDateTimeStamp() ? 1 : -1;
 		}
 	}
-
-
-	
-	
+		
 	private class ChannelAdapter extends BaseAdapter implements PinnedSectionListAdapter{
 
 		private List<Item> itemList = new ArrayList<Item>();
@@ -122,7 +124,8 @@ public class ChannelActivity extends SherlockActivity{
 				imageView = (ImageView) v.findViewById(R.id.imageview_bookmark_item);
 				imageView.setAdjustViewBounds(false);
 				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				imageView.setImageBitmap(c.bookmark.getPic());
+				// imageView.setImageBitmap(c.bookmark.getPic());
+				ImageLoader.getInstance().displayImage(c.bookmark.getImgUrl(), imageView,imageoptions);
 				
 				textView = (TextView) v.findViewById(R.id.textview_bookmark_item_title);
 				textView.setText(c.bookmark.getTitle());
@@ -180,6 +183,16 @@ public class ChannelActivity extends SherlockActivity{
 			}
 			
 		});
+		
+		imageoptions = new DisplayImageOptions.Builder()
+		.showImageOnLoading(R.drawable.home)
+		.showImageForEmptyUri(R.drawable.message)
+		.showImageOnFail(R.drawable.miaotouxiang)
+		.cacheInMemory(true)
+		.cacheOnDisk(true)
+		.considerExifParams(true)
+		// .displayer(new RoundedBitmapDisplayer(10))
+		.build();
 	}
 	
 	private static void launch(Context context) {

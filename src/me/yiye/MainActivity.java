@@ -9,10 +9,6 @@ import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiTestImp;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.AttributeSet;
-import android.view.InflateException;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -29,8 +25,12 @@ import com.actionbarsherlock.view.MenuItem;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 public class MainActivity extends SlidingFragmentActivity {
+	private static DisplayImageOptions imageoptions;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,17 @@ public class MainActivity extends SlidingFragmentActivity {
 		
 		initSlidingMenu();
 		initAbovePanal();
+		
+		imageoptions = new DisplayImageOptions.Builder()
+		.showImageOnLoading(R.drawable.home)
+		.showImageForEmptyUri(R.drawable.balidao)
+		.showImageOnFail(R.drawable.miaotouxiang)
+		.cacheInMemory(true)
+		.cacheOnDisk(true)
+		.considerExifParams(true)
+		.displayer(new RoundedBitmapDisplayer(20))
+		.build();
+		
 	}
 
 	private void initAbovePanal() {
@@ -114,7 +125,7 @@ public class MainActivity extends SlidingFragmentActivity {
 			
 			textView = (TextView) v.findViewById(R.id.textview_over_item_notice);
 			textView.setText(c.getTitle());
-			
+			ImageLoader.getInstance().displayImage(c.getPicurl(), imageView,imageoptions);
 			return v;
 		}
 		

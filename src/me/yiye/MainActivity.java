@@ -166,10 +166,10 @@ public class MainActivity extends SlidingFragmentActivity {
 		List<HashMap<String, Object>> contents  = new ArrayList<HashMap<String, Object>>();
 		
 		SlidingMenu sm = this.getSlidingMenu();
-		// sm.setShadowWidthRes(R.dimen.shadow_width);
-		// sm.setShadowDrawable(R.drawable.shadow);
+		sm.setShadowWidthRes(R.dimen.shadow_width);
+		sm.setShadowDrawable(R.drawable.shadow);
 		sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		// sm.setFadeDegree(0.35f);
+		sm.setFadeDegree(0.35f);
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
 		View v = View.inflate(this, R.layout.view_main_behind, null);
@@ -200,7 +200,11 @@ public class MainActivity extends SlidingFragmentActivity {
 			public View getView(int position, View view, ViewGroup parent) {
 				view = super.getView(position, view, parent);
 				if (view != null && position == 0) {
-					view.setBackgroundResource(R.color.E3GRAY);
+					view.setBackgroundResource(R.color.WETASPHALT);
+					((TextView)view.findViewById(R.id.textview_behind_item)).
+						setTextColor(getResources().getColor(R.color.PUERWHITE));
+					((ImageView)view.findViewById(R.id.imageview_behind_item_sign)).
+						setImageResource(R.drawable.home_selected);
 				}
 				return view;
 			}

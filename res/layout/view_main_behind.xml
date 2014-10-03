@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="@color/TURQUOISE">
+    android:background="@color/PUERWHITE">
 
     <include layout="@layout/view_list_header" />
 	

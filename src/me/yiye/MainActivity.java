@@ -159,6 +159,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	// private View behindSelectedView;
 	private void initSlidingMenu() {
 		ListView behindMenuListView;
 		SimpleAdapter behindMenuListAdapter;
@@ -194,11 +195,24 @@ public class MainActivity extends SlidingFragmentActivity {
 			contents.add(map);
 		}
 
-		behindMenuListAdapter = new SimpleAdapter(this, contents, R.layout.item_main_behind_style,from, to);
+		behindMenuListAdapter = new SimpleAdapter(this, contents, R.layout.item_main_behind_style,from, to){
+			@Override
+			public View getView(int position, View view, ViewGroup parent) {
+				view = super.getView(position, view, parent);
+				if (view != null && position == 0) {
+					view.setBackgroundResource(R.color.E3GRAY);
+				}
+				return view;
+			}
+		};
 		behindMenuListView.setAdapter(behindMenuListAdapter);
 		behindMenuListAdapter.notifyDataSetChanged();
 
 		sm.setMenu(v);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		
+		behindMenuListView.setSelection(0);
+		// behindSelectedView.setBackgroundColor(getResources().getColor(R.color.E3GRAY));
 	}
 }

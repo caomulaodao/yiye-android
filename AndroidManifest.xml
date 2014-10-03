@@ -19,7 +19,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|screenLayout"
-            android:theme="@android:style/Theme.Holo.Light" >
+            android:theme="@style/CustomActivityTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

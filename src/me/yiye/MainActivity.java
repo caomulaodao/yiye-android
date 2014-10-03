@@ -10,6 +10,7 @@ import me.yiye.utils.YiyeApiTestImp;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -20,7 +21,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.app.ActionBar.LayoutParams;
 import com.actionbarsherlock.view.MenuItem;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -38,11 +39,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		this.setTitle("订阅");
 		setContentView(R.layout.view_main_above);
 		setBehindContentView(R.layout.view_main_behind);
-		getSupportActionBar().setLogo(R.drawable.yiye_logo);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		// getSupportActionBar().setDisplayShowCustomEnabled(true);
-		// getSupportActionBar().setCustomView(R.layout.view_main_actionbar);
-		
+		initActionbar();
 		initSlidingMenu();
 		initAbovePanal();
 		
@@ -56,6 +53,24 @@ public class MainActivity extends SlidingFragmentActivity {
 		.displayer(new RoundedBitmapDisplayer(20))
 		.build();
 		
+	}
+
+	private void initActionbar() {
+		getSupportActionBar().setLogo(R.drawable.yiye_logo);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		View barview = View.inflate(this,R.layout.view_main_actionbar,null);
+		getSupportActionBar().setCustomView(barview,new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+		getSupportActionBar().setDisplayShowCustomEnabled(true);
+		getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+	   ((TextView) barview.findViewById(R.id.textview_actionbar_title)).setText("一叶书签");
+		barview.findViewById(R.id.imageview_actionbar_btn).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				SearchActivity.launch(MainActivity.this);
+				}
+		});
 	}
 
 	private void initAbovePanal() {
@@ -140,19 +155,11 @@ public class MainActivity extends SlidingFragmentActivity {
 		case android.R.id.home:
 			toggle();
 			return true;
-		case R.id.menu_find:
-			SearchActivity.launch(this);
-			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 	
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
 
 	private void initSlidingMenu() {
 		ListView behindMenuListView;

@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_gravity="bottom|center_horizontal"
-        android:background="#cfffffff" />
+        android:background="@drawable/girditem_bottom_style"/>
 
     <TextView
         android:id="@+id/textview_over_item_notice"

@@ -12,6 +12,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -78,13 +79,13 @@ public class ContentActivity extends SherlockActivity {
 	}
 	
 	private void initBottomBar() {
-		TextView commentary = (TextView) this.findViewById(R.id.textview_content_commentary);
-		TextView favour = (TextView) this.findViewById(R.id.textview_content_favour);
-		TextView praise = (TextView) this.findViewById(R.id.textview_content_praise);
+		ImageButton commentary = (ImageButton) this.findViewById(R.id.textview_content_commentary);
+		ImageButton favour = (ImageButton) this.findViewById(R.id.textview_content_favour);
+		ImageButton praise = (ImageButton) this.findViewById(R.id.textview_content_praise);
 		
-		commentary.setText(bookmark.getCommentary() + " 评论");
-		favour.setText(bookmark.getFavour() + " 收藏");
-		praise.setText(bookmark.getPraise() + " 赞");
+		// commentary.setText(bookmark.getCommentary() + " 评论");
+		// favour.setText(bookmark.getFavour() + " 收藏");
+		// praise.setText(bookmark.getPraise() + " 赞");
 		commentary.setOnClickListener(new OnClickListener() {
 
 			@Override

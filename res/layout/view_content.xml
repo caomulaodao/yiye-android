@@ -14,32 +14,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/SILVER" >
+        android:background="@color/PUERWHITE" >
 
-        <TextView
+        <ImageButton
             android:id="@+id/textview_content_commentary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="#fff"
             android:gravity="center"
+            android:src="@drawable/comment"
             android:text="评论 12"
             android:textSize="18sp" />
 
-        <TextView
+        <ImageButton
             android:id="@+id/textview_content_favour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="#fff"
             android:gravity="center"
+            android:src="@drawable/night"
             android:text="收藏 2"
             android:textSize="18sp" />
 
-        <TextView
+        <ImageButton
             android:id="@+id/textview_content_praise"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="#fff"
             android:gravity="center"
+            android:src="@drawable/share"
             android:text="赞 11"
             android:textSize="18sp" />
     </LinearLayout>
@@ -49,8 +55,8 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
         android:layout_height="8dip"
+        android:layout_marginTop="-2dp"
         android:indeterminateOnly="false"
-        android:max="100"
-        android:layout_marginTop="-2dp" />
+        android:max="100" />
 
 </FrameLayout>

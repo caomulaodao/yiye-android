@@ -10,8 +10,8 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/miaotouxiang" />
+        android:layout_marginTop="40dp"
+        android:src="@drawable/gaoqingtouxiang" />
 
     <TextView
         android:id="@+id/textview_main_behind_username"

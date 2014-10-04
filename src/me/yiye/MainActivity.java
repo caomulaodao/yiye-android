@@ -224,19 +224,19 @@ public class MainActivity extends SlidingFragmentActivity {
 		behindMenuListView.setSelection(0);
 		// behindSelectedView.setBackgroundColor(getResources().getColor(R.color.E3GRAY));
 		
-		View behindPad = v.findViewById(R.id.linearlayout_main_behind_pad);
+		ImageView backgroundView = (ImageView)v.findViewById(R.id.imageview_main_behind_background);
 		// behindPad.setBackgroundColor(getResources().getColor(R.color.MIDNIGHTBLUE));
 		
 		RenderScript rs = RenderScript.create(this);
-		Bitmap background = BitmapFactory.decodeResource(this.getResources(), R.drawable.miaotouxiang);
+		Bitmap background = BitmapFactory.decodeResource(this.getResources(), R.drawable.gaoqing);
       Allocation overlayAlloc = Allocation.createFromBitmap(rs, background);
       ScriptIntrinsicBlur blur = ScriptIntrinsicBlur.create(rs,overlayAlloc.getElement());
-        blur.setInput(overlayAlloc);
-        blur.setRadius(10.0f);
-        blur.forEach(overlayAlloc);
-        overlayAlloc.copyTo(background);
-        
-		behindPad.setBackground(new BitmapDrawable(this.getResources(),background));
-      rs.destroy();
+		blur.setInput(overlayAlloc);
+		blur.setRadius(7.5f);
+		blur.forEach(overlayAlloc);
+		overlayAlloc.copyTo(background);
+
+		backgroundView.setImageBitmap(background);
+		rs.destroy();
 	}
 }

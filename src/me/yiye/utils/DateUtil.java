@@ -1,5 +1,6 @@
 package me.yiye.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,7 +43,7 @@ public class DateUtil {
 		}
 	}
 
-	public static Calendar getDate(int dayoffset) {
+	private static Calendar getDate(int dayoffset) {
 		Date date = new Date(System.currentTimeMillis());
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
@@ -53,5 +54,20 @@ public class DateUtil {
 		calendar.add(Calendar.DAY_OF_MONTH, dayoffset);
 
 		return calendar;
+	}
+
+	public static long dateStringToTimeStamp(String date) {
+		Date time;
+		long timeStamp = -1;
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			time = format.parse(date);
+			timeStamp = time.getTime();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return timeStamp;
+		
 	}
 }

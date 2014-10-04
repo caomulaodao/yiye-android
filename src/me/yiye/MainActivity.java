@@ -8,7 +8,13 @@ import me.yiye.contents.Channel;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiTestImp;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.renderscript.Allocation;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -28,7 +34,6 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 public class MainActivity extends SlidingFragmentActivity {
 	private static DisplayImageOptions imageoptions;
@@ -218,5 +223,20 @@ public class MainActivity extends SlidingFragmentActivity {
 		
 		behindMenuListView.setSelection(0);
 		// behindSelectedView.setBackgroundColor(getResources().getColor(R.color.E3GRAY));
+		
+		View behindPad = v.findViewById(R.id.linearlayout_main_behind_pad);
+		// behindPad.setBackgroundColor(getResources().getColor(R.color.MIDNIGHTBLUE));
+		
+		RenderScript rs = RenderScript.create(this);
+		Bitmap background = BitmapFactory.decodeResource(this.getResources(), R.drawable.miaotouxiang);
+      Allocation overlayAlloc = Allocation.createFromBitmap(rs, background);
+      ScriptIntrinsicBlur blur = ScriptIntrinsicBlur.create(rs,overlayAlloc.getElement());
+        blur.setInput(overlayAlloc);
+        blur.setRadius(10.0f);
+        blur.forEach(overlayAlloc);
+        overlayAlloc.copyTo(background);
+        
+		behindPad.setBackground(new BitmapDrawable(this.getResources(),background));
+      rs.destroy();
 	}
 }

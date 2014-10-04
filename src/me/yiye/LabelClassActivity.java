@@ -47,7 +47,7 @@ public class LabelClassActivity extends SherlockActivity{
 	}
 
 	private void initChannelsListView() {
-		YiyeApi api = new YiyeApiTestImp();
+		YiyeApi api = new YiyeApiTestImp(this);
 		List<Channel> channelsByLabel = api.getChannelsByLabel(topic.getLabels().get(0));
 		
 		labelClassListView = (ListView) this.findViewById(R.id.listview_labelclass);

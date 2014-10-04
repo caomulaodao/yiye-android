@@ -75,7 +75,7 @@ public class SearchActivity extends SherlockActivity {
 		ChannelSet.setDefaultPic(this,R.drawable.balidao);
 		channelSetsListView = (ListView) this.findViewById(R.id.listview_search_channelsets);
 		
-		YiyeApi api = new YiyeApiTestImp();
+		YiyeApi api = new YiyeApiTestImp(this);
 		final List<ChannelSet> channelsets = api.getChannelSets();
 		
 		for(ChannelSet cs: channelsets) {

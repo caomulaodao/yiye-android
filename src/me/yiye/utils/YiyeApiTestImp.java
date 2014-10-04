@@ -3,133 +3,69 @@ package me.yiye.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import me.yiye.R;
 import me.yiye.contents.BookMark;
 import me.yiye.contents.Channel;
 import me.yiye.contents.ChannelSet;
+import android.content.Context;
 
 public class YiyeApiTestImp implements YiyeApi{
 
+	private final static String TAG = "YiyeApiTestImp";
+	
 	List<Channel> channels = new ArrayList<Channel>();
 	List<ChannelSet> channelsets = new ArrayList<ChannelSet>();
 	List<BookMark> technologyChannel = new ArrayList<BookMark>();
 	List<BookMark> entertainmentChannel = new ArrayList<BookMark>();
 	
-	public YiyeApiTestImp() {
+	public YiyeApiTestImp(Context context) {
 		BookMark t = new BookMark();
-		t.setImgUrl("http://www.baidu.com/img/baidu_jgylogo3.gif?v=11961390.gif");
-		t.setSummary("百度一下 你就知道");
-		t.setTitle("百度");
-		t.setUrl("http://www.baidu.com");
-		t.setUploaddate(System.currentTimeMillis());
-		t.setFavour(7);
-		t.setPraise(2);
-		t.setCommentary(9);
-		technologyChannel.add(t);
 		
-		t = new BookMark();
-		t.setTitle("CSDN");
-		t.setUrl("http://www.csdn.net/");
-		t.setUploaddate(System.currentTimeMillis() - 10000000);
-		t.setSummary("专业的技术论坛");
-		t.setImgUrl("http://bbs.csdn.net/assets/guest.jpg");
-		technologyChannel.add(t);
+		String[] entertainment = context.getResources().getStringArray(R.array.娱乐);
+		/*
+        title:\'睿思\',
+        summary:\'爱生活，爱睿思\'
+        url:\'http://rs.xidian.edu.cn\'
+        imgurl:\'\'
+        uploaddate:\'2014-10-04\'
+        */
+		for (String linksjson : entertainment) {
+			MLog.d(TAG, "YiyeApiTestImp### linksjson:" + linksjson);
+			try {
+				JSONObject o = new JSONObject(linksjson);
+				t = new BookMark();
+				t.setTitle(o.getString("title"));
+				t.setImgUrl(o.getString("imgurl"));
+				t.setSummary(o.getString("summary"));
+				t.setUrl(o.getString("url"));
+				t.setUploaddate(DateUtil.dateStringToTimeStamp(o.getString("uploaddate")));
+				MLog.d(TAG, t.toString());
+				entertainmentChannel.add(t);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
 		
-		t = new BookMark();
-		t.setTitle("github");
-		t.setUrl("http://github.com");
-		t.setUploaddate(System.currentTimeMillis() - 10000000);
-		t.setSummary("GitHub · Build software better, together.");
-		t.setImgUrl("http://t11.baidu.com/it/u=3896377702,3215289161&fm=58");
-		technologyChannel.add(t);
-		
-		t = new BookMark();
-		t.setTitle("Google");
-		t.setUrl("http://www.google.com");
-		t.setUploaddate(System.currentTimeMillis() - 100000000);
-		t.setSummary("谷歌是Google公司开发的互联网搜索引擎");
-		t.setImgUrl("http://t11.baidu.com/it/u=1891683652,4023211487&fm=58");
-		technologyChannel.add(t);
-		
-		t = new BookMark();
-		t.setTitle("Java");
-		t.setUrl("http://www.java.com/");
-		t.setUploaddate(System.currentTimeMillis() - 200000000);
-		t.setSummary("java是一种可以撰写跨平台应用软件的面向对象的程序设计语言");
-		t.setImgUrl("http://t11.baidu.com/it/u=3695155492,3500119636&fm=58");
-		technologyChannel.add(t);
-		
-		t = new BookMark();
-		t.setTitle("c");
-		t.setUrl("http://baike.baidu.com/");
-		t.setUploaddate(System.currentTimeMillis() - 20000000);
-		t.setSummary("语言是一种计算机程序设计语言，它既具有高级语言的特点，又具有汇编语言的特点。");
-		t.setImgUrl("http://t11.baidu.com/it/u=2980528525,2674288977&fm=58");
-		technologyChannel.add(t);
-		
-		t = new BookMark();
-		t.setTitle("python");
-		t.setUrl("http://www.python.org");
-		t.setUploaddate(System.currentTimeMillis() - 20000000);
-		t.setSummary("Python（英语发音：/ˈpaɪθən/）, 是一种面向对象、解释型计算机程序设计语言，由Guido van Rossum于1989年底发明，第一个公开发行版发行于1991年。");
-		t.setImgUrl("http://t12.baidu.com/it/u=2249553257,3895267356&fm=58");
-		technologyChannel.add(t);
-		
-		t = new BookMark();
-		t.setTitle("android");
-		t.setUrl("http://developer.android.com/");
-		t.setUploaddate(System.currentTimeMillis() - 30000000);
-		t.setSummary("Android是一种基于Linux的自由及开放源代码的操作系统");
-		t.setImgUrl("http://t12.baidu.com/it/u=1574734811,2290912573&fm=58");
-		technologyChannel.add(t);
-		
-		t = new BookMark();
-		t.setTitle("moli");
-		t.setUrl("http://www.moli.org.cn/");
-		t.setUploaddate(System.currentTimeMillis() - 300000000);
-		t.setSummary("走走走，养猪去");
-		t.setImgUrl("http://t12.baidu.com/it/u=423422024,921799086&fm=58");
-		technologyChannel.add(t);
-		
-		t = new BookMark();
-		t.setTitle("moli");
-		t.setUrl("http://www.moli.org.cn/");
-		t.setUploaddate(System.currentTimeMillis() - 30000000);
-		t.setSummary("走走走，养猪去");
-		t.setImgUrl("http://t12.baidu.com/it/u=423422024,921799086&fm=58");
-		technologyChannel.add(t);
-		
-		t = new BookMark();
-		t.setTitle("moli");
-		t.setUrl("http://www.moli.org.cn/");
-		t.setUploaddate(System.currentTimeMillis() - 30000000);
-		t.setSummary("走走走，养猪去");
-		t.setImgUrl("http://t12.baidu.com/it/u=423422024,921799086&fm=58");
-		technologyChannel.add(t);
-		
-		t = new BookMark();
-		t.setTitle("moli");
-		t.setUrl("http://www.moli.org.cn/");
-		t.setUploaddate(System.currentTimeMillis() - 400000000);
-		t.setSummary("走走走，养猪去");
-		t.setImgUrl("http://t12.baidu.com/it/u=423422024,921799086&fm=58");
-		technologyChannel.add(t);
-		
-		t = new BookMark();
-		t.setTitle("moli");
-		t.setUrl("http://www.moli.org.cn/");
-		t.setUploaddate(System.currentTimeMillis() - 400000000);
-		t.setSummary("走走走，养猪去");
-		t.setImgUrl("http://t12.baidu.com/it/u=423422024,921799086&fm=58");
-		technologyChannel.add(t);
-		
-		
-		t = new BookMark();
-		t.setImgUrl("http://ii.ivi.li/jaskni/logo.png");
-		t.setSummary("十年寒窗磨一剑，今朝出鞘试锋芒");
-		t.setTitle("好玩吧");
-		t.setUrl("http://www.9haow.cn/");
-		t.setUploaddate(System.currentTimeMillis() - 400000000);
-		entertainmentChannel.add(t);
+		String technology[] = context.getResources().getStringArray(R.array.移动开发);
+		for (String linksjson : technology) {
+			MLog.d(TAG, "YiyeApiTestImp### linksjson:" + linksjson);
+			try {
+				JSONObject o = new JSONObject(linksjson);
+				t = new BookMark();
+				t.setTitle(o.getString("title"));
+				t.setImgUrl(o.getString("imgurl"));
+				t.setSummary(o.getString("summary"));
+				t.setUrl(o.getString("url"));
+				t.setUploaddate(DateUtil.dateStringToTimeStamp(o.getString("uploaddate")));
+				MLog.d(TAG, t.toString());
+				technologyChannel.add(t);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		Channel c = new Channel();
 		c.setTitle("视频娱乐");

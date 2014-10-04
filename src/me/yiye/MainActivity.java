@@ -79,7 +79,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		pullableView = (PullToRefreshGridView) findViewById(R.id.gridview_main_content);
 		mainDataGridView = pullableView.getRefreshableView();
 		final ChannelsGridAdapter dataadpter = new ChannelsGridAdapter(this);
-		YiyeApi api = new YiyeApiTestImp();
+		YiyeApi api = new YiyeApiTestImp(this);
 		dataadpter.setData(api.getBookedChannels());
 		mainDataGridView.setAdapter(dataadpter);
 		dataadpter.notifyDataSetChanged();

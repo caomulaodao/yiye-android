@@ -17,6 +17,12 @@ public class BookMark {
 	private int praise;	// 赞
 	private int commentary;	//评论
 	
+	@Override
+	public String toString() {
+		return "title " + title + " summary " + summary + " url " + url + " imgurl " + imgurl
+				+ " uploaddate " + uploaddate;
+	}
+	
 	public String getTitle() {
 		return title;
 	}

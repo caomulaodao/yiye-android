@@ -165,7 +165,7 @@ public class ChannelActivity extends SherlockActivity{
 		this.setTitle(channel.getTitle());
 		PullToRefreshPinnedSectionListView tmpview = (PullToRefreshPinnedSectionListView) this.findViewById(R.id.listview_channel_bookmarks);
 		bookMarkListView = tmpview.getRefreshableView();
-		YiyeApi api = new YiyeApiTestImp();
+		YiyeApi api = new YiyeApiTestImp(this);
 		
 		final ChannelAdapter ca = new ChannelAdapter(this, api.getBookMarksByChannel(channel));
 		bookMarkListView.setAdapter(ca);

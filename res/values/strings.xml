@@ -53,6 +53,16 @@
                 uploaddate:\'2014-10-04\'
             }
          </item>
+ 
+         <item>
+            {
+                title:\'UISHEJI\',
+                summary:\'扁平化设计网站\',
+                url:\'http://www.uisheji.com\',
+                imgurl:\'\',
+                uploaddate:\'2014-10-04\'
+            }
+         </item>
     </string-array>
     
 </resources>

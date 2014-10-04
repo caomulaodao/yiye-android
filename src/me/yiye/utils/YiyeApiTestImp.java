@@ -46,6 +46,7 @@ public class YiyeApiTestImp implements YiyeApi{
 				entertainmentChannel.add(t);
 			} catch (JSONException e) {
 				e.printStackTrace();
+				MLog.e(TAG, "YiyeApiTestImp### json error");
 			}
 		}
 		

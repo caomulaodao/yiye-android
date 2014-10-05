@@ -12,6 +12,17 @@
 
     <string name="menu_find">瞧瞧</string>
 
+    <string-array name="你懂的">
+    	 <item>            
+            {
+            title:\'m-team\',
+            summary:\'m-team',
+            url:\'https://tp.m-team.cc/login.php',
+            imgurl:\'\',
+            uploaddate:\'2014-10-05\'
+           }
+       </item>	
+    </string-array>
     <string-array name="娱乐">
         <item>            
             {
@@ -20,49 +31,38 @@
             url:\'http://rs.xidian.edu.cn\',
             imgurl:\'\',
             uploaddate:\'2014-10-04\'
-         	}
-         </item>
-        <item>            
-            {
+           }
+       </item>
+        <item>            {
            	title:\'好玩吧\',
            	summary:\'十年寒窗磨一剑，今朝出鞘试锋芒\',
            	url:\'http://www.9haow.cn/\',
            	imgurl:\'http://ii.ivi.li/jaskni/logo.png\',
            	uploaddate:\'2014-10-02\'
-         	}
-         </item>
+         	}</item>
     </string-array>
-
-   <string-array name="移动开发">
-       <item>
-            {
+    <string-array name="移动开发">
+        <item>            {
                 title:\'android官网\',
                 summary:\'已经被墙死\',
                 url:\'http://developer.android.com/\',
                 imgurl:\'\',
                 uploaddate:\'2014-10-04\'
-            }
-        </item>
-        
-        <item>
-            {
+            }</item>
+        <item>            {
                 title:\'我的博客\',
                 summary:\'走走走,养猪去\',
                 url:\'http://www.moli.org.cn/\',
                 imgurl:\'\',
                 uploaddate:\'2014-10-04\'
-            }
-         </item>
- 
-         <item>
-            {
+            }</item>
+        <item>            {
                 title:\'UISHEJI\',
                 summary:\'扁平化设计网站\',
                 url:\'http://www.uisheji.com\',
                 imgurl:\'\',
                 uploaddate:\'2014-10-04\'
-            }
-         </item>
+            }</item>
     </string-array>
-    
+
 </resources>

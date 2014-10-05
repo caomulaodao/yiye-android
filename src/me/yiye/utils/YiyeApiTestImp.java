@@ -20,11 +20,10 @@ public class YiyeApiTestImp implements YiyeApi{
 	List<ChannelSet> channelsets = new ArrayList<ChannelSet>();
 	List<BookMark> technologyChannel = new ArrayList<BookMark>();
 	List<BookMark> entertainmentChannel = new ArrayList<BookMark>();
+	List<BookMark> youknowChannel = new ArrayList<BookMark>();
 	
 	public YiyeApiTestImp(Context context) {
 		BookMark t = new BookMark();
-		
-		String[] entertainment = context.getResources().getStringArray(R.array.娱乐);
 		/*
         title:\'睿思\',
         summary:\'爱生活，爱睿思\'
@@ -32,6 +31,7 @@ public class YiyeApiTestImp implements YiyeApi{
         imgurl:\'\'
         uploaddate:\'2014-10-04\'
         */
+		String[] entertainment = context.getResources().getStringArray(R.array.娱乐);
 		for (String linksjson : entertainment) {
 			MLog.d(TAG, "YiyeApiTestImp### linksjson:" + linksjson);
 			try {
@@ -68,6 +68,24 @@ public class YiyeApiTestImp implements YiyeApi{
 			}
 		}
 		
+		String youknow[] = context.getResources().getStringArray(R.array.你懂的);
+		for (String linksjson : youknow) {
+			MLog.d(TAG, "YiyeApiTestImp### linksjson:" + linksjson);
+			try {
+				JSONObject o = new JSONObject(linksjson);
+				t = new BookMark();
+				t.setTitle(o.getString("title"));
+				t.setImgUrl(o.getString("imgurl"));
+				t.setSummary(o.getString("summary"));
+				t.setUrl(o.getString("url"));
+				t.setUploaddate(DateUtil.dateStringToTimeStamp(o.getString("uploaddate")));
+				MLog.d(TAG, t.toString());
+				youknowChannel.add(t);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		Channel c = new Channel();
 		c.setTitle("视频娱乐");
 		c.setImgurl("http://www.kdatu.com/2014/10/01/landscape-56/");
@@ -81,9 +99,9 @@ public class YiyeApiTestImp implements YiyeApi{
 		channels.add(c);
 		
 		c = new Channel();
-		c.setTitle("情感日常");
+		c.setTitle("你懂的");
 		c.setImgurl("http://img.wallba.com/data/Image/2012zwj/9yue/9-10/qtbz/jignxuan/12/2012910114313390.jpg");
-		c.setSummary("我尼玛");
+		c.setSummary("我就端着碗看着不说话");
 		channels.add(c);
 		
 		ChannelSet cs =  new ChannelSet();
@@ -127,8 +145,10 @@ public class YiyeApiTestImp implements YiyeApi{
 	public List<BookMark> getBookMarksByChannel(Channel channel) {
 		if(channel.getTitle().equals("视频娱乐")) {
 			return entertainmentChannel;
-		} else {
+		} else if(channel.getTitle().equals("移动开发")){
 			return technologyChannel;
+		} else {
+			return youknowChannel;
 		}
 	}
 

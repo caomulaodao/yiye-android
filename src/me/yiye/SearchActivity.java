@@ -10,7 +10,6 @@ import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiTestImp;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -27,13 +26,29 @@ import android.widget.SimpleAdapter.ViewBinder;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class SearchActivity extends SherlockActivity {
 	private static final String TAG = "SearchActivity";
 	private EditText searchEditText;
 	private ListView channelSetsListView;
-	private List<HashMap<String,Object>> channelSetsList = new ArrayList<HashMap<String,Object>>();
+	private List<HashMap<String,String>> channelSetsList = new ArrayList<HashMap<String,String>>();
 	private SimpleAdapter channelSetsListAdapter;
+	
+	private static DisplayImageOptions imageoptions;
+	
+	static {
+		imageoptions = new DisplayImageOptions.Builder()
+			.showImageOnLoading(R.drawable.img_loading)
+			.showImageForEmptyUri(R.drawable.img_empty)
+			.showImageOnFail(R.drawable.img_failed)
+			.cacheInMemory(true)
+			.cacheOnDisk(true)
+			.considerExifParams(true)
+			// .displayer(new RoundedBitmapDisplayer(20))
+			.build();
+	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -46,17 +61,14 @@ public class SearchActivity extends SherlockActivity {
 		initChannelSets();
 		initSearch();
 	}
+	
 	private void initChannelSets() {
-		
-		ChannelSet.setDefaultPic(this,R.drawable.balidao);
-		channelSetsListView = (ListView) this.findViewById(R.id.listview_search_channelsets);
-		
 		YiyeApi api = new YiyeApiTestImp(this);
 		final List<ChannelSet> channelsets = api.getChannelSets();
 		
 		for(ChannelSet cs: channelsets) {
-			HashMap<String,Object> map = new HashMap<String,Object>();
-			map.put("img", cs.getPic());
+			HashMap<String,String> map = new HashMap<String,String>();
+			map.put("img", cs.getPicurl());
 			map.put("tittle",cs.getTitle());
 			String labelsString = "";
 			for(String label:cs.getLabels()) {
@@ -68,24 +80,27 @@ public class SearchActivity extends SherlockActivity {
 		}
 		
 		String[] from = new String[] {"img","tittle","content"};
-		int[] to = new int[] {R.id.imageview_search_item,R.id.textview_search_item_title,
+		int[] to = new int[] {R.id.imageview_search_item,
+				R.id.textview_search_item_title,
 				R.id.textview_search_item_content};
 		channelSetsListAdapter = new SimpleAdapter(this, channelSetsList, R.layout.item_search_style, from, to);
 		
 		ViewBinder viewBinder = new ViewBinder() {
 
-			public boolean setViewValue(View view, Object data,
-					String textRepresentation) {
-				if (view instanceof ImageView && data instanceof Bitmap) {
+			public boolean setViewValue(View view, Object data,String textRepresentation) {
+				if (view instanceof ImageView) {
 					ImageView iv = (ImageView) view;
-
-					iv.setImageBitmap((Bitmap) data);
+					String url = (String)data;
+					ImageLoader.getInstance().displayImage(url,iv,imageoptions);
+					MLog.d(TAG, "setViewValue### imageview:" + iv.toString() + " url:" + url);
 					return true;
 				} else
 					return false;
 			}
 		};  
 		channelSetsListAdapter.setViewBinder(viewBinder);
+		
+		channelSetsListView = (ListView) this.findViewById(R.id.listview_search_channelsets);
 		channelSetsListView.setAdapter(channelSetsListAdapter);
 		channelSetsListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -98,12 +113,6 @@ public class SearchActivity extends SherlockActivity {
 		channelSetsListAdapter.notifyDataSetChanged();
 	}
 
-	public static void launch(Context context) {
-		Intent i = new Intent();
-		i.setClass(context,SearchActivity.class);
-		context.startActivity(i);
-	}
-	
 	private void initSearch() {
 		searchEditText = (EditText) this.findViewById(R.id.edittext_search_keyword);
 		searchEditText.setOnKeyListener(new OnKeyListener() {
@@ -127,7 +136,11 @@ public class SearchActivity extends SherlockActivity {
 		});
 	}
 
-
+	private void doSearch() {
+		String content = searchEditText.getText().toString();
+		MLog.d(TAG, "onKey### search edit content:" + content);
+		ResultActivity.launch(SearchActivity.this, content);
+	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -138,10 +151,11 @@ public class SearchActivity extends SherlockActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	private void doSearch() {
-		String content = searchEditText.getText().toString();
-		MLog.d(TAG, "onKey### search edit content:" + content);
-		ResultActivity.launch(SearchActivity.this, content);
+
+	public static void launch(Context context) {
+		Intent i = new Intent();
+		i.setClass(context,SearchActivity.class);
+		context.startActivity(i);
 	}
+
 }

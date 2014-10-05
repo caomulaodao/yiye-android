@@ -3,20 +3,10 @@ package me.yiye.contents;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 public class ChannelSet {
 	private String title;
 	private List<String> labels = new ArrayList<String>();
 	private String picurl;
-	private Bitmap pic;
-	private static Bitmap defaultpic;
-	
-	public static void setDefaultPic(Context context,int res){ 
-		defaultpic = BitmapFactory.decodeResource(context.getResources(), res);
-	}
 	
 	public String getTitle() {
 		return title;
@@ -44,13 +34,5 @@ public class ChannelSet {
 
 	public void setPicurl(String picurl) {
 		this.picurl = picurl;
-	}
-
-	public Bitmap getPic() {
-		if(pic != null) {
-			return pic;
-		}
-		
-		return defaultpic;
 	}
 }

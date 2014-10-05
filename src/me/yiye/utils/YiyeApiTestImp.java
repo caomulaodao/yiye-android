@@ -70,19 +70,19 @@ public class YiyeApiTestImp implements YiyeApi{
 		
 		Channel c = new Channel();
 		c.setTitle("视频娱乐");
-		c.setPicurl("http://www.kdatu.com/2014/10/01/landscape-56/");
+		c.setImgurl("http://www.kdatu.com/2014/10/01/landscape-56/");
 		c.setSummary("猫扑 土豆 优库");
 		channels.add(c);
 		
 		c = new Channel();
 		c.setTitle("移动开发");
-		c.setPicurl("http://img3.imgtn.bdimg.com/it/u=706127875,3022820504&fm=23&gp=0.jpg");
+		c.setImgurl("http://img3.imgtn.bdimg.com/it/u=706127875,3022820504&fm=23&gp=0.jpg");
 		c.setSummary("android ios wp等");
 		channels.add(c);
 		
 		c = new Channel();
 		c.setTitle("情感日常");
-		c.setPicurl("http://img.wallba.com/data/Image/2012zwj/9yue/9-10/qtbz/jignxuan/12/2012910114313390.jpg");
+		c.setImgurl("http://img.wallba.com/data/Image/2012zwj/9yue/9-10/qtbz/jignxuan/12/2012910114313390.jpg");
 		c.setSummary("我尼玛");
 		channels.add(c);
 		

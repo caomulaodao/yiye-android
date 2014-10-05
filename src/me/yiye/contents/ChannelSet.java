@@ -6,7 +6,7 @@ import java.util.List;
 public class ChannelSet {
 	private String title;
 	private List<String> labels = new ArrayList<String>();
-	private String picurl;
+	private String imgurl;
 	
 	public String getTitle() {
 		return title;
@@ -28,11 +28,11 @@ public class ChannelSet {
 		this.labels = labels;
 	}
 
-	public String getPicurl() {
-		return picurl;
+	public String getImgurl() {
+		return imgurl;
 	}
 
-	public void setPicurl(String picurl) {
-		this.picurl = picurl;
+	public void setImgurl(String imgurl) {
+		this.imgurl = imgurl;
 	}
 }

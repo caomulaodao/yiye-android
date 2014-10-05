@@ -68,7 +68,7 @@ public class LabelsActivity extends SherlockActivity{
 		final List<Channel> channelsByLabel = api.getChannelsByLabel(topic.getLabels().get(0));
 		for(Channel c :channelsByLabel) {
 			HashMap<String,String> map = new HashMap<String,String>();
-			map.put("img",c.getPicurl());
+			map.put("img",c.getImgurl());
 			map.put("tittle", c.getTitle());
 			map.put("content", c.getSummary());
 			channelsHitLabelList.add(map);

@@ -135,7 +135,7 @@ public class MainActivity extends SlidingFragmentActivity {
 			imageView = (ImageView) v.findViewById(R.id.imageview_main_above_item_background);
 			imageView.setAdjustViewBounds(false);
 			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			ImageLoader.getInstance().displayImage(c.getPicurl(), imageView,imageoptions);
+			ImageLoader.getInstance().displayImage(c.getImgurl(), imageView,imageoptions);
 			
 			textView = (TextView) v.findViewById(R.id.textview_over_item_notice);
 			textView.setText(c.getTitle());

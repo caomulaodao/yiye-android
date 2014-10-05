@@ -1,6 +1,6 @@
 package me.yiye.contents;
 public class Channel {
-	private String picurl;
+	private String imgurl;
 	private String title;
 	private String summary;
 	
@@ -20,11 +20,11 @@ public class Channel {
 		this.summary = summary;
 	}
 	
-	public String getPicurl() {
-		return picurl;
+	public String getImgurl() {
+		return imgurl;
 	}
 	
-	public void setPicurl(String picurl) {
-		this.picurl = picurl;
+	public void setImgurl(String picurl) {
+		this.imgurl = picurl;
 	}
 }

@@ -1,9 +1,6 @@
 package me.yiye.contents;
 
 import me.yiye.utils.DateUtil;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 public class BookMark {
 	private String title;
@@ -11,7 +8,6 @@ public class BookMark {
 	private String url;
 	private String imgurl;
 	private long uploaddate;
-	private Bitmap img;
 	
 	private int favour;	// 收藏
 	private int praise;	// 赞
@@ -63,12 +59,6 @@ public class BookMark {
 	public void setUploaddate(long uploaddate) {
 		this.uploaddate = uploaddate;
 	}
-
-	public Bitmap loadImage() {
-		return img;
-	}
-	
-	private Bitmap pic;
 	
 	public long getUploadDateTimeStamp() {
 		return uploaddate;

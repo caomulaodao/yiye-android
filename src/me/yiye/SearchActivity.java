@@ -68,7 +68,7 @@ public class SearchActivity extends SherlockActivity {
 		
 		for(ChannelSet cs: channelsets) {
 			HashMap<String,String> map = new HashMap<String,String>();
-			map.put("img", cs.getPicurl());
+			map.put("img", cs.getImgurl());
 			map.put("tittle",cs.getTitle());
 			String labelsString = "";
 			for(String label:cs.getLabels()) {

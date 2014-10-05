@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/PUERWHITE"
+    android:background="@color/GREENSEA"
     android:orientation="horizontal" >
 
     <TextView
         android:id="@+id/textview_actionbar_title"
+        android:textColor="@color/PUERWHITE"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"

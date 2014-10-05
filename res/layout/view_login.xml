@@ -9,8 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="7dp"
         android:layout_marginTop="7dp"
-        android:textSize="18sp"
-        android:text="电话，邮箱地址或用户名" />
+        android:text="电话，邮箱地址或用户名"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/edittext_login_username"
@@ -29,8 +29,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="7dp"
-        android:layout_marginTop="2dp"        android:textSize="18sp"
-        android:text="密码" />
+        android:layout_marginTop="2dp"
+        android:text="密码"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/edittext_login_keyword"
@@ -55,8 +56,9 @@
         android:layout_marginLeft="7dp"
         android:layout_marginRight="7dp"
         android:layout_marginTop="9dp"
-        android:textColor="@color/PUERWHITE"
-        android:text="登录" 
-        android:background="@drawable/loginbtn_style"/>
+        android:background="@drawable/loginbtn_style"
+        android:enabled="false"
+        android:text="登录"
+        android:textColor="@color/PUERWHITE" />
 
 </LinearLayout>

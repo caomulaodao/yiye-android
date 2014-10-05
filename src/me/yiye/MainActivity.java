@@ -206,5 +206,14 @@ public class MainActivity extends SlidingFragmentActivity {
 		behindMenuListView.setAdapter(behindMenuListAdapter);
 		behindMenuListAdapter.notifyDataSetChanged();
 		sm.setMenu(v);
+		
+		ImageView userimageView = (ImageView)v.findViewById(R.id.imageview_main_behind_userimg);
+		userimageView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				LoginManagerActivity.launch(MainActivity.this);
+			}
+		});
 	}
 }

@@ -51,6 +51,11 @@
             android:launchMode="singleTask"
             android:theme="@style/CustomActivityTheme" >
         </activity>
+        <activity
+            android:name=".LoginManagerActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/CustomActivityTheme" >
+        </activity>
     </application>
 
 </manifest>

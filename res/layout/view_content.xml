@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/PUERWHITE" >
+        android:background="@drawable/content_bottom_style"
+        android:paddingTop="1dp" >
 
         <ImageButton
             android:id="@+id/imagebutton_content_commentary"
@@ -23,6 +24,7 @@
             android:layout_weight="1"
             android:background="#fff"
             android:gravity="center"
+            android:padding="5dp"
             android:src="@drawable/comment"
             android:text="评论 12"
             android:textSize="18sp" />
@@ -34,6 +36,7 @@
             android:layout_weight="1"
             android:background="#fff"
             android:gravity="center"
+            android:padding="5dp"
             android:src="@drawable/night"
             android:text="收藏 2"
             android:textSize="18sp" />
@@ -45,9 +48,11 @@
             android:layout_weight="1"
             android:background="#fff"
             android:gravity="center"
+            android:padding="5dp"
             android:src="@drawable/share"
             android:text="赞 11"
             android:textSize="18sp" />
+
     </LinearLayout>
 
     <ProgressBar

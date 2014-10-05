@@ -4,6 +4,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:divider="@drawable/divider_style"
-    android:footerDividersEnabled="true"
-    android:headerDividersEnabled="true" 
     android:dividerHeight="1dp"/>

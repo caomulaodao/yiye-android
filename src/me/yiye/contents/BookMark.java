@@ -69,19 +69,6 @@ public class BookMark {
 	}
 	
 	private Bitmap pic;
-	private static Bitmap defaultpic;
-	
-	public static void setDefaultPic(Context context,int res){ 
-		defaultpic = BitmapFactory.decodeResource(context.getResources(), res);
-	}
-	
-	public Bitmap getPic() {
-		if(pic != null) {
-			return pic;
-		}
-		
-		return defaultpic;
-	}
 	
 	public long getUploadDateTimeStamp() {
 		return uploaddate;

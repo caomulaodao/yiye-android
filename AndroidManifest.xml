@@ -32,7 +32,7 @@
             android:theme="@style/CustomActivityTheme" >
         </activity>
         <activity
-            android:name=".LabelClassActivity"
+            android:name=".LabelsActivity"
             android:launchMode="singleTask"
             android:theme="@style/CustomActivityTheme" >
         </activity>

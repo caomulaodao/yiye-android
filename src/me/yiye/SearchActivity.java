@@ -33,7 +33,7 @@ public class SearchActivity extends SherlockActivity {
 	private EditText searchEditText;
 	private ListView channelSetsListView;
 	private List<HashMap<String,Object>> channelSetsList = new ArrayList<HashMap<String,Object>>();
-	private SimpleAdapter classesListAdapter;
+	private SimpleAdapter channelSetsListAdapter;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -46,30 +46,6 @@ public class SearchActivity extends SherlockActivity {
 		initChannelSets();
 		initSearch();
 	}
-
-	private void initSearch() {
-		searchEditText = (EditText) this.findViewById(R.id.edittext_search_keyword);
-		searchEditText.setOnKeyListener(new OnKeyListener() {
-
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent e) {
-				if (KeyEvent.KEYCODE_ENTER == keyCode && e.getAction() == KeyEvent.ACTION_DOWN) {
-					doSearch();
-				}
-				return false;
-			}
-		});
-		
-		Button search = (Button) this.findViewById(R.id.btn_search);
-		search.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				doSearch();
-			}
-		});
-	}
-
 	private void initChannelSets() {
 		
 		ChannelSet.setDefaultPic(this,R.drawable.balidao);
@@ -94,7 +70,7 @@ public class SearchActivity extends SherlockActivity {
 		String[] from = new String[] {"img","tittle","content"};
 		int[] to = new int[] {R.id.imageview_search_item,R.id.textview_search_item_title,
 				R.id.textview_search_item_content};
-		classesListAdapter = new SimpleAdapter(this, channelSetsList, R.layout.item_search_style, from, to);
+		channelSetsListAdapter = new SimpleAdapter(this, channelSetsList, R.layout.item_search_style, from, to);
 		
 		ViewBinder viewBinder = new ViewBinder() {
 
@@ -109,17 +85,17 @@ public class SearchActivity extends SherlockActivity {
 					return false;
 			}
 		};  
-		classesListAdapter.setViewBinder(viewBinder);
-		channelSetsListView.setAdapter(classesListAdapter);
+		channelSetsListAdapter.setViewBinder(viewBinder);
+		channelSetsListView.setAdapter(channelSetsListAdapter);
 		channelSetsListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int id,long pos) {
-				LabelClassActivity.launch(SearchActivity.this,channelsets.get(id));
+				LabelsActivity.launch(SearchActivity.this,channelsets.get(id));
 			}
 		});
 		
-		classesListAdapter.notifyDataSetChanged();
+		channelSetsListAdapter.notifyDataSetChanged();
 	}
 
 	public static void launch(Context context) {
@@ -127,6 +103,31 @@ public class SearchActivity extends SherlockActivity {
 		i.setClass(context,SearchActivity.class);
 		context.startActivity(i);
 	}
+	
+	private void initSearch() {
+		searchEditText = (EditText) this.findViewById(R.id.edittext_search_keyword);
+		searchEditText.setOnKeyListener(new OnKeyListener() {
+
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent e) {
+				if (KeyEvent.KEYCODE_ENTER == keyCode && e.getAction() == KeyEvent.ACTION_DOWN) {
+					doSearch();
+				}
+				return false;
+			}
+		});
+		
+		Button search = (Button) this.findViewById(R.id.btn_search);
+		search.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				doSearch();
+			}
+		});
+	}
+
+
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

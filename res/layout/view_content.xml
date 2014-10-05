@@ -17,7 +17,7 @@
         android:background="@color/PUERWHITE" >
 
         <ImageButton
-            android:id="@+id/textview_content_commentary"
+            android:id="@+id/imagebutton_content_commentary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -28,7 +28,7 @@
             android:textSize="18sp" />
 
         <ImageButton
-            android:id="@+id/textview_content_favour"
+            android:id="@+id/imagebutton_content_favour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -39,7 +39,7 @@
             android:textSize="18sp" />
 
         <ImageButton
-            android:id="@+id/textview_content_praise"
+            android:id="@+id/imagebutton_content_praise"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

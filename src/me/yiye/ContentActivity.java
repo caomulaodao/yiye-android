@@ -23,8 +23,8 @@ import com.actionbarsherlock.view.MenuItem;
 public class ContentActivity extends SherlockActivity {
 	private final static String TAG = "ContentActivity";
 	private static BookMark bookmark;
-	private WebView web;
-	private ProgressBar webpgbar;
+	private WebView mainWebView;
+	private ProgressBar loaddingProgressBar;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,36 +35,38 @@ public class ContentActivity extends SherlockActivity {
 
 		this.setTitle(bookmark.getTitle());
 		initWebView();
-		initBottomBar();
+		initBottomActionBar();
 	}
 
 	private void initWebView() {
 		
-		webpgbar = (ProgressBar) this.findViewById(R.id.progressbar_web);  
-		webpgbar.setMax(100); 
+		loaddingProgressBar = (ProgressBar) this.findViewById(R.id.progressbar_web);  
+		loaddingProgressBar.setMax(100); 
+		mainWebView = (WebView) this.findViewById(R.id.webview_content_data);
 		
-		web = (WebView) this.findViewById(R.id.webview_content_data);
-		MLog.d(TAG, "onCreate### found webview");
-		WebSettings webSettings = web.getSettings();
+		WebSettings webSettings = mainWebView.getSettings();
 		// 设置出现缩放工具
-		webSettings.setSupportZoom(false);
+		webSettings.setSupportZoom(true);
 		webSettings.setLoadWithOverviewMode(true);
 		webSettings.setJavaScriptEnabled(true);
-		web.setWebChromeClient(new WebChromeClient() {
+		
+		// 设置加载进度条
+		mainWebView.setWebChromeClient(new WebChromeClient() {
 			@Override
 			public void onProgressChanged(WebView view, int newProgress) {
 				if (newProgress == 100) {
-					webpgbar.setVisibility(View.GONE);
+					loaddingProgressBar.setVisibility(View.GONE);
 				} else {
-					if (webpgbar.getVisibility() == View.GONE)
-						webpgbar.setVisibility(View.VISIBLE);
-					webpgbar.setProgress(newProgress);
+					if (loaddingProgressBar.getVisibility() == View.GONE)
+						loaddingProgressBar.setVisibility(View.VISIBLE);
+					loaddingProgressBar.setProgress(newProgress);
 				}
 				super.onProgressChanged(view, newProgress);
 			}
 		});
 		
-		web.setWebViewClient(new WebViewClient() {
+		// 防止启动外部浏览器
+		mainWebView.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				view.loadUrl(url);
@@ -72,20 +74,13 @@ public class ContentActivity extends SherlockActivity {
 			}
 		});
 		
-		
-		web.loadUrl(bookmark.getUrl());
-
-		MLog.d(TAG, "onCreate### set webview done");
+		mainWebView.loadUrl(bookmark.getUrl());
 	}
 	
-	private void initBottomBar() {
-		ImageButton commentary = (ImageButton) this.findViewById(R.id.textview_content_commentary);
-		ImageButton favour = (ImageButton) this.findViewById(R.id.textview_content_favour);
-		ImageButton praise = (ImageButton) this.findViewById(R.id.textview_content_praise);
-		
-		// commentary.setText(bookmark.getCommentary() + " 评论");
-		// favour.setText(bookmark.getFavour() + " 收藏");
-		// praise.setText(bookmark.getPraise() + " 赞");
+	private void initBottomActionBar() {
+		ImageButton commentary = (ImageButton) this.findViewById(R.id.imagebutton_content_commentary);
+		ImageButton favour = (ImageButton) this.findViewById(R.id.imagebutton_content_favour);
+		ImageButton praise = (ImageButton) this.findViewById(R.id.imagebutton_content_praise);
 		commentary.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -93,14 +88,12 @@ public class ContentActivity extends SherlockActivity {
 				Toast.makeText(ContentActivity.this, "评论", Toast.LENGTH_LONG).show();
 			}
 		});
-		
 		favour.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(ContentActivity.this, "收藏", Toast.LENGTH_LONG).show();
 			}
 		});
-		
 		praise.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -110,30 +103,18 @@ public class ContentActivity extends SherlockActivity {
 		});
 	}
 	
-	public static void launch(Context context, BookMark bookmark) {
-		if(bookmark == null) {
-			MLog.e(TAG, "launch### bookmark is null");
-			return;
-		}
-		ContentActivity.bookmark = bookmark;
-		launch(context);
-
-	}
-
+	// 支持网页回退
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if ((keyCode == KeyEvent.KEYCODE_BACK) && web.canGoBack()) {
-			web.goBack();
+		if ((keyCode == KeyEvent.KEYCODE_BACK) && mainWebView.canGoBack()) {
+			mainWebView.goBack();
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
 	}  
 
-	
-	private static void launch(Context context) {
-		Intent i = new Intent();
-		i.setClass(context, ContentActivity.class);
-		context.startActivity(i);
-	}
+	/**
+	 *  TODO 支持左右滑动回退
+	 */
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -143,5 +124,20 @@ public class ContentActivity extends SherlockActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public static void launch(Context context, BookMark bookmark) {
+		if(bookmark == null) {
+			MLog.e(TAG, "launch### bookmark is null");
+			return;
+		}
+		ContentActivity.bookmark = bookmark;
+		launch(context);
+	}
+
+	private static void launch(Context context) {
+		Intent i = new Intent();
+		i.setClass(context, ContentActivity.class);
+		context.startActivity(i);
 	}
 }

@@ -28,20 +28,22 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 
-public class LabelClassActivity extends SherlockActivity{
+public class LabelsActivity extends SherlockActivity{
 	
-	private final static String TAG = "LabelClassActivity";
-	private ListView labelClassListView;
-	private List<HashMap<String,Object> > labelClassList = new ArrayList<HashMap<String,Object> >();
-	private SimpleAdapter labelClassListAdapter;
+	private final static String TAG = "LabelsActivity";
+	private ListView channelsHitLabelListView;
+	private List<HashMap<String,Object> > channelsHitLabelList = new ArrayList<HashMap<String,Object> >();
+	private SimpleAdapter channelsHitLabelListAdapter;
 	private static ChannelSet topic;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.view_labelclass);
+		this.setContentView(R.layout.view_labels);
 		this.setTitle(topic.getTitle());
 		getSupportActionBar().setLogo(R.drawable.yiye_logo);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		initLabels();
 		initChannelsListView();
 	}
@@ -49,21 +51,17 @@ public class LabelClassActivity extends SherlockActivity{
 	private void initChannelsListView() {
 		YiyeApi api = new YiyeApiTestImp(this);
 		List<Channel> channelsByLabel = api.getChannelsByLabel(topic.getLabels().get(0));
-		
-		labelClassListView = (ListView) this.findViewById(R.id.listview_labelclass);
-		
 		for(Channel c :channelsByLabel) {
 			HashMap<String,Object> map = new HashMap<String,Object>();
 			map.put("img",c.getPic());
 			map.put("tittle", c.getTitle());
 			map.put("content", c.getSummary());
-			labelClassList.add(map);
+			channelsHitLabelList.add(map);
 		}
 		
 		String[] from = new String[] {"img","tittle","content"};
-		int[] to = new int[] {R.id.imageview_channel_item,R.id.textview_channel_item_title,
-				R.id.textview_channel_item_content};
-		labelClassListAdapter = new SimpleAdapter(this, labelClassList,R.layout.item_channel_style, from, to);
+		int[] to = new int[] {R.id.imageview_channel_item,R.id.textview_channel_item_title,R.id.textview_channel_item_content};
+		channelsHitLabelListAdapter = new SimpleAdapter(this, channelsHitLabelList,R.layout.item_channel_style, from, to);
 		ViewBinder viewBinder = new ViewBinder() {
 
 			public boolean setViewValue(View view, Object data,
@@ -76,18 +74,15 @@ public class LabelClassActivity extends SherlockActivity{
 				} else
 					return false;
 			}
-		};  
+		};
+		channelsHitLabelListAdapter.setViewBinder(viewBinder);
 		
-		labelClassListAdapter.setViewBinder(viewBinder);
-		
-		labelClassListView.setAdapter(labelClassListAdapter);
-		
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
-		labelClassListView.setOnItemClickListener(new OnItemClickListener() {
+		channelsHitLabelListView = (ListView) this.findViewById(R.id.listview_labels_channels_hit_label);
+		channelsHitLabelListView.setAdapter(channelsHitLabelListAdapter);
+		channelsHitLabelListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int pos,long id) {
-				
+				// TODO jump to an Channel
 			}
 		});
 	}
@@ -95,7 +90,7 @@ public class LabelClassActivity extends SherlockActivity{
 	private List<TextView> labels = new ArrayList<TextView>();
 	private TextView currentLabel;
 	private void initLabels() {
-		AutoNewLineLinearLayout labelContainer = (AutoNewLineLinearLayout) this.findViewById(R.id.linearlayout_labelclass_labelsparent);
+		AutoNewLineLinearLayout labelContainer = (AutoNewLineLinearLayout) this.findViewById(R.id.linearlayout_labels_labelsparent);
 		labelContainer.removeAllViewsInLayout();
 		for(String label:topic.getLabels()) {
 			View labelView = View.inflate(this, R.layout.item_label_style, null);
@@ -108,7 +103,7 @@ public class LabelClassActivity extends SherlockActivity{
 					v.setBackgroundColor(getResources().getColor(R.color.GREENSEA));
 					currentLabel.setBackgroundColor(getResources().getColor(R.color.E3GRAY));
 					currentLabel = (TextView) v;
-					Toast.makeText(LabelClassActivity.this, currentLabel.getText(), Toast.LENGTH_LONG).show();
+					Toast.makeText(LabelsActivity.this, currentLabel.getText(), Toast.LENGTH_LONG).show();
 				}
 			});
 			labels.add(tv);
@@ -128,13 +123,13 @@ public class LabelClassActivity extends SherlockActivity{
 			return;
 		}
 		
-		LabelClassActivity.topic = topic;
+		LabelsActivity.topic = topic;
 		launch(context);
 	}
 
 	private static void launch(Context context) {
 		Intent i = new Intent();
-		i.setClass(context,LabelClassActivity.class);
+		i.setClass(context,LabelsActivity.class);
 		context.startActivity(i);
 	}
 	

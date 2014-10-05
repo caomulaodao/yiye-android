@@ -33,6 +33,18 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 public class MainActivity extends SlidingFragmentActivity {
 	private static DisplayImageOptions imageoptions;
 	
+	static {
+		imageoptions = new DisplayImageOptions.Builder()
+			.showImageOnLoading(R.drawable.img_loading)
+			.showImageForEmptyUri(R.drawable.img_empty)
+			.showImageOnFail(R.drawable.img_failed)
+			.cacheInMemory(true)
+			.cacheOnDisk(true)
+			.considerExifParams(true)
+			// .displayer(new RoundedBitmapDisplayer(20))
+			.build();
+	}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,17 +54,6 @@ public class MainActivity extends SlidingFragmentActivity {
 		initActionbar();
 		initSlidingMenu();
 		initAbovePanal();
-		
-		imageoptions = new DisplayImageOptions.Builder()
-		.showImageOnLoading(R.drawable.home)
-		.showImageForEmptyUri(R.drawable.balidao)
-		.showImageOnFail(R.drawable.miaotouxiang)
-		.cacheInMemory(true)
-		.cacheOnDisk(true)
-		.considerExifParams(true)
-		// .displayer(new RoundedBitmapDisplayer(20))
-		.build();
-		
 	}
 
 	private void initActionbar() {
@@ -63,24 +64,24 @@ public class MainActivity extends SlidingFragmentActivity {
 		getSupportActionBar().setCustomView(barview,new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
 		getSupportActionBar().setDisplayShowCustomEnabled(true);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
-
+		
 	   ((TextView) barview.findViewById(R.id.textview_actionbar_title)).setText("一叶书签");
 		barview.findViewById(R.id.imageview_actionbar_btn).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				SearchActivity.launch(MainActivity.this);
-				}
+			}
 		});
 	}
 
 	private void initAbovePanal() {
-		GridView mainDataGridView;
-		PullToRefreshGridView pullableView;
-		pullableView = (PullToRefreshGridView) findViewById(R.id.gridview_main_content);
-		mainDataGridView = pullableView.getRefreshableView();
-		final ChannelsGridAdapter dataadpter = new ChannelsGridAdapter(this);
 		YiyeApi api = new YiyeApiTestImp(this);
+		
+		final ChannelsGridAdapter dataadpter = new ChannelsGridAdapter(this);
 		dataadpter.setData(api.getBookedChannels());
+
+		PullToRefreshGridView pullableView = (PullToRefreshGridView) findViewById(R.id.gridview_main_content);
+		GridView mainDataGridView = pullableView.getRefreshableView();
 		mainDataGridView.setAdapter(dataadpter);
 		dataadpter.notifyDataSetChanged();
 		mainDataGridView.setOnItemClickListener(new OnItemClickListener() {
@@ -136,11 +137,10 @@ public class MainActivity extends SlidingFragmentActivity {
 			imageView = (ImageView) v.findViewById(R.id.imageview_main_above_item_background);
 			imageView.setAdjustViewBounds(false);
 			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			imageView.setImageBitmap(c.getPic());
+			ImageLoader.getInstance().displayImage(c.getPicurl(), imageView,imageoptions);
 			
 			textView = (TextView) v.findViewById(R.id.textview_over_item_notice);
 			textView.setText(c.getTitle());
-			ImageLoader.getInstance().displayImage(c.getPicurl(), imageView,imageoptions);
 			return v;
 		}
 		
@@ -159,7 +159,6 @@ public class MainActivity extends SlidingFragmentActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	// private View behindSelectedView;
 	private void initSlidingMenu() {
 		ListView behindMenuListView;
 		SimpleAdapter behindMenuListAdapter;
@@ -175,18 +174,15 @@ public class MainActivity extends SlidingFragmentActivity {
 		View v = View.inflate(this, R.layout.view_main_behind, null);
 		behindMenuListView = (ListView) v.findViewById(R.id.listview_main_behind_menu);
 
-		String[] from = new String[] { "textview_behind_item",
-				"imageview_behind_item_sign" };
-		int[] to = new int[] { R.id.textview_behind_item,
-				R.id.imageview_behind_item_sign };
-
+		String[] from = new String[] { "textview_behind_item","imageview_behind_item_sign" };
+		int[] to = new int[] { R.id.textview_behind_item,R.id.imageview_behind_item_sign };
+		
 		int[] mapids = new int[] {
 			R.drawable.home,R.drawable.message,R.drawable.myup,
 			R.drawable.myfavor,R.drawable.setting
 		};
 		
-		String[] mapcontents = getResources()
-				.getStringArray(R.array.main_behind_memu_contents);
+		String[] mapcontents = getResources().getStringArray(R.array.main_behind_memu_contents);
 		
 		for(int i = 0;i < 5; ++ i){
 			HashMap<String, Object> map = new HashMap<String, Object>();
@@ -211,12 +207,6 @@ public class MainActivity extends SlidingFragmentActivity {
 		};
 		behindMenuListView.setAdapter(behindMenuListAdapter);
 		behindMenuListAdapter.notifyDataSetChanged();
-
 		sm.setMenu(v);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
-		
-		behindMenuListView.setSelection(0);
-		// behindSelectedView.setBackgroundColor(getResources().getColor(R.color.E3GRAY));
 	}
 }

@@ -27,14 +27,29 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class LabelsActivity extends SherlockActivity{
 	
 	private final static String TAG = "LabelsActivity";
 	private ListView channelsHitLabelListView;
-	private List<HashMap<String,Object> > channelsHitLabelList = new ArrayList<HashMap<String,Object> >();
+	private List<HashMap<String,String> > channelsHitLabelList = new ArrayList<HashMap<String,String> >();
 	private SimpleAdapter channelsHitLabelListAdapter;
 	private static ChannelSet topic;
+	private static DisplayImageOptions imageoptions;
+	
+	static {
+		imageoptions = new DisplayImageOptions.Builder()
+			.showImageOnLoading(R.drawable.img_loading)
+			.showImageForEmptyUri(R.drawable.img_empty)
+			.showImageOnFail(R.drawable.img_failed)
+			.cacheInMemory(true)
+			.cacheOnDisk(true)
+			.considerExifParams(true)
+			// .displayer(new RoundedBitmapDisplayer(10))
+			.build();
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +65,10 @@ public class LabelsActivity extends SherlockActivity{
 
 	private void initChannelsListView() {
 		YiyeApi api = new YiyeApiTestImp(this);
-		List<Channel> channelsByLabel = api.getChannelsByLabel(topic.getLabels().get(0));
+		final List<Channel> channelsByLabel = api.getChannelsByLabel(topic.getLabels().get(0));
 		for(Channel c :channelsByLabel) {
-			HashMap<String,Object> map = new HashMap<String,Object>();
-			map.put("img",c.getPic());
+			HashMap<String,String> map = new HashMap<String,String>();
+			map.put("img",c.getPicurl());
 			map.put("tittle", c.getTitle());
 			map.put("content", c.getSummary());
 			channelsHitLabelList.add(map);
@@ -63,13 +78,13 @@ public class LabelsActivity extends SherlockActivity{
 		int[] to = new int[] {R.id.imageview_channel_item,R.id.textview_channel_item_title,R.id.textview_channel_item_content};
 		channelsHitLabelListAdapter = new SimpleAdapter(this, channelsHitLabelList,R.layout.item_channel_style, from, to);
 		ViewBinder viewBinder = new ViewBinder() {
-
-			public boolean setViewValue(View view, Object data,
-					String textRepresentation) {
-				if (view instanceof ImageView && data instanceof Bitmap) {
+			
+			public boolean setViewValue(View view, Object data,String textRepresentation) {
+				if (view instanceof ImageView) {
 					ImageView iv = (ImageView) view;
-
-					iv.setImageBitmap((Bitmap) data);
+					String url = (String)data;
+					ImageLoader.getInstance().displayImage(url,iv,imageoptions);
+					MLog.d(TAG, "setViewValue### imageview:" + iv.toString() + " url:" + url);
 					return true;
 				} else
 					return false;
@@ -82,7 +97,7 @@ public class LabelsActivity extends SherlockActivity{
 		channelsHitLabelListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int pos,long id) {
-				// TODO jump to an Channel
+				ChannelActivity.launch(LabelsActivity.this, channelsByLabel.get(pos));
 			}
 		});
 	}

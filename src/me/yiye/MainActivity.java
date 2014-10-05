@@ -100,7 +100,6 @@ public class MainActivity extends SlidingFragmentActivity {
 		
 		ChannelsGridAdapter(Context context) {
 			this.context = context;
-			Channel.setDefaultPic(context, R.drawable.balidao);
 		}
 
 		@Override

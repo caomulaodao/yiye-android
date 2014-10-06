@@ -88,7 +88,7 @@ public class YiyeApiTestImp implements YiyeApi{
 		
 		Channel c = new Channel();
 		c.setTitle("视频娱乐");
-		c.setImgurl("http://www.kdatu.com/2014/10/01/landscape-56/");
+		c.setImgurl("http://img0.imgtn.bdimg.com/it/u=3991146073,807626457&fm=21&gp=0.jpg");
 		c.setSummary("猫扑 土豆 优库");
 		channels.add(c);
 		

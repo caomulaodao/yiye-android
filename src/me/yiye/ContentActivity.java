@@ -46,8 +46,11 @@ public class ContentActivity extends SherlockActivity {
 		WebSettings webSettings = mainWebView.getSettings();
 		// 设置出现缩放工具
 		webSettings.setSupportZoom(true);
+		webSettings.setBuiltInZoomControls(true); 
 		webSettings.setLoadWithOverviewMode(true);
 		webSettings.setJavaScriptEnabled(true);
+		webSettings.setUseWideViewPort(true); 
+		webSettings.setDisplayZoomControls(false);
 		
 		// 设置加载进度条
 		mainWebView.setWebChromeClient(new WebChromeClient() {

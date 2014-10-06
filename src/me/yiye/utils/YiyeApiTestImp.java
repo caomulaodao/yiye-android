@@ -1,15 +1,19 @@
 package me.yiye.utils;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import me.yiye.R;
 import me.yiye.contents.BookMark;
 import me.yiye.contents.Channel;
 import me.yiye.contents.ChannelSet;
+
+import org.apache.http.util.EncodingUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 
 public class YiyeApiTestImp implements YiyeApi{
@@ -23,68 +27,9 @@ public class YiyeApiTestImp implements YiyeApi{
 	List<BookMark> youknowChannel = new ArrayList<BookMark>();
 	
 	public YiyeApiTestImp(Context context) {
-		BookMark t = new BookMark();
-		/*
-        title:\'睿思\',
-        summary:\'爱生活，爱睿思\'
-        url:\'http://rs.xidian.edu.cn\'
-        imgurl:\'\'
-        uploaddate:\'2014-10-04\'
-        */
-		String[] entertainment = context.getResources().getStringArray(R.array.娱乐);
-		for (String linksjson : entertainment) {
-			MLog.d(TAG, "YiyeApiTestImp### linksjson:" + linksjson);
-			try {
-				JSONObject o = new JSONObject(linksjson);
-				t = new BookMark();
-				t.setTitle(o.getString("title"));
-				t.setImgUrl(o.getString("imgurl"));
-				t.setSummary(o.getString("summary"));
-				t.setUrl(o.getString("url"));
-				t.setUploaddate(DateUtil.dateStringToTimeStamp(o.getString("uploaddate")));
-				MLog.d(TAG, t.toString());
-				entertainmentChannel.add(t);
-			} catch (JSONException e) {
-				e.printStackTrace();
-				MLog.e(TAG, "YiyeApiTestImp### json error");
-			}
-		}
-		
-		String technology[] = context.getResources().getStringArray(R.array.移动开发);
-		for (String linksjson : technology) {
-			MLog.d(TAG, "YiyeApiTestImp### linksjson:" + linksjson);
-			try {
-				JSONObject o = new JSONObject(linksjson);
-				t = new BookMark();
-				t.setTitle(o.getString("title"));
-				t.setImgUrl(o.getString("imgurl"));
-				t.setSummary(o.getString("summary"));
-				t.setUrl(o.getString("url"));
-				t.setUploaddate(DateUtil.dateStringToTimeStamp(o.getString("uploaddate")));
-				MLog.d(TAG, t.toString());
-				technologyChannel.add(t);
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		String youknow[] = context.getResources().getStringArray(R.array.你懂的);
-		for (String linksjson : youknow) {
-			MLog.d(TAG, "YiyeApiTestImp### linksjson:" + linksjson);
-			try {
-				JSONObject o = new JSONObject(linksjson);
-				t = new BookMark();
-				t.setTitle(o.getString("title"));
-				t.setImgUrl(o.getString("imgurl"));
-				t.setSummary(o.getString("summary"));
-				t.setUrl(o.getString("url"));
-				t.setUploaddate(DateUtil.dateStringToTimeStamp(o.getString("uploaddate")));
-				MLog.d(TAG, t.toString());
-				youknowChannel.add(t);
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
+		addBookMarkToChannel(context,entertainmentChannel,R.raw.entertainment);
+		addBookMarkToChannel(context, technologyChannel, R.raw.technology);
+		addBookMarkToChannel(context, youknowChannel, R.raw.youknow);
 		
 		Channel c = new Channel();
 		c.setTitle("视频娱乐");
@@ -125,6 +70,46 @@ public class YiyeApiTestImp implements YiyeApi{
 		channelsets.add(cs);
 		
 	}
+
+	private void addBookMarkToChannel(Context context, List<BookMark> channel, int res) {
+		BookMark t = new BookMark();
+		String result = "";
+		try {
+			InputStream in = context.getResources().openRawResource(res);
+			int lenght = in.available();
+			byte[] buffer = new byte[lenght];
+			in.read(buffer);
+			result = EncodingUtils.getString(buffer, "utf-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MLog.d(TAG, "YiyeApiTestImp### json:" + result);
+		JSONArray bookmarkArray = null;
+		try {
+			bookmarkArray = new JSONArray(result);
+			for (int i = 0; i < bookmarkArray.length(); i++) {
+				try {
+					JSONObject o = bookmarkArray.getJSONObject(i);
+					t = new BookMark();
+					t.setTitle(o.getString("title"));
+					t.setImgUrl(o.getString("imgurl"));
+					t.setSummary(o.getString("summary"));
+					t.setUrl(o.getString("url"));
+					t.setUploaddate(DateUtil.dateStringToTimeStamp(o.getString("uploaddate")));
+					MLog.d(TAG, t.toString());
+					channel.add(t);
+				} catch (JSONException e) {
+					e.printStackTrace();
+					MLog.e(TAG, "YiyeApiTestImp### json error");
+				}
+			}
+		} catch (JSONException e1) {
+			MLog.e(TAG, "YiyeApiTestImp### 解析json失败");
+			e1.printStackTrace();
+		}
+	}
+	
 	
 	@Override
 	public List<Channel> getBookedChannels() {
@@ -135,7 +120,6 @@ public class YiyeApiTestImp implements YiyeApi{
 	public List<ChannelSet> getChannelSets() {
 		return channelsets;
 	}
-
 
 	public List<Channel> getChannelsByLabel(String label){
 		return channels;

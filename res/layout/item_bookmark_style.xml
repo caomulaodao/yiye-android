@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/listitem_style" >
 
-    <ImageView
+    <me.yiye.customwidget.CircularImage
         android:id="@+id/imageview_bookmark_item"
         android:layout_width="50dp"
         android:layout_height="50dp"

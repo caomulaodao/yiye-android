@@ -73,6 +73,9 @@ public class ChannelActivity extends SherlockActivity {
 				}
 			}
 		});
+		
+		View v = View.inflate(this, R.layout.item_commom_divider_style, null);
+		bookMarkListView.addFooterView(v);
 	}
 
 	private static void launch(Context context) {

@@ -13,13 +13,16 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.ActionBar.LayoutParams;
 import com.actionbarsherlock.view.MenuItem;
 
-public class ContentActivity extends SherlockActivity {
+public class ContentActivity extends BaseActivity {
 	private final static String TAG = "ContentActivity";
 	private static BookMark bookmark;
 	private WebView mainWebView;
@@ -31,11 +34,11 @@ public class ContentActivity extends SherlockActivity {
 		this.setContentView(R.layout.view_content);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-		this.setTitle(bookmark.getTitle());
+		initActionbar(bookmark.getTitle());
 		initWebView();
 		initBottomActionBar();
 	}
-
+	
 	private void initWebView() {
 		
 		loaddingProgressBar = (ProgressBar) this.findViewById(R.id.progressbar_web);  
@@ -116,17 +119,7 @@ public class ContentActivity extends SherlockActivity {
 	/**
 	 *  TODO 支持左右滑动回退
 	 */
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			this.finish();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-	
+
 	public static void launch(Context context, BookMark bookmark) {
 		if(bookmark == null) {
 			MLog.e(TAG, "launch### bookmark is null");

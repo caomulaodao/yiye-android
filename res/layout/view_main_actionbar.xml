@@ -1,28 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/GREENSEA"
+    android:background="@color/Teal500"
     android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/imageview_actionbar_navicon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/home_slide_normal" />
+
+        <ImageView
+            android:id="@+id/imageview_actionbar_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/find" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/textview_actionbar_title"
-        android:textColor="@color/PUERWHITE"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_weight="1"
         android:gravity="center"
         android:text="Title"
+        android:textColor="@color/PUERWHITE"
         android:textSize="20sp" />
 
-    <ImageView
-        android:id="@+id/imageview_actionbar_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="right|bottom"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/find" />
-
-</LinearLayout>
+</FrameLayout>

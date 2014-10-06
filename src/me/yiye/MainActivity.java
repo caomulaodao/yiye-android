@@ -59,12 +59,19 @@ public class MainActivity extends SlidingFragmentActivity {
 		View barview = View.inflate(this,R.layout.view_main_actionbar,null);
 		getSupportActionBar().setCustomView(barview,new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
 		getSupportActionBar().setDisplayShowCustomEnabled(true);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	   ((TextView) barview.findViewById(R.id.textview_actionbar_title)).setText("一叶书签");
 		barview.findViewById(R.id.imageview_actionbar_btn).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				SearchActivity.launch(MainActivity.this);
+			}
+		});
+		
+		((ImageView)barview.findViewById(R.id.imageview_actionbar_navicon)).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				toggle();
 			}
 		});
 	}
@@ -87,6 +94,9 @@ public class MainActivity extends SlidingFragmentActivity {
 
 			}
 		});
+		
+		// pullableView.getLoadingLayoutProxy().setPullLabel("你妹的");
+		pullableView.getLoadingLayoutProxy().setLoadingDrawable(getResources().getDrawable(R.drawable.star));
 	}
 
 	class ChannelsGridAdapter extends BaseAdapter {
@@ -143,16 +153,6 @@ public class MainActivity extends SlidingFragmentActivity {
 		}
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			toggle();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-	
 	private void initSlidingMenu() {
 		ListView behindMenuListView;
 		SimpleAdapter behindMenuListAdapter;

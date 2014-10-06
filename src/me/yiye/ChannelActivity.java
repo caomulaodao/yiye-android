@@ -20,48 +20,42 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.handmark.pulltorefresh.library.PullToRefreshPinnedSectionListView;
 import com.hb.views.PinnedSectionListView;
 import com.hb.views.PinnedSectionListView.PinnedSectionListAdapter;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class ChannelActivity extends SherlockActivity {
+public class ChannelActivity extends BaseActivity {
 
 	private static DisplayImageOptions imageoptions;
 	private static Channel channel;
 	private PinnedSectionListView bookMarkListView;
 
 	static {
-		imageoptions = new DisplayImageOptions.Builder()
-			.showImageOnLoading(R.drawable.img_loading)
-			.showImageForEmptyUri(R.drawable.img_empty)
-			.showImageOnFail(R.drawable.img_failed)
-			.cacheInMemory(true)
-			.cacheOnDisk(true)
-			.considerExifParams(true)
-			// .displayer(new RoundedBitmapDisplayer(10))
-			.build();
+		imageoptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.img_loading)
+				.showImageForEmptyUri(R.drawable.img_empty).showImageOnFail(R.drawable.img_failed).cacheInMemory(true)
+				.cacheOnDisk(true).considerExifParams(true)
+				// .displayer(new RoundedBitmapDisplayer(10))
+				.build();
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.view_channel);
-		this.setTitle(channel.getTitle());
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
+		initActionbar(channel.getTitle());
+
 		YiyeApi api = new YiyeApiTestImp(this);
-		
+
 		final ChannelAdapter ca = new ChannelAdapter(this, api.getBookMarksByChannel(channel));
-		
-		PullToRefreshPinnedSectionListView tmpview = (PullToRefreshPinnedSectionListView) this.findViewById(R.id.listview_channel_bookmarks);
+
+		PullToRefreshPinnedSectionListView tmpview = (PullToRefreshPinnedSectionListView) this
+				.findViewById(R.id.listview_channel_bookmarks);
 		bookMarkListView = tmpview.getRefreshableView();
 		bookMarkListView.setAdapter(ca);
 		ca.notifyDataSetChanged();
-		
+
 		bookMarkListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -72,7 +66,7 @@ public class ChannelActivity extends SherlockActivity {
 				}
 			}
 		});
-		
+
 		View v = View.inflate(this, R.layout.item_commom_divider_style, null);
 		bookMarkListView.addFooterView(v);
 	}
@@ -86,16 +80,6 @@ public class ChannelActivity extends SherlockActivity {
 	public static void launch(Context context, Channel channel) {
 		ChannelActivity.channel = channel;
 		launch(context);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			this.finish();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	// 按时间排序
@@ -114,7 +98,7 @@ public class ChannelActivity extends SherlockActivity {
 
 		public ChannelAdapter(Context context, List<BookMark> bookMarkList) {
 			this.context = context;
-			
+
 			// 排序并实现数据按时间分section
 			String currentDate = null;
 			Collections.sort(bookMarkList, new ComparatorBookMark());
@@ -217,4 +201,5 @@ public class ChannelActivity extends SherlockActivity {
 			this.bookmark = bookmark;
 		}
 	}
+
 }

@@ -17,10 +17,10 @@
     </style>
 
     <style name="my_actionbar_style" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">@color/GREENSEA</item>
+        <item name="android:background">@color/Teal500</item>
         <item name="android:titleTextStyle">@style/my_actionbar_title_style</item>
-        <item name="android:displayOptions">showHome|homeAsUp|showTitle</item>
-        <item name="displayOptions">showHome|homeAsUp|showTitle</item>
+        <item name="android:displayOptions"></item>
+        <item name="displayOptions"></item>
         <item name="android:icon">@android:color/transparent</item>
     </style>
 

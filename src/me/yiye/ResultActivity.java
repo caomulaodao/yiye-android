@@ -16,7 +16,7 @@ import android.widget.SimpleAdapter;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 
-public class ResultActivity extends SherlockActivity {
+public class ResultActivity extends BaseActivity {
 	
 	private ListView resultListView;
 	private List<HashMap<String,Object> > resultList = new ArrayList<HashMap<String,Object> >();
@@ -28,6 +28,7 @@ public class ResultActivity extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.view_result);
+		initActionbar("关于\"" + title + "\"的频道");
 		
 		resultListView = (ListView) this.findViewById(R.id.listview_result);
 		HashMap<String,Object> map = new HashMap<String,Object>();
@@ -41,13 +42,6 @@ public class ResultActivity extends SherlockActivity {
 				R.id.textview_channel_item_content};
 		resultAdpater = new SimpleAdapter(this, resultList, R.layout.item_channel_style, from, to);
 		resultListView.setAdapter(resultAdpater);
-		
-		if(title != null) {
-			this.setTitle("关于\"" + title + "\"的频道");
-		}
-		
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
 		resultListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

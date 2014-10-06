@@ -29,7 +29,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class SearchActivity extends SherlockActivity {
+public class SearchActivity extends BaseActivity {
 	private static final String TAG = "SearchActivity";
 	private EditText searchEditText;
 	private ListView channelSetsListView;
@@ -53,10 +53,8 @@ public class SearchActivity extends SherlockActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setTitle("发现");
 		this.setContentView(R.layout.view_seach);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
+		initActionbar("发现");
 		initChannelSets();
 		initSearch();
 	}

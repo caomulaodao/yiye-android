@@ -26,11 +26,12 @@ import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.ActionBar.LayoutParams;
 import com.actionbarsherlock.view.MenuItem;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class LabelsActivity extends SherlockActivity{
+public class LabelsActivity extends BaseActivity{
 	
 	private final static String TAG = "LabelsActivity";
 	private ListView channelsHitLabelListView;
@@ -55,13 +56,11 @@ public class LabelsActivity extends SherlockActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.view_labels);
-		this.setTitle(topic.getTitle());
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
+		initActionbar(topic.getTitle());
 		initLabels();
 		initChannelsListView();
 	}
-
+	
 	private void initChannelsListView() {
 		YiyeApi api = new YiyeApiTestImp(this);
 		final List<Channel> channelsByLabel = api.getChannelsByLabel(topic.getLabels().get(0));

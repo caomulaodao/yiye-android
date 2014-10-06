@@ -14,7 +14,6 @@ public class LoginManagerActivity extends SherlockActivity{
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.view_login);
 		this.setTitle("登陆");
-		getSupportActionBar().setLogo(R.drawable.yiye_logo);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 	

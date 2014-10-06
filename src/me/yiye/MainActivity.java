@@ -56,12 +56,12 @@ public class MainActivity extends SlidingFragmentActivity {
 	}
 
 	private void initActionbar() {
-		getSupportActionBar().setLogo(R.drawable.yiye_logo);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		View barview = View.inflate(this,R.layout.view_main_actionbar,null);
 		getSupportActionBar().setCustomView(barview,new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
 		getSupportActionBar().setDisplayShowCustomEnabled(true);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
 	   ((TextView) barview.findViewById(R.id.textview_actionbar_title)).setText("一叶书签");
 		barview.findViewById(R.id.imageview_actionbar_btn).setOnClickListener(new OnClickListener() {
 			@Override

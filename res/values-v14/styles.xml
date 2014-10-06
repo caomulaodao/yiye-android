@@ -15,6 +15,7 @@
     <style name="HomeActivityTheme" parent="@CustomActivityTheme">
         <item name="android:homeAsUpIndicator">@drawable/home_slide_normal</item>
     </style>
+
     <style name="my_actionbar_style" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@color/GREENSEA</item>
         <item name="android:titleTextStyle">@style/my_actionbar_title_style</item>

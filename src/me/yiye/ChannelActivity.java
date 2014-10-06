@@ -51,7 +51,6 @@ public class ChannelActivity extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.view_channel);
 		this.setTitle(channel.getTitle());
-		getSupportActionBar().setLogo(R.drawable.yiye_logo);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		YiyeApi api = new YiyeApiTestImp(this);

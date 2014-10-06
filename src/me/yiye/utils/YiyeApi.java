@@ -11,4 +11,6 @@ public interface YiyeApi {
 	public List<ChannelSet> getChannelSets();
 	public List<Channel> getChannelsByLabel(String label);
 	public List<BookMark> getBookMarksByChannel(Channel channel);
+	
+	public final static String LOGIN = "http://192.168.199.105:3000/login";
 }

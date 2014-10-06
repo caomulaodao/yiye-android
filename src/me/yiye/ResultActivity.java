@@ -28,7 +28,6 @@ public class ResultActivity extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.view_result);
-		getSupportActionBar().setLogo(R.drawable.yiye_logo);
 		
 		resultListView = (ListView) this.findViewById(R.id.listview_result);
 		HashMap<String,Object> map = new HashMap<String,Object>();

@@ -9,6 +9,8 @@ import me.yiye.contents.BookMark;
 import me.yiye.contents.Channel;
 import me.yiye.contents.ChannelSet;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EncodingUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,6 +20,7 @@ import android.content.Context;
 
 public class YiyeApiTestImp implements YiyeApi{
 
+	
 	private final static String TAG = "YiyeApiTestImp";
 	
 	List<Channel> channels = new ArrayList<Channel>();
@@ -136,4 +139,10 @@ public class YiyeApiTestImp implements YiyeApi{
 		}
 	}
 
+	public void login(String email,String keyword) {
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("email", email));
+		params.add(new BasicNameValuePair("keyword", keyword));
+		NetworkUtil.post(YiyeApi.LOGIN,params);
+	}
 }

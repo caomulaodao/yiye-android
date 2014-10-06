@@ -56,7 +56,6 @@ public class LabelsActivity extends SherlockActivity{
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.view_labels);
 		this.setTitle(topic.getTitle());
-		getSupportActionBar().setLogo(R.drawable.yiye_logo);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		initLabels();

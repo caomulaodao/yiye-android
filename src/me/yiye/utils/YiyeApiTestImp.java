@@ -139,10 +139,10 @@ public class YiyeApiTestImp implements YiyeApi{
 		}
 	}
 
-	public void login(String email,String keyword) {
+	public void login(Context context,String email,String keyword) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("email", email));
 		params.add(new BasicNameValuePair("keyword", keyword));
-		NetworkUtil.post(YiyeApi.LOGIN,params);
+		NetworkUtil.post(context,YiyeApi.LOGIN,params);
 	}
 }

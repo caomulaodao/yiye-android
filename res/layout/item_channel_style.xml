@@ -28,7 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textview_channel_item_title"
         android:layout_toRightOf="@id/imageview_channel_item"
-        android:text="iphone android google 一页"
-        android:textSize="12sp" />
+        android:text="iphone android google 一页  两页 三页 四页 五页 六页 七页"
+        android:textSize="12sp"
+        android:ellipsize="end"
+        android:maxLines="1" />
 
 </RelativeLayout>

@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.handmark.pulltorefresh.library.PullToRefreshPinnedSectionListView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/listview_channel_bookmarks"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:divider="@drawable/divider_style"
-    android:dividerHeight="1dp"/>
+    android:orientation="vertical" >
+
+   <com.handmark.pulltorefresh.library.PullToRefreshPinnedSectionListView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/listview_channel_bookmarks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@drawable/divider_style"
+        android:dividerHeight="1dp"
+        android:footerDividersEnabled="true" >
+
+    </com.handmark.pulltorefresh.library.PullToRefreshPinnedSectionListView>
+
+</LinearLayout>

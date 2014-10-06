@@ -59,8 +59,8 @@
         android:id="@+id/progressbar_web"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
-        android:layout_height="8dip"
-        android:layout_marginTop="-2dp"
+        android:layout_height="10dip"
+        android:layout_marginTop="-4dp"
         android:indeterminateOnly="false"
         android:max="100" />
 

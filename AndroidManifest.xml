@@ -19,7 +19,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|screenLayout"
-            android:theme="@style/CustomActivityTheme" >
+            android:theme="@style/HomeActivityTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,7 +54,8 @@
         <activity
             android:name=".LoginManagerActivity"
             android:launchMode="singleTask"
-            android:theme="@style/CustomActivityTheme" >
+            android:theme="@style/CustomActivityTheme"
+            android:windowSoftInputMode="stateAlwaysVisible" >
         </activity>
     </application>
 

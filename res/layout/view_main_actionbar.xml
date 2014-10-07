@@ -14,7 +14,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="left|center_vertical"
-            android:layout_marginLeft="10dp"
+            android:background="@drawable/actionbar_btn_style"
+            android:paddingLeft="10dp"
             android:src="@drawable/home_slide_normal" />
 
         <ImageView
@@ -23,10 +24,10 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:background="@drawable/actionbar_btn_style"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:src="@drawable/find" />
-
     </RelativeLayout>
 
     <TextView

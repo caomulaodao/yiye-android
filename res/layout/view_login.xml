@@ -59,7 +59,7 @@
         android:layout_marginLeft="7dp"
         android:layout_marginRight="7dp"
         android:layout_marginTop="9dp"
-        android:background="@drawable/loginbtn_style"
+        android:background="@drawable/btn_style"
         android:enabled="false"
         android:text="登录"
         android:textColor="@color/PUERWHITE" 

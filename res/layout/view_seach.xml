@@ -24,7 +24,10 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/edittext_search_keyword"
             android:layout_toRightOf="@id/edittext_search_keyword"
-            android:text="搜索" />
+            android:text="搜索" 
+            android:textSize="18sp"
+            android:textColor="@color/PUERWHITE"
+            android:background="@drawable/btn_style"/>
     </RelativeLayout>
 
     <View

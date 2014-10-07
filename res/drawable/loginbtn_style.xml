@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/loginbtn_pressed_style" android:state_pressed="true"/>
-    <item android:drawable="@drawable/loginbtn_pressed_style" android:state_selected="true"/>
-    <item android:drawable="@drawable/loginbtn_pressed_style" android:state_focused="true"/>
-    <item android:drawable="@drawable/loginbtn_disable_style" android:state_enabled="false"/>
-</selector>

@@ -22,10 +22,10 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar.LayoutParams;
-import com.actionbarsherlock.view.MenuItem;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.makeramen.RoundedImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -40,7 +40,7 @@ public class MainActivity extends SlidingFragmentActivity {
 			.cacheInMemory(true)
 			.cacheOnDisk(true)
 			.considerExifParams(true)
-			// .displayer(new RoundedBitmapDisplayer(20))
+			// .displayer(new RoundedBitmapDisplayer(10))
 			.build();
 	}
 	
@@ -128,7 +128,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		public View getView(int pos, View convertView, ViewGroup parent) {
 
 			View v;
-			ImageView imageView;
+			RoundedImageView imageView;
 			TextView textView;
 			Channel c = channels.get(pos);
 			if (convertView == null) {
@@ -139,9 +139,9 @@ public class MainActivity extends SlidingFragmentActivity {
 				v = convertView;
 			}
 			
-			imageView = (ImageView) v.findViewById(R.id.imageview_main_above_item_background);
+			imageView = (RoundedImageView) v.findViewById(R.id.imageview_main_above_item_background);
 			imageView.setAdjustViewBounds(false);
-			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+			imageView.setCornerRadius(10.0f);
 			ImageLoader.getInstance().displayImage(c.getImgurl(), imageView,imageoptions);
 			
 			textView = (TextView) v.findViewById(R.id.textview_over_item_notice);

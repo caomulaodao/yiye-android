@@ -2,20 +2,21 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="4dp">
+    android:padding="4dp" >
 
-    <ImageView
+    <com.makeramen.RoundedImageView
         android:id="@+id/imageview_main_above_item_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:scaleType="centerCrop"
         android:src="@drawable/balidao" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_gravity="bottom|center_horizontal"
-        android:background="@color/PUERWHITE"/>
+        android:background="@drawable/girditem_bottom_style" />
 
     <TextView
         android:id="@+id/textview_over_item_notice"

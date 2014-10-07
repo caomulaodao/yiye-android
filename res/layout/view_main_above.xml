@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/E3GRAY" >
+    android:background="@color/Grey800" >
 
     <com.handmark.pulltorefresh.library.PullToRefreshGridView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"

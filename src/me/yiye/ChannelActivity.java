@@ -55,7 +55,7 @@ public class ChannelActivity extends BaseActivity {
 		bookMarkListView = tmpview.getRefreshableView();
 		bookMarkListView.setAdapter(ca);
 		ca.notifyDataSetChanged();
-
+		bookMarkListView.setBackgroundColor(getResources().getColor(R.color.Grey300));
 		bookMarkListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

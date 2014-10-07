@@ -16,6 +16,7 @@
             android:layout_gravity="left|center_vertical"
             android:background="@drawable/actionbar_btn_style"
             android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:src="@drawable/home_slide_normal" />
 
         <ImageView

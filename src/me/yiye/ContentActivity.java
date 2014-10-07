@@ -2,6 +2,7 @@ package me.yiye;
 
 import me.yiye.contents.BookMark;
 import me.yiye.utils.MLog;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,14 +14,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.app.ActionBar.LayoutParams;
-import com.actionbarsherlock.view.MenuItem;
 
 public class ContentActivity extends BaseActivity {
 	private final static String TAG = "ContentActivity";
@@ -39,6 +34,7 @@ public class ContentActivity extends BaseActivity {
 		initBottomActionBar();
 	}
 	
+	@SuppressLint("SetJavaScriptEnabled")
 	private void initWebView() {
 		
 		loaddingProgressBar = (ProgressBar) this.findViewById(R.id.progressbar_web);  

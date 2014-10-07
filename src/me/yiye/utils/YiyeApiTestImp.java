@@ -21,8 +21,9 @@ import android.content.Context;
 public class YiyeApiTestImp implements YiyeApi{
 
 	
-	private final static String TAG = "YiyeApiTestImp";
-	
+	// private final static String TAG = "YiyeApiTestImp";
+	private final static String TAG = null;
+	private Context context;
 	List<Channel> channels = new ArrayList<Channel>();
 	List<ChannelSet> channelsets = new ArrayList<ChannelSet>();
 	List<BookMark> technologyChannel = new ArrayList<BookMark>();
@@ -30,6 +31,8 @@ public class YiyeApiTestImp implements YiyeApi{
 	List<BookMark> youknowChannel = new ArrayList<BookMark>();
 	
 	public YiyeApiTestImp(Context context) {
+		
+		this.context = context;
 		addBookMarkToChannel(context,entertainmentChannel,R.raw.entertainment);
 		addBookMarkToChannel(context, technologyChannel, R.raw.technology);
 		addBookMarkToChannel(context, youknowChannel, R.raw.youknow);
@@ -139,10 +142,14 @@ public class YiyeApiTestImp implements YiyeApi{
 		}
 	}
 
-	public void login(Context context,String email,String keyword) {
+	public String login(String email,String keyword) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("email", email));
-		params.add(new BasicNameValuePair("keyword", keyword));
-		NetworkUtil.post(context,YiyeApi.LOGIN,params);
+		params.add(new BasicNameValuePair("password", keyword));
+		return NetworkUtil.post(context,YiyeApi.LOGIN,params);
+	}
+	
+	public String getUserInfo() {
+		return NetworkUtil.get(context, YiyeApi.HOST, YiyeApi.ME);
 	}
 }

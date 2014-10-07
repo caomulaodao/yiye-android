@@ -8,6 +8,7 @@ import me.yiye.contents.Channel;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiTestImp;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -212,5 +213,11 @@ public class MainActivity extends SlidingFragmentActivity {
 				LoginManagerActivity.launch(MainActivity.this);
 			}
 		});
+	}
+
+	public static void launch(Context context) {
+		Intent i = new Intent();
+		i.setClass(context,MainActivity.class);
+		context.startActivity(i);
 	}
 }

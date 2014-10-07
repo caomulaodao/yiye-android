@@ -1,20 +1,26 @@
 package me.yiye;
 
+import me.yiye.utils.MLog;
+import me.yiye.utils.YiyeApi;
+import me.yiye.utils.YiyeApiTestImp;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
 public class LoginManagerActivity extends BaseActivity {
 
+	private final static String TAG = "LoginManagerActivity";
 	private Button login;
 	private EditText username;
 	private EditText password;
 
-	private int maxLen = 10;
 	private boolean userflag = false;
 	private boolean passwordflag = false;
 
@@ -76,6 +82,40 @@ public class LoginManagerActivity extends BaseActivity {
 				}
 			}
 		});
+
+		login.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				new AsyncTask<Void, Void, String>() {
+					private YiyeApi api;
+					private String usernameString;
+					private String passwordString;
+
+					@Override
+					protected void onPreExecute() {
+						api = new YiyeApiTestImp(LoginManagerActivity.this);
+						usernameString = username.getText().toString();
+						passwordString = password.getText().toString();
+					}
+
+					@Override
+					protected String doInBackground(Void... v) {
+						MLog.d(TAG, "onClick### user " + usernameString + "password " + passwordString);
+						String ret = api.login(usernameString, passwordString);
+						MLog.d(TAG, "onClick### login ret:" + ret);
+						ret = api.getUserInfo();
+						MLog.d(TAG, "onClick### getuserinfo ret:" + ret);
+						return ret;
+					}
+
+					@Override
+					protected void onPostExecute(String result) {
+						MainActivity.launch(LoginManagerActivity.this);
+					}
+				}.execute();
+			}
+		});
 	}
 
 	public static void launch(Context context) {
@@ -83,4 +123,5 @@ public class LoginManagerActivity extends BaseActivity {
 		i.setClass(context, LoginManagerActivity.class);
 		context.startActivity(i);
 	}
+
 }

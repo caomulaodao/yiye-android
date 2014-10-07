@@ -13,4 +13,9 @@ public interface YiyeApi {
 	public List<BookMark> getBookMarksByChannel(Channel channel);
 	
 	public final static String LOGIN = "http://192.168.199.105:3000/login";
+	public final static String HOST = "http://192.168.199.105:3000/";
+	public final static String ME = "users/me";
+	
+	public String login(String email,String keyword);
+	public String getUserInfo();
 }

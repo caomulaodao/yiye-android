@@ -15,12 +15,13 @@
 
         <ImageView
             android:id="@+id/imageview_bookmark_item"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
             android:layout_margin="10dp"
-            android:scaleType="centerInside"
+            android:maxHeight="20dp"
+            android:maxWidth="70dp"
             android:src="@drawable/ic_launcher" />
 
         <TextView
@@ -30,9 +31,10 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/textview_bookmark_item_title"
             android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@+id/imageview_bookmark_item"
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
-            android:text="iphone android google 一页"
+            android:text="iphone android google 一叶 两叶 三叶 四叶 五叶 六叶 七叶 八叶"
             android:textSize="12sp" />
 
         <TextView
@@ -41,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textview_bookmark_item_content"
             android:layout_alignTop="@+id/imageview_bookmark_item"
+            android:layout_toLeftOf="@+id/imageview_bookmark_item"
             android:text="科技"
             android:textSize="22sp" />
     </RelativeLayout>

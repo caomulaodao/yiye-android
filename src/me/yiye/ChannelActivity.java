@@ -25,7 +25,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 public class ChannelActivity extends BaseActivity {
 
@@ -41,9 +41,8 @@ public class ChannelActivity extends BaseActivity {
 		.cacheInMemory(true)
 		.cacheOnDisk(true)
 		.considerExifParams(true)
-		// .displayer(new RoundedBitmapDisplayer(10))
-		// .displayer(new BitmapDisplayer(10)).
-		.imageScaleType(ImageScaleType.EXACTLY)
+		.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+		.displayer(new FadeInBitmapDisplayer(1000))
 		.build();
 	}
 

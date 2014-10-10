@@ -18,11 +18,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.handmark.pulltorefresh.library.PullToRefreshPinnedSectionListView;
-import com.hb.views.PinnedSectionListView;
-import com.hb.views.PinnedSectionListView.PinnedSectionListAdapter;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -30,7 +29,7 @@ public class ChannelActivity extends BaseActivity {
 
 	private static DisplayImageOptions imageoptions;
 	private static Channel channel;
-	private PinnedSectionListView bookMarkListView;
+	private ListView bookMarkListView;
 
 	static {
 		imageoptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.img_loading)
@@ -50,7 +49,7 @@ public class ChannelActivity extends BaseActivity {
 
 		final ChannelAdapter ca = new ChannelAdapter(this, api.getBookMarksByChannel(channel));
 
-		PullToRefreshPinnedSectionListView tmpview = (PullToRefreshPinnedSectionListView) this
+		PullToRefreshListView tmpview = (PullToRefreshListView) this
 				.findViewById(R.id.listview_channel_bookmarks);
 		bookMarkListView = tmpview.getRefreshableView();
 		bookMarkListView.setAdapter(ca);
@@ -91,7 +90,7 @@ public class ChannelActivity extends BaseActivity {
 		}
 	}
 
-	private class ChannelAdapter extends BaseAdapter implements PinnedSectionListAdapter {
+	private class ChannelAdapter extends BaseAdapter {
 
 		private List<Item> itemList = new ArrayList<Item>();
 		private Context context;
@@ -170,10 +169,6 @@ public class ChannelActivity extends BaseActivity {
 			return 2;
 		}
 
-		@Override
-		public boolean isItemViewTypePinned(int viewType) {
-			return viewType == Item.SECTION;
-		}
 
 		@Override
 		public long getItemId(int id) {

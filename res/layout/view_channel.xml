@@ -5,15 +5,14 @@
     android:orientation="vertical" 
     android:background="@color/Grey800">
 
-   <com.handmark.pulltorefresh.library.PullToRefreshPinnedSectionListView
+   <com.handmark.pulltorefresh.library.PullToRefreshListView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/listview_channel_bookmarks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@drawable/divider_style"
-        android:dividerHeight="1dp"
+        android:divider="@null"
         android:footerDividersEnabled="true" >
 
-    </com.handmark.pulltorefresh.library.PullToRefreshPinnedSectionListView>
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
 
 </LinearLayout>

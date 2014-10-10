@@ -1,34 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/listitem_style" >
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp" >
 
-    <me.yiye.customwidget.CircularImage
-        android:id="@+id/imageview_bookmark_item"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerVertical="true"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_launcher" />
-    />
-
-    <TextView
-        android:id="@+id/textview_bookmark_item_title"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/imageview_bookmark_item"
-        android:text="科技"
-        android:textSize="22sp" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bookmarklistitem_style" >
 
-    <TextView
-        android:id="@+id/textview_bookmark_item_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textview_bookmark_item_title"
-        android:layout_toRightOf="@id/imageview_bookmark_item"
-        android:text="iphone android google 一页"
-        android:textSize="12sp" />
+        <ImageView
+            android:id="@+id/imageview_bookmark_item"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_launcher" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/textview_bookmark_item_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textview_bookmark_item_title"
+            android:layout_marginLeft="10dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:text="iphone android google 一页"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textview_bookmark_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textview_bookmark_item_content"
+            android:layout_alignTop="@+id/imageview_bookmark_item"
+            android:text="科技"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+</LinearLayout>

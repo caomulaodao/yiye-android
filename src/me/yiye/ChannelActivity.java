@@ -24,6 +24,8 @@ import android.widget.TextView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
 
 public class ChannelActivity extends BaseActivity {
 
@@ -32,11 +34,17 @@ public class ChannelActivity extends BaseActivity {
 	private ListView bookMarkListView;
 
 	static {
-		imageoptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.img_loading)
-				.showImageForEmptyUri(R.drawable.img_empty).showImageOnFail(R.drawable.img_failed).cacheInMemory(true)
-				.cacheOnDisk(true).considerExifParams(true)
-				// .displayer(new RoundedBitmapDisplayer(10))
-				.build();
+		imageoptions = new DisplayImageOptions.Builder()
+		.showImageOnLoading(R.drawable.img_loading)
+		.showImageForEmptyUri(R.drawable.img_empty)
+		.showImageOnFail(R.drawable.img_failed)
+		.cacheInMemory(true)
+		.cacheOnDisk(true)
+		.considerExifParams(true)
+		// .displayer(new RoundedBitmapDisplayer(10))
+		// .displayer(new BitmapDisplayer(10)).
+		.imageScaleType(ImageScaleType.EXACTLY)
+		.build();
 	}
 
 	@Override

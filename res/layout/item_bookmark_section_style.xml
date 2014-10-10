@@ -10,5 +10,5 @@
         android:paddingTop="2dp"
         android:paddingBottom="2dp"
         android:textSize="14sp"
-        android:background="#e3e3e3"/>
+        android:background="@color/Grey300"/>
 </LinearLayout>

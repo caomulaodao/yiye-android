@@ -1,6 +1,7 @@
 package me.yiye;
 
 import me.yiye.contents.BookMark;
+import me.yiye.customwidget.PopupCommentaryActivity;
 import me.yiye.customwidget.SmoothProgressBar;
 import me.yiye.utils.MLog;
 import android.annotation.SuppressLint;
@@ -85,7 +86,8 @@ public class ContentActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(ContentActivity.this, "评论", Toast.LENGTH_LONG).show();
+				// Toast.makeText(ContentActivity.this, "评论", Toast.LENGTH_LONG).show();
+				PopupCommentaryActivity.lauch(ContentActivity.this);
 			}
 		});
 		favour.setOnClickListener(new OnClickListener() {

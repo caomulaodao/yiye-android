@@ -57,6 +57,11 @@
             android:theme="@style/CustomActivityTheme"
             android:windowSoftInputMode="stateAlwaysVisible" >
         </activity>
+        <activity
+            android:name=".customwidget.PopupCommentaryActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/DialogStyle" >
+        </activity>
     </application>
 
 </manifest>

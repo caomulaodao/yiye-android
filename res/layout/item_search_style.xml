@@ -28,6 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textview_search_item_title"
         android:layout_toRightOf="@id/imageview_search_item"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:text="iphone android google 一页"
         android:textSize="12sp" />
 

@@ -142,7 +142,7 @@ public class MainActivity extends SlidingFragmentActivity {
 			
 			imageView = (RoundedImageView) v.findViewById(R.id.imageview_main_above_item_background);
 			imageView.setAdjustViewBounds(false);
-			imageView.setCornerRadius(10.0f);
+			imageView.setCornerRadius(4.0f);
 			ImageLoader.getInstance().displayImage(c.getImgurl(), imageView,imageoptions);
 			
 			textView = (TextView) v.findViewById(R.id.textview_over_item_notice);

@@ -8,9 +8,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -23,13 +27,15 @@ public class ContentActivity extends BaseActivity {
 	private static BookMark bookmark;
 	private WebView mainWebView;
 	private SmoothProgressBar loaddingProgressBar;
-
+	private GestureDetector webviewGestureDetector;
+	private View buttomBarView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.view_content);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+		
+		buttomBarView = findViewById(R.id.view_content_bottom_bar);
 		initActionbar(bookmark.getTitle());
 		initWebView();
 		initBottomActionBar();
@@ -38,6 +44,25 @@ public class ContentActivity extends BaseActivity {
 	@SuppressLint("SetJavaScriptEnabled")
 	private void initWebView() {
 
+		webviewGestureDetector = new GestureDetector(this,new SimpleOnGestureListener() {
+
+			@Override
+			public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+				
+				int verticalMinDistance = 30;
+				int minVelocity = 10;
+				if((e1.getY() - e2.getY() > verticalMinDistance && Math.abs(velocityY) > minVelocity)) {
+					getSupportActionBar().hide();
+					buttomBarView.setVisibility(View.GONE);
+				} else {
+					getSupportActionBar().show();
+					buttomBarView.setVisibility(View.VISIBLE);
+				}
+				return super.onFling(e1, e2, velocityX, velocityY);
+			}
+			
+		});
+		
 		loaddingProgressBar = (SmoothProgressBar) this.findViewById(R.id.progressbar_web);
 		loaddingProgressBar.setMax(100);
 		mainWebView = (WebView) this.findViewById(R.id.webview_content_data);
@@ -50,7 +75,9 @@ public class ContentActivity extends BaseActivity {
 		webSettings.setJavaScriptEnabled(true);
 		webSettings.setUseWideViewPort(true);
 		webSettings.setDisplayZoomControls(false);
-
+		// 去除滚动条
+		mainWebView.setHorizontalScrollBarEnabled(false);
+		mainWebView.setVerticalScrollBarEnabled(false);
 		// 设置加载进度条
 		mainWebView.setWebChromeClient(new WebChromeClient() {
 			@Override
@@ -76,6 +103,13 @@ public class ContentActivity extends BaseActivity {
 		});
 
 		mainWebView.loadUrl(bookmark.getUrl());
+		mainWebView.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent me) {
+				return webviewGestureDetector.onTouchEvent(me);
+			}
+		});
 	}
 
 	private void initBottomActionBar() {

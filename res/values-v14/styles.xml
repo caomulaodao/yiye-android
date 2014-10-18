@@ -9,7 +9,7 @@
     <style name="CustomActivityTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/my_actionbar_style</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:homeAsUpIndicator">@drawable/ic_title_up</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_action_back</item>
     </style>
 
     <style name="HomeActivityTheme" parent="@CustomActivityTheme">

@@ -11,6 +11,8 @@ import me.yiye.utils.YiyeApiTestImp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -111,6 +113,16 @@ public class SearchActivity extends BaseActivity {
 	}
 
 	private void initSearch() {
+		
+		final Button search = (Button) this.findViewById(R.id.btn_search);
+		search.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				doSearch();
+			}
+		});
+		
 		searchEditText = (EditText) this.findViewById(R.id.edittext_search_keyword);
 		searchEditText.setOnKeyListener(new OnKeyListener() {
 
@@ -122,15 +134,30 @@ public class SearchActivity extends BaseActivity {
 				return false;
 			}
 		});
-		
-		Button search = (Button) this.findViewById(R.id.btn_search);
-		search.setOnClickListener(new OnClickListener() {
+		searchEditText.addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void onClick(View v) {
-				doSearch();
+			public void afterTextChanged(Editable arg0) {
+
 			}
+
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+				Editable editable = searchEditText.getText();
+				if(editable.length() >  0) {
+					search.setVisibility(View.VISIBLE);
+				} else {
+					search.setVisibility(View.GONE);
+				}
+			}
+
 		});
+
 	}
 
 	private void doSearch() {

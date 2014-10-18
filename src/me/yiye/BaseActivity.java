@@ -17,7 +17,7 @@ class BaseActivity  extends SherlockActivity {
 	   ((TextView) barview.findViewById(R.id.textview_actionbar_title)).setText(title);
 		barview.findViewById(R.id.imageview_actionbar_btn).setVisibility(View.GONE);
 		ImageView navicon = (ImageView)barview.findViewById(R.id.imageview_actionbar_navicon);
-		navicon.setImageResource(R.drawable.ic_title_up);
+		navicon.setImageResource(R.drawable.ic_action_back);
 		navicon.setOnClickListener(new OnClickListener() {
 			
 			@Override

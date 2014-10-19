@@ -22,73 +22,51 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 public class ChannelActivity extends BaseActivity {
 
-	private static DisplayImageOptions imageoptions;
 	private static Channel channel;
+	
 	private ListView bookMarkListView;
-
-	static {
-		imageoptions = new DisplayImageOptions.Builder()
-		.showImageOnLoading(R.drawable.img_loading)
-		.showImageForEmptyUri(R.drawable.img_empty)
-		.showImageOnFail(R.drawable.img_failed)
-		.cacheInMemory(true)
-		.cacheOnDisk(true)
-		.considerExifParams(true)
-		.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		.displayer(new FadeInBitmapDisplayer(1000))
-		.build();
-	}
+	private ChannelAdapter bookMarkListViewAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.view_channel);
+		this.setContentView(R.layout.activity_channel);
 		initActionbar(channel.getTitle());
+		initChannelListView();
+	}
 
+	private void initChannelListView() {
 		YiyeApi api = new YiyeApiTestImp(this);
-
-		final ChannelAdapter ca = new ChannelAdapter(this, api.getBookMarksByChannel(channel));
-
-		PullToRefreshListView tmpview = (PullToRefreshListView) this
-				.findViewById(R.id.listview_channel_bookmarks);
+		
+		PullToRefreshListView tmpview = (PullToRefreshListView) this.findViewById(R.id.listview_channel_bookmarks);
 		bookMarkListView = tmpview.getRefreshableView();
-		bookMarkListView.setAdapter(ca);
-		ca.notifyDataSetChanged();
 		bookMarkListView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
+		
+		bookMarkListViewAdapter = new ChannelAdapter(this, api.getBookMarksByChannel(channel));
+		bookMarkListView.setAdapter(bookMarkListViewAdapter);
+		bookMarkListViewAdapter.notifyDataSetChanged();
+
 		bookMarkListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
-				Item it = ca.getItem(pos - 1);
+				Item it = bookMarkListViewAdapter.getItem(pos - 1);
 				if (it.type == Item.ITEM) {
-					ContentActivity.launch(ChannelActivity.this, it.getBookmark());
+					BookMarkActivity.launch(ChannelActivity.this, it.getBookmark());
 				}
 			}
 		});
-
-		View v = View.inflate(this, R.layout.item_commom_divider_style, null);
-		bookMarkListView.addFooterView(v);
+	
+		// 添加列表最下一项的分割线
+		// View v = View.inflate(this, R.layout.item_commom_divider_style, null);
+		// bookMarkListView.addFooterView(v);
 	}
 
-	private static void launch(Context context) {
-		Intent i = new Intent();
-		i.setClass(context, ChannelActivity.class);
-		context.startActivity(i);
-	}
-
-	public static void launch(Context context, Channel channel) {
-		ChannelActivity.channel = channel;
-		launch(context);
-	}
-
-	// 按时间排序
+	// 按时间排序书签
 	public class ComparatorBookMark implements Comparator<BookMark> {
 
 		@Override
@@ -105,7 +83,7 @@ public class ChannelActivity extends BaseActivity {
 		public ChannelAdapter(Context context, List<BookMark> bookMarkList) {
 			this.context = context;
 
-			// 排序并实现数据按时间分section
+			// 排序并实现数据按时间分段
 			String currentDate = null;
 			Collections.sort(bookMarkList, new ComparatorBookMark());
 			for (BookMark bm : bookMarkList) {
@@ -160,7 +138,7 @@ public class ChannelActivity extends BaseActivity {
 				imageView = (ImageView) v.findViewById(R.id.imageview_bookmark_item);
 				imageView.setAdjustViewBounds(false);
 				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				ImageLoader.getInstance().displayImage(c.getBookmark().getImgUrl(), imageView, imageoptions);
+				ImageLoader.getInstance().displayImage(c.getBookmark().getImgUrl(), imageView, YiyeApplication.imageoptions);
 
 				textView = (TextView) v.findViewById(R.id.textview_bookmark_item_title);
 				textView.setText(c.getBookmark().getTitle());
@@ -204,4 +182,14 @@ public class ChannelActivity extends BaseActivity {
 		}
 	}
 
+	private static void launch(Context context) {
+		Intent i = new Intent();
+		i.setClass(context, ChannelActivity.class);
+		context.startActivity(i);
+	}
+
+	public static void launch(Context context, Channel channel) {
+		ChannelActivity.channel = channel;
+		launch(context);
+	}
 }

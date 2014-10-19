@@ -15,75 +15,65 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class LoginManagerActivity extends BaseActivity {
-
 	private final static String TAG = "LoginManagerActivity";
-	private Button login;
-	private EditText username;
-	private EditText password;
+	private Button loginBtn;
+	private EditText usernameEditText;
+	private EditText passwordEditText;
 
-	private boolean userflag = false;
+	// 判断username与password是否有输入，若都有启用登陆按钮，否则禁用登陆按钮
+	private boolean usernameflag = false;
 	private boolean passwordflag = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.view_login);
+		this.setContentView(R.layout.activity_login);
 		initActionbar("登陆");
 
-		login = (Button) this.findViewById(R.id.btn_login);
-		username = (EditText) this.findViewById(R.id.edittext_login_username);
-		password = (EditText) this.findViewById(R.id.edittext_login_password);
+		loginBtn = (Button) this.findViewById(R.id.btn_login);
+		usernameEditText = (EditText) this.findViewById(R.id.edittext_login_username);
+		passwordEditText = (EditText) this.findViewById(R.id.edittext_login_password);
 
-		password.addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void afterTextChanged(Editable arg0) {
-				// TODO Auto-generated method stub
-
-			}
+		passwordEditText.addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-				// TODO Auto-generated method stub
+			public void afterTextChanged(Editable arg0) {}
 
-			}
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {}
 
 			@Override
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-				Editable editable = password.getText();
+				Editable editable = passwordEditText.getText();
 				passwordflag = editable.length() == 0 ? false : true;
-				if (userflag && passwordflag) {
-					login.setEnabled(true);
+				if (usernameflag && passwordflag) {
+					loginBtn.setEnabled(true);
 				} else {
-					login.setEnabled(false);
+					loginBtn.setEnabled(false);
 				}
 			}
 
 		});
-
-		username.addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void afterTextChanged(Editable s) {
-			}
+		usernameEditText.addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-			}
+			public void afterTextChanged(Editable s) {}
+
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {}
 
 			@Override
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-				Editable editable = username.getText();
-				userflag = editable.length() == 0 ? false : true;
-				if (userflag && passwordflag) {
-					login.setEnabled(true);
+				Editable editable = usernameEditText.getText();
+				usernameflag = editable.length() == 0 ? false : true;
+				if (usernameflag && passwordflag) {
+					loginBtn.setEnabled(true);
 				} else {
-					login.setEnabled(false);
+					loginBtn.setEnabled(false);
 				}
 			}
 		});
-
-		login.setOnClickListener(new OnClickListener() {
+		loginBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -95,8 +85,8 @@ public class LoginManagerActivity extends BaseActivity {
 					@Override
 					protected void onPreExecute() {
 						api = new YiyeApiTestImp(LoginManagerActivity.this);
-						usernameString = username.getText().toString();
-						passwordString = password.getText().toString();
+						usernameString = usernameEditText.getText().toString();
+						passwordString = passwordEditText.getText().toString();
 					}
 
 					@Override

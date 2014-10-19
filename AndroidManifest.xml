@@ -32,7 +32,7 @@
             android:theme="@style/CustomActivityTheme" >
         </activity>
         <activity
-            android:name=".LabelsActivity"
+            android:name=".ChannelsByLabelActivity"
             android:launchMode="singleTask"
             android:theme="@style/CustomActivityTheme" >
         </activity>
@@ -42,7 +42,7 @@
             android:theme="@style/CustomActivityTheme" >
         </activity>
         <activity
-            android:name=".ContentActivity"
+            android:name=".BookMarkActivity"
             android:launchMode="singleTask"
             android:theme="@style/CustomActivityTheme" >
         </activity>

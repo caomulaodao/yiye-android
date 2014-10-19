@@ -22,50 +22,28 @@ import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class ContentActivity extends BaseActivity {
+public class BookMarkActivity extends BaseActivity {
 	private final static String TAG = "ContentActivity";
 	private static BookMark bookmark;
+	
 	private WebView mainWebView;
-	private SmoothProgressBar loaddingProgressBar;
-	private GestureDetector webviewGestureDetector;
-	private View buttomBarView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.view_content);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
-		buttomBarView = findViewById(R.id.view_content_bottom_bar);
+		this.setContentView(R.layout.activity_bookmark);
 		initActionbar(bookmark.getTitle());
 		initWebView();
 		initBottomActionBar();
+		initGlobalAction();
 	}
-
+	
 	@SuppressLint("SetJavaScriptEnabled")
 	private void initWebView() {
-
-		webviewGestureDetector = new GestureDetector(this,new SimpleOnGestureListener() {
-
-			@Override
-			public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-				
-				int verticalMinDistance = 30;
-				int minVelocity = 10;
-				if((e1.getY() - e2.getY() > verticalMinDistance && Math.abs(velocityY) > minVelocity)) {
-					getSupportActionBar().hide();
-					buttomBarView.setVisibility(View.GONE);
-				} else {
-					getSupportActionBar().show();
-					buttomBarView.setVisibility(View.VISIBLE);
-				}
-				return super.onFling(e1, e2, velocityX, velocityY);
-			}
-			
-		});
-		
-		loaddingProgressBar = (SmoothProgressBar) this.findViewById(R.id.progressbar_web);
+		final SmoothProgressBar loaddingProgressBar = (SmoothProgressBar) this.findViewById(R.id.progressbar_web);
 		loaddingProgressBar.setMax(100);
-		mainWebView = (WebView) this.findViewById(R.id.webview_content_data);
+		
+		mainWebView = (WebView) this.findViewById(R.id.webview_bookmark_data);
 
 		WebSettings webSettings = mainWebView.getSettings();
 		// 设置出现缩放工具
@@ -103,42 +81,63 @@ public class ContentActivity extends BaseActivity {
 		});
 
 		mainWebView.loadUrl(bookmark.getUrl());
-		mainWebView.setOnTouchListener(new OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View v, MotionEvent me) {
-				return webviewGestureDetector.onTouchEvent(me);
-			}
-		});
 	}
 
 	private void initBottomActionBar() {
-		ImageButton commentary = (ImageButton) this.findViewById(R.id.imagebutton_content_commentary);
-		ImageButton favour = (ImageButton) this.findViewById(R.id.imagebutton_content_favour);
-		ImageButton praise = (ImageButton) this.findViewById(R.id.imagebutton_content_praise);
+		ImageButton commentary = (ImageButton) this.findViewById(R.id.imagebutton_bookmark_commentary);
+		ImageButton favour = (ImageButton) this.findViewById(R.id.imagebutton_bookmark_favour);
+		ImageButton praise = (ImageButton) this.findViewById(R.id.imagebutton_bookmark_praise);
 		commentary.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// Toast.makeText(ContentActivity.this, "评论", Toast.LENGTH_LONG).show();
-				PopupCommentaryActivity.lauch(ContentActivity.this);
+				PopupCommentaryActivity.lauch(BookMarkActivity.this);
 			}
 		});
 		favour.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(ContentActivity.this, "收藏", Toast.LENGTH_LONG).show();
+				Toast.makeText(BookMarkActivity.this, "收藏", Toast.LENGTH_LONG).show();
 			}
 		});
 		praise.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				Toast.makeText(ContentActivity.this, "赞", Toast.LENGTH_LONG).show();
+				Toast.makeText(BookMarkActivity.this, "赞", Toast.LENGTH_LONG).show();
 			}
 		});
 	}
 
+	// 下滑标题栏跟点赞栏消失
+	private void initGlobalAction() {
+		final View buttomBarView = findViewById(R.id.view_bookmark_bottom_bar);
+		final GestureDetector webviewGestureDetector = new GestureDetector(this,new SimpleOnGestureListener() {
+
+			@Override
+			public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+				int verticalMinDistance = 30;
+				int minVelocity = 10;
+				if ((e1.getY() - e2.getY() > verticalMinDistance && Math.abs(velocityY) > minVelocity)) {
+					getSupportActionBar().hide();
+					buttomBarView.setVisibility(View.GONE);
+				} else {
+					getSupportActionBar().show();
+					buttomBarView.setVisibility(View.VISIBLE);
+				}
+				return super.onFling(e1, e2, velocityX, velocityY);
+			}
+
+		});
+		mainWebView.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent me) {
+				return webviewGestureDetector.onTouchEvent(me);
+			}
+		});
+	}
+	
 	// 支持网页回退
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK) && mainWebView.canGoBack()) {
@@ -151,19 +150,18 @@ public class ContentActivity extends BaseActivity {
 	/**
 	 * TODO 支持左右滑动回退
 	 */
-
 	public static void launch(Context context, BookMark bookmark) {
 		if (bookmark == null) {
 			MLog.e(TAG, "launch### bookmark is null");
 			return;
 		}
-		ContentActivity.bookmark = bookmark;
+		BookMarkActivity.bookmark = bookmark;
 		launch(context);
 	}
 
 	private static void launch(Context context) {
 		Intent i = new Intent();
-		i.setClass(context, ContentActivity.class);
+		i.setClass(context, BookMarkActivity.class);
 		context.startActivity(i);
 	}
 }

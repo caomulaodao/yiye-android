@@ -26,7 +26,7 @@ public class ResultActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.view_result);
+		this.setContentView(R.layout.activity_result);
 		initActionbar("关于\"" + title + "\"的频道");
 		
 		resultListView = (ListView) this.findViewById(R.id.listview_result);

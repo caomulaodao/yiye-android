@@ -26,9 +26,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class SearchActivity extends BaseActivity {
@@ -38,24 +36,10 @@ public class SearchActivity extends BaseActivity {
 	private List<HashMap<String,String>> channelSetsList = new ArrayList<HashMap<String,String>>();
 	private SimpleAdapter channelSetsListAdapter;
 	
-	private static DisplayImageOptions imageoptions;
-	
-	static {
-		imageoptions = new DisplayImageOptions.Builder()
-			.showImageOnLoading(R.drawable.img_loading)
-			.showImageForEmptyUri(R.drawable.img_empty)
-			.showImageOnFail(R.drawable.img_failed)
-			.cacheInMemory(true)
-			.cacheOnDisk(true)
-			.considerExifParams(true)
-			// .displayer(new RoundedBitmapDisplayer(20))
-			.build();
-	}
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.view_seach);
+		this.setContentView(R.layout.activity_seach);
 		initActionbar("发现");
 		initChannelSets();
 		initSearch();
@@ -90,7 +74,7 @@ public class SearchActivity extends BaseActivity {
 				if (view instanceof ImageView) {
 					ImageView iv = (ImageView) view;
 					String url = (String)data;
-					ImageLoader.getInstance().displayImage(url,iv,imageoptions);
+					ImageLoader.getInstance().displayImage(url,iv,YiyeApplication.imageoptions);
 					MLog.d(TAG, "setViewValue### imageview:" + iv.toString() + " url:" + url);
 					return true;
 				} else
@@ -105,7 +89,7 @@ public class SearchActivity extends BaseActivity {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int id,long pos) {
-				LabelsActivity.launch(SearchActivity.this,channelsets.get(id));
+				ChannelsByLabelActivity.launch(SearchActivity.this,channelsets.get(id));
 			}
 		});
 		

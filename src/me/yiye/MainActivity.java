@@ -41,7 +41,6 @@ public class MainActivity extends SlidingFragmentActivity {
 			.cacheInMemory(true)
 			.cacheOnDisk(true)
 			.considerExifParams(true)
-			// .displayer(new RoundedBitmapDisplayer(10))
 			.build();
 	}
 	
@@ -49,7 +48,7 @@ public class MainActivity extends SlidingFragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setTitle("订阅");
-		setContentView(R.layout.view_main_above);
+		setContentView(R.layout.activity_main);
 		setBehindContentView(R.layout.view_main_behind);
 		initActionbar();
 		initSlidingMenu();

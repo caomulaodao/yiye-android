@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/activitybackgroud"
     android:orientation="vertical" >
 
     <TextView
@@ -22,8 +23,7 @@
         android:layout_marginTop="7dp"
         android:focusable="true"
         android:inputType="textEmailAddress"
-        android:singleLine="true"
-         >
+        android:singleLine="true" >
 
         <requestFocus />
     </EditText>

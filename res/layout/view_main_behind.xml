@@ -2,19 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="@color/PUERWHITE">
+    android:background="@color/PUERWHITE"
+    android:orientation="vertical" >
 
     <include layout="@layout/view_list_header" />
-	
 
     <ListView
-        android:layout_marginTop="10dp"
         android:id="@+id/listview_main_behind_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@drawable/divider_style" 
-        android:dividerHeight="1dp">
+        android:layout_marginTop="10dp"
+        android:divider="@drawable/divider_style"
+        android:dividerHeight="1dp" >
     </ListView>
 
 </LinearLayout>

@@ -85,7 +85,7 @@ public class MainActivity extends SlidingFragmentActivity {
 
 		PullToRefreshGridView pullableView = (PullToRefreshGridView) findViewById(R.id.gridview_main_content);
 		GridView mainDataGridView = pullableView.getRefreshableView();
-		mainDataGridView.setBackgroundColor(getResources().getColor(R.color.Grey200));
+		mainDataGridView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
 		mainDataGridView.setAdapter(dataadpter);
 		dataadpter.notifyDataSetChanged();
 		mainDataGridView.setOnItemClickListener(new OnItemClickListener() {

@@ -12,7 +12,7 @@ class BaseActivity  extends SherlockActivity {
 	
 	// 采用的actionbar均为自定义的view，包括左边导航栏，中间标题，及右边的菜单
 	protected void initActionbar(String title) {
-		View barview = View.inflate(this,R.layout.view_main_actionbar,null);
+		View barview = View.inflate(this,R.layout.view_actionbar,null);
 		getSupportActionBar().setCustomView(barview,new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
 		getSupportActionBar().setDisplayShowCustomEnabled(true);
 		

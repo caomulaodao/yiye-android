@@ -56,7 +56,7 @@ public class MainActivity extends SlidingFragmentActivity {
 	}
 
 	private void initActionbar() {
-		View barview = View.inflate(this,R.layout.view_main_actionbar,null);
+		View barview = View.inflate(this,R.layout.view_actionbar,null);
 		getSupportActionBar().setCustomView(barview,new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
 		getSupportActionBar().setDisplayShowCustomEnabled(true);
 	   ((TextView) barview.findViewById(R.id.textview_actionbar_title)).setText("一叶书签");

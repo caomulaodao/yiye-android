@@ -1,7 +1,6 @@
 package me.yiye;
 
 import me.yiye.contents.BookMark;
-import me.yiye.customwidget.PopupCommentaryActivity;
 import me.yiye.customwidget.SmoothProgressBar;
 import me.yiye.utils.MLog;
 import android.annotation.SuppressLint;
@@ -20,6 +19,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class BookMarkActivity extends BaseActivity {
@@ -27,6 +27,7 @@ public class BookMarkActivity extends BaseActivity {
 	private static BookMark bookmark;
 	
 	private WebView mainWebView;
+	private OnTouchListener webviewTouchListener;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +88,36 @@ public class BookMarkActivity extends BaseActivity {
 		ImageButton commentary = (ImageButton) this.findViewById(R.id.imagebutton_bookmark_commentary);
 		ImageButton favour = (ImageButton) this.findViewById(R.id.imagebutton_bookmark_favour);
 		ImageButton praise = (ImageButton) this.findViewById(R.id.imagebutton_bookmark_praise);
+		
+		final View commentaryView = (View) this.findViewById(R.id.view_bookmark_commentary);
+		final View buttomBarView = (View) this.findViewById(R.id.view_bookmark_bottom_bar);
+		TextView closeBtn = (TextView) this.findViewById(R.id.btn_bookmark_commentary_close);
+		
+		closeBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				commentaryView.setVisibility(View.GONE);
+				buttomBarView.setVisibility(View.VISIBLE);
+				mainWebView.setOnTouchListener(webviewTouchListener);
+			}
+		});
+		
+		commentaryView.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+				return true;
+			}
+		});
+		
 		commentary.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				PopupCommentaryActivity.lauch(BookMarkActivity.this);
+				commentaryView.setVisibility(View.VISIBLE);
+				buttomBarView.setVisibility(View.GONE);
+				mainWebView.setOnTouchListener(null);
 			}
 		});
 		favour.setOnClickListener(new OnClickListener() {
@@ -120,22 +146,25 @@ public class BookMarkActivity extends BaseActivity {
 				int minVelocity = 10;
 				if ((e1.getY() - e2.getY() > verticalMinDistance && Math.abs(velocityY) > minVelocity)) {
 					getSupportActionBar().hide();
-					buttomBarView.setVisibility(View.GONE);
+					buttomBarView.setVisibility(View.VISIBLE);
 				} else {
 					getSupportActionBar().show();
-					buttomBarView.setVisibility(View.VISIBLE);
+					buttomBarView.setVisibility(View.GONE);
 				}
 				return super.onFling(e1, e2, velocityX, velocityY);
 			}
 
 		});
-		mainWebView.setOnTouchListener(new OnTouchListener() {
+		
+		webviewTouchListener = new OnTouchListener() {
 
 			@Override
 			public boolean onTouch(View v, MotionEvent me) {
 				return webviewGestureDetector.onTouchEvent(me);
 			}
-		});
+		};
+		
+		mainWebView.setOnTouchListener(webviewTouchListener);
 	}
 	
 	// 支持网页回退

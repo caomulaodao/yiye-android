@@ -7,6 +7,7 @@ import java.util.List;
 import me.yiye.contents.ChannelSet;
 import me.yiye.utils.MLog;
 import me.yiye.utils.YiyeApi;
+import me.yiye.utils.YiyeApiImp;
 import me.yiye.utils.YiyeApiTestImp;
 import android.content.Context;
 import android.content.Intent;
@@ -46,7 +47,7 @@ public class SearchActivity extends BaseActivity {
 	}
 	
 	private void initChannelSets() {
-		YiyeApi api = new YiyeApiTestImp(this);
+		YiyeApi api = new YiyeApiImp(this);
 		final List<ChannelSet> channelsets = api.getChannelSets();
 		
 		for(ChannelSet cs: channelsets) {

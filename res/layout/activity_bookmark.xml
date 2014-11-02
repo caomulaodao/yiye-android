@@ -82,8 +82,8 @@
         android:layout_height="400dp"
         android:layout_gravity="bottom"
         android:background="@color/activitybackgroud"
-        android:orientation="vertical"
-        android:visibility="gone" >
+        android:orientation="vertical" 
+        android:visibility="gone">
 
         <RelativeLayout
             android:layout_width="match_parent"

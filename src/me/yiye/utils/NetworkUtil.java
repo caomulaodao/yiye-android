@@ -57,9 +57,9 @@ public class NetworkUtil {
 		return null;
 	}
 	
-	public static String get(Context context,String addr,String extra) {
-		String url = addr + extra;
-		MLog.d(TAG,"get### addr:" + url);
+	public static String get(Context context,String host,String extra) {
+		String url = host + extra;
+		MLog.d(TAG,"get### host:" + url);
 		try {
 			HttpGet httpget = new HttpGet(url);
 			

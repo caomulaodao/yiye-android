@@ -9,7 +9,7 @@ import me.yiye.contents.ChannelSet;
 import me.yiye.customwidget.AutoNewLineLinearLayout;
 import me.yiye.utils.MLog;
 import me.yiye.utils.YiyeApi;
-import me.yiye.utils.YiyeApiTestImp;
+import me.yiye.utils.YiyeApiImp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -82,7 +82,7 @@ public class ChannelsByLabelActivity extends BaseActivity{
 	}
 	
 	private void initChannelsListView() {
-		YiyeApi api = new YiyeApiTestImp(this);
+		YiyeApi api = new YiyeApiImp(this);
 		
 		final List<Channel> channelsByLabel = api.getChannelsByLabel(topic.getLabels().get(0));
 		for(Channel c :channelsByLabel) {

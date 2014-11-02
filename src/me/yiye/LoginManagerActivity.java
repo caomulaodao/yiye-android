@@ -2,7 +2,7 @@ package me.yiye;
 
 import me.yiye.utils.MLog;
 import me.yiye.utils.YiyeApi;
-import me.yiye.utils.YiyeApiTestImp;
+import me.yiye.utils.YiyeApiImp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -84,7 +84,7 @@ public class LoginManagerActivity extends BaseActivity {
 
 					@Override
 					protected void onPreExecute() {
-						api = new YiyeApiTestImp(LoginManagerActivity.this);
+						api = new YiyeApiImp(LoginManagerActivity.this);
 						usernameString = usernameEditText.getText().toString();
 						passwordString = passwordEditText.getText().toString();
 					}

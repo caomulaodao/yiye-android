@@ -8,7 +8,7 @@ import java.util.List;
 import me.yiye.contents.BookMark;
 import me.yiye.contents.Channel;
 import me.yiye.utils.YiyeApi;
-import me.yiye.utils.YiyeApiTestImp;
+import me.yiye.utils.YiyeApiImp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,7 +40,7 @@ public class ChannelActivity extends BaseActivity {
 	}
 
 	private void initChannelListView() {
-		YiyeApi api = new YiyeApiTestImp(this);
+		YiyeApi api = new YiyeApiImp(this);
 		
 		PullToRefreshListView tmpview = (PullToRefreshListView) this.findViewById(R.id.listview_channel_bookmarks);
 		bookMarkListView = tmpview.getRefreshableView();

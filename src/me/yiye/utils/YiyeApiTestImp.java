@@ -32,7 +32,7 @@ public class YiyeApiTestImp implements YiyeApi{
 	List<BookMark> knowmoreChannel = new ArrayList<BookMark>();
 	
 	
-	public YiyeApiTestImp(Context context) {
+	private YiyeApiTestImp(Context context) {
 		
 		this.context = context;
 		addBookMarkToChannel(context,entertainmentChannel,R.raw.entertainment);

@@ -145,11 +145,11 @@ public class BookMarkActivity extends BaseActivity {
 				int verticalMinDistance = 30;
 				int minVelocity = 10;
 				if ((e1.getY() - e2.getY() > verticalMinDistance && Math.abs(velocityY) > minVelocity)) {
-					getSupportActionBar().hide();
-					buttomBarView.setVisibility(View.VISIBLE);
-				} else {
-					getSupportActionBar().show();
+					// getSupportActionBar().hide();
 					buttomBarView.setVisibility(View.GONE);
+				} else {
+					// getSupportActionBar().show();
+					buttomBarView.setVisibility(View.VISIBLE);
 				}
 				return super.onFling(e1, e2, velocityX, velocityY);
 			}

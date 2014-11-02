@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.yiye.contents.Channel;
+import me.yiye.utils.MLog;
 import me.yiye.utils.YiyeApi;
-import me.yiye.utils.YiyeApiTestImp;
+import me.yiye.utils.YiyeApiImp;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +33,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class MainActivity extends SlidingFragmentActivity {
+	private final static String TAG = "MainActivity";
 	private static DisplayImageOptions imageoptions;
 	
 	static {
@@ -77,16 +80,16 @@ public class MainActivity extends SlidingFragmentActivity {
 	}
 
 	private void initAbovePanal() {
-		YiyeApi api = new YiyeApiTestImp(this);
+		final YiyeApi api = new YiyeApiImp(this);
 		
 		final ChannelsGridAdapter dataadpter = new ChannelsGridAdapter(this);
-		dataadpter.setData(api.getBookedChannels());
+	
 
 		PullToRefreshGridView pullableView = (PullToRefreshGridView) findViewById(R.id.gridview_main_content);
 		GridView mainDataGridView = pullableView.getRefreshableView();
 		mainDataGridView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
 		mainDataGridView.setAdapter(dataadpter);
-		dataadpter.notifyDataSetChanged();
+
 		mainDataGridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -98,6 +101,20 @@ public class MainActivity extends SlidingFragmentActivity {
 		
 		// pullableView.getLoadingLayoutProxy().setPullLabel("你妹的");
 		pullableView.getLoadingLayoutProxy().setLoadingDrawable(getResources().getDrawable(R.drawable.star));
+		
+		new AsyncTask<Void, Void, Void>() {
+			@Override
+			protected Void doInBackground(Void... v) {
+				dataadpter.setData(api.getBookedChannels());
+				return null;
+			}
+			
+			@Override
+			protected void onPostExecute(Void v) {
+				MLog.d(TAG, "onPostExecute### data changed");
+				dataadpter.notifyDataSetChanged();
+			}
+		}.execute();
 	}
 
 	class ChannelsGridAdapter extends BaseAdapter {
@@ -107,6 +124,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		
 		ChannelsGridAdapter(Context context) {
 			this.context = context;
+			channels = new ArrayList<Channel>();
 		}
 
 		@Override

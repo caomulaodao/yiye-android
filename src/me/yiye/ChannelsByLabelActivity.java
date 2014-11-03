@@ -87,9 +87,9 @@ public class ChannelsByLabelActivity extends BaseActivity{
 		final List<Channel> channelsByLabel = api.getChannelsByLabel(topic.getLabels().get(0));
 		for(Channel c :channelsByLabel) {
 			HashMap<String,String> map = new HashMap<String,String>();
-			map.put("img",c.getImgurl());
-			map.put("tittle", c.getTitle());
-			map.put("content", c.getSummary());
+			map.put("img",c.logo);
+			map.put("tittle", c.name);
+			map.put("content", c.lastTime);
 			channelsHitLabelList.add(map);
 		}
 		

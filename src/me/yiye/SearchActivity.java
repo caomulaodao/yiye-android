@@ -8,7 +8,6 @@ import me.yiye.contents.ChannelSet;
 import me.yiye.utils.MLog;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiImp;
-import me.yiye.utils.YiyeApiTestImp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;

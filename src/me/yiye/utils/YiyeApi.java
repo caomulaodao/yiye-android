@@ -19,4 +19,5 @@ public interface YiyeApi {
 	public final static String BOOKEDCHANNELS = "/api/channel/all";
 	public final static String LOGIN = "/api/account/login";
 	public final static String USERINFO = "/api/user/me";
+	public final static String BOOKMARKINCHANNEL = "/api/bookmarks/oneDay/";
 }

@@ -1,92 +1,20 @@
 package me.yiye.contents;
 
-import me.yiye.utils.DateUtil;
 
 public class BookMark {
-	private String title;
-	private String url;
-	private String description;
-	private String image;
-	private long posttime;
-	private String postuser;
-	
-	
-	private int favour;	// 收藏
-	private int praise;	// 赞
-	private int commentary;	//评论
-	
+	public  String title;
+	public  String description;
+	public  String url;
+	public  String image;
+	public  String postUser;
+	public  int likeNum;
+	public  String postTime;
+	public String channelId;
+	public String comments;
+
 	@Override
 	public String toString() {
-		return "title " + title + " summary " + description + " url " + url + " imgurl " + image
-				+ " uploaddate " + posttime;
-	}
-	
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getSummary() {
-		return description;
-	}
-
-	public void setSummary(String summary) {
-		this.description = summary;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getImgUrl() {
-		return image;
-	}
-
-	public void setImgUrl(String img) {
-		this.image = img;
-	}
-
-	public String getUploaddate() {
-
-		return DateUtil.timeStampToString(posttime);
-	}
-
-	public void setUploaddate(long uploaddate) {
-		this.posttime = uploaddate;
-	}
-	
-	public long getUploadDateTimeStamp() {
-		return posttime;
-	}
-
-	public int getFavour() {
-		return favour;
-	}
-
-	public void setFavour(int favour) {
-		this.favour = favour;
-	}
-
-	public int getPraise() {
-		return praise;
-	}
-
-	public void setPraise(int praise) {
-		this.praise = praise;
-	}
-
-	public int getCommentary() {
-		return commentary;
-	}
-
-	public void setCommentary(int commentary) {
-		this.commentary = commentary;
+		return "[channelId:" + channelId + " title:" + title + " summary:" + description + " url:" + url + " imgurl:" + image
+				+ " postTime:" + postTime + " likeNum:" + likeNum + "]";
 	}
 }

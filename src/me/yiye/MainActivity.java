@@ -98,7 +98,6 @@ public class MainActivity extends SlidingFragmentActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int pos,long id) {
 				ChannelActivity.launch(MainActivity.this,dataadpter.getItem(pos));
-
 			}
 		});
 		
@@ -151,6 +150,7 @@ public class MainActivity extends SlidingFragmentActivity {
 			View v;
 			RoundedImageView imageView;
 			TextView textView;
+			TextView newsTextView;
 			Channel c = channels.get(pos);
 			if (convertView == null) {
 				v = View.inflate(context, R.layout.item_main_above_style, null);
@@ -163,10 +163,13 @@ public class MainActivity extends SlidingFragmentActivity {
 			imageView = (RoundedImageView) v.findViewById(R.id.imageview_main_above_item_background);
 			imageView.setAdjustViewBounds(false);
 			imageView.setCornerRadius(4.0f);
-			ImageLoader.getInstance().displayImage(c.getImgurl(), imageView,imageoptions);
+			ImageLoader.getInstance().displayImage(c.logo, imageView,imageoptions);
 			
 			textView = (TextView) v.findViewById(R.id.textview_over_item_notice);
-			textView.setText(c.getTitle());
+			textView.setText(c.name);
+			newsTextView = (TextView) v.findViewById(R.id.textview_over_item_news);
+			newsTextView.setText(c.news + "");
+			
 			return v;
 		}
 		

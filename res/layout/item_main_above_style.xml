@@ -29,12 +29,13 @@
         android:textSize="15sp" />
 
     <TextView
+        android:id="@+id/textview_over_item_news"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="3dp"
-        android:text="赞 5"
-        android:textColor="#3e3e3e"
+        android:text="5"
+        android:textColor="#ff0000"
         android:textSize="15sp" />
 
 </FrameLayout>

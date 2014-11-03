@@ -33,7 +33,7 @@ public class BookMarkActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_bookmark);
-		initActionbar(bookmark.getTitle());
+		initActionbar(bookmark.title);
 		initWebView();
 		initBottomActionBar();
 		initGlobalAction();
@@ -81,7 +81,7 @@ public class BookMarkActivity extends BaseActivity {
 			}
 		});
 
-		mainWebView.loadUrl(bookmark.getUrl());
+		mainWebView.loadUrl(bookmark.url);
 	}
 
 	private void initBottomActionBar() {

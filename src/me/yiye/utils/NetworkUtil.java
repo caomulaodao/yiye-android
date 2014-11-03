@@ -68,7 +68,7 @@ public class NetworkUtil {
 			String cookie = share.getString("yiye", "");
 			httpget.addHeader("Cookie", cookie);
 			HttpResponse ret = new DefaultHttpClient().execute(httpget);
-			return EntityUtils.toString(ret.getEntity());
+			return EntityUtils.toString(ret.getEntity(),"utf-8");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

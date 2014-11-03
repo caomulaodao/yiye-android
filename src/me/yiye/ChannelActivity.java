@@ -7,10 +7,12 @@ import java.util.List;
 
 import me.yiye.contents.BookMark;
 import me.yiye.contents.Channel;
+import me.yiye.utils.MLog;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiImp;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ChannelActivity extends BaseActivity {
 
+	private final static String TAG = "ChannelActivity";
 	private static Channel channel;
 	
 	private ListView bookMarkListView;
@@ -35,20 +38,19 @@ public class ChannelActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_channel);
-		initActionbar(channel.getTitle());
+		initActionbar(channel.name);
 		initChannelListView();
 	}
 
 	private void initChannelListView() {
-		YiyeApi api = new YiyeApiImp(this);
+		final YiyeApi api = new YiyeApiImp(this);
 		
 		PullToRefreshListView tmpview = (PullToRefreshListView) this.findViewById(R.id.listview_channel_bookmarks);
 		bookMarkListView = tmpview.getRefreshableView();
 		bookMarkListView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
 		
-		bookMarkListViewAdapter = new ChannelAdapter(this, api.getBookMarksByChannel(channel));
+		bookMarkListViewAdapter = new ChannelAdapter(this);
 		bookMarkListView.setAdapter(bookMarkListViewAdapter);
-		bookMarkListViewAdapter.notifyDataSetChanged();
 
 		bookMarkListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -61,18 +63,23 @@ public class ChannelActivity extends BaseActivity {
 			}
 		});
 	
+		new AsyncTask<Void, Void, Void>() {
+			@Override
+			protected Void doInBackground(Void... v) {
+				bookMarkListViewAdapter.setData(api.getBookMarksByChannel(channel));
+				return null;
+			}
+			
+			@Override
+			protected void onPostExecute(Void v) {
+				MLog.d(TAG, "onPostExecute### data changed");
+				bookMarkListViewAdapter.notifyDataSetChanged();
+			}
+		}.execute();
+		
 		// 添加列表最下一项的分割线
 		// View v = View.inflate(this, R.layout.item_commom_divider_style, null);
 		// bookMarkListView.addFooterView(v);
-	}
-
-	// 按时间排序书签
-	public class ComparatorBookMark implements Comparator<BookMark> {
-
-		@Override
-		public int compare(BookMark b0, BookMark b1) {
-			return b0.getUploadDateTimeStamp() < b1.getUploadDateTimeStamp() ? 1 : -1;
-		}
 	}
 
 	private class ChannelAdapter extends BaseAdapter {
@@ -80,23 +87,25 @@ public class ChannelActivity extends BaseActivity {
 		private List<Item> itemList = new ArrayList<Item>();
 		private Context context;
 
-		public ChannelAdapter(Context context, List<BookMark> bookMarkList) {
+		public ChannelAdapter(Context context) {
 			this.context = context;
+		}
 
-			// 排序并实现数据按时间分段
+		public void setData(List<BookMark> bookMarkList) {
+
+			// 实现数据按时间分段
 			String currentDate = null;
-			Collections.sort(bookMarkList, new ComparatorBookMark());
 			for (BookMark bm : bookMarkList) {
-				if (currentDate == null || !currentDate.equals(bm.getUploaddate())) {
+				if (currentDate == null || !currentDate.equals(bm.postTime)) {
 					Item it = new Item(Item.SECTION, bm);
-					currentDate = bm.getUploaddate();
+					currentDate = bm.postTime;
 					itemList.add(it);
 				}
 
 				Item it = new Item(Item.ITEM, bm);
 				itemList.add(it);
 			}
-
+			
 		}
 
 		@Override
@@ -133,18 +142,18 @@ public class ChannelActivity extends BaseActivity {
 
 			if (c.getType() == Item.SECTION) {
 				textView = (TextView) v.findViewById(R.id.textview_bookmark_section_title_item);
-				textView.setText(c.getBookmark().getUploaddate());
+				textView.setText(c.getBookmark().postTime);
 			} else {
 				imageView = (ImageView) v.findViewById(R.id.imageview_bookmark_item);
 				imageView.setAdjustViewBounds(false);
 				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				ImageLoader.getInstance().displayImage(c.getBookmark().getImgUrl(), imageView, YiyeApplication.imageoptions);
+				ImageLoader.getInstance().displayImage(c.getBookmark().url, imageView, YiyeApplication.imageoptions);
 
 				textView = (TextView) v.findViewById(R.id.textview_bookmark_item_title);
-				textView.setText(c.getBookmark().getTitle());
+				textView.setText(c.getBookmark().title);
 
 				textView = (TextView) v.findViewById(R.id.textview_bookmark_item_content);
-				textView.setText(c.getBookmark().getSummary());
+				textView.setText(c.getBookmark().description);
 			}
 			return v;
 		}

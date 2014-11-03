@@ -3,14 +3,17 @@ package me.yiye.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-import android.content.Context;
-
 import me.yiye.contents.BookMark;
 import me.yiye.contents.Channel;
 import me.yiye.contents.ChannelSet;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.content.Context;
 
 public class YiyeApiImp implements YiyeApi{
 	
@@ -48,8 +51,25 @@ public class YiyeApiImp implements YiyeApi{
 
 	@Override
 	public List<BookMark> getBookMarksByChannel(Channel channel) {
-		// TODO Auto-generated method stub
-		return null;
+		List<BookMark> bookmarkList = new ArrayList<BookMark>();
+		String ret = NetworkUtil.get(context, YiyeApi.TESTHOST + YiyeApi.BOOKMARKINCHANNEL  + channel.channelId, "");
+		MLog.d(TAG,"getBookMarksByChannel### ret:" + ret);
+		try {
+			JSONObject o = new JSONObject(ret);
+			JSONArray list = o.getJSONArray("list");
+			
+			MLog.d(TAG, "getBookMarksByChannel### " + list.toString());
+			if(ret != null) {
+				YiyeApiHelper.addBookMarkToBookMarkList(context, bookmarkList,list.toString());
+			} else {
+				MLog.e(TAG, "getBookMarksByChannel### 获取频道中的书签失败");
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+
+		return bookmarkList;
 	}
 
 	@Override

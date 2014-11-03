@@ -4,10 +4,12 @@ import me.yiye.utils.DateUtil;
 
 public class BookMark {
 	private String title;
-	private String summary;
 	private String url;
-	private String imgurl;
-	private long uploaddate;
+	private String description;
+	private String image;
+	private long posttime;
+	private String postuser;
+	
 	
 	private int favour;	// 收藏
 	private int praise;	// 赞
@@ -15,8 +17,8 @@ public class BookMark {
 	
 	@Override
 	public String toString() {
-		return "title " + title + " summary " + summary + " url " + url + " imgurl " + imgurl
-				+ " uploaddate " + uploaddate;
+		return "title " + title + " summary " + description + " url " + url + " imgurl " + image
+				+ " uploaddate " + posttime;
 	}
 	
 	public String getTitle() {
@@ -28,11 +30,11 @@ public class BookMark {
 	}
 
 	public String getSummary() {
-		return summary;
+		return description;
 	}
 
 	public void setSummary(String summary) {
-		this.summary = summary;
+		this.description = summary;
 	}
 
 	public String getUrl() {
@@ -44,24 +46,24 @@ public class BookMark {
 	}
 
 	public String getImgUrl() {
-		return imgurl;
+		return image;
 	}
 
 	public void setImgUrl(String img) {
-		this.imgurl = img;
+		this.image = img;
 	}
 
 	public String getUploaddate() {
 
-		return DateUtil.timeStampToString(uploaddate);
+		return DateUtil.timeStampToString(posttime);
 	}
 
 	public void setUploaddate(long uploaddate) {
-		this.uploaddate = uploaddate;
+		this.posttime = uploaddate;
 	}
 	
 	public long getUploadDateTimeStamp() {
-		return uploaddate;
+		return posttime;
 	}
 
 	public int getFavour() {

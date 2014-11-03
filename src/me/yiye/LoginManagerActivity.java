@@ -2,6 +2,7 @@ package me.yiye;
 
 import me.yiye.contents.User;
 import me.yiye.utils.MLog;
+import me.yiye.utils.SQLManager;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiImp;
 import android.content.Context;
@@ -92,17 +93,24 @@ public class LoginManagerActivity extends BaseActivity {
 
 					@Override
 					protected String doInBackground(Void... v) {
-						MLog.d(TAG, "onClick### " + user.toString());
+						MLog.d(TAG, "doInBackground### " + user.toString());
 						String ret = api.login(user.username, user.password);
-						MLog.d(TAG, "onClick### login ret:" + ret);
+						MLog.d(TAG, "doInBackground### login ret:" + ret);
 						ret = api.getUserInfo();
-						MLog.d(TAG, "onClick### getuserinfo ret:" + ret);
+						MLog.d(TAG, "doInBackground### getuserinfo ret:" + ret);
 						return ret;
 					}
 
 					@Override
 					protected void onPostExecute(String result) {
+						// TODO 登陆认证
+						// if(ret == null) {
+						//     error();
+						//  } else {
 						MainActivity.launch(LoginManagerActivity.this);
+						MLog.d(TAG,"onPostExecute### saveuer:" + user.toString());
+						SQLManager.saveuser(LoginManagerActivity.this,user);
+					    // }
 					}
 				}.execute();
 			}

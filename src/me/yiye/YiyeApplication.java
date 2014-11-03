@@ -1,5 +1,6 @@
 package me.yiye;
 
+import me.yiye.utils.SQLManager;
 import android.app.Application;
 import android.content.Context;
 
@@ -31,6 +32,9 @@ public class YiyeApplication 	extends Application{
 	public void onCreate() {
 		super.onCreate();
 		initImageLoader(getApplicationContext());
+		
+		// 初始化数据库
+		SQLManager.init(getApplicationContext());
 	}
 	
 	public static void initImageLoader(Context context) {

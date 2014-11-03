@@ -57,12 +57,12 @@ public class YiyeApiImp implements YiyeApi{
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("email", email));
 		params.add(new BasicNameValuePair("password", keyword));
-		return NetworkUtil.post(context,YiyeApi.LOGIN,params);
+		return NetworkUtil.post(context,YiyeApi.TESTHOST + YiyeApi.LOGIN,params);
 	}
 
 	@Override
 	public String getUserInfo() {
-		return NetworkUtil.get(context, YiyeApi.HOST, YiyeApi.ME);
+		return NetworkUtil.get(context, YiyeApi.TESTHOST, YiyeApi.USERINFO);
 	}
 
 }

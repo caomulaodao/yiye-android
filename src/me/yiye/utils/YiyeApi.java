@@ -11,15 +11,12 @@ public interface YiyeApi {
 	public List<ChannelSet> getChannelSets();	// 获取频道集合
 	public List<Channel> getChannelsByLabel(String label);	// 由标签获取频道
 	public List<BookMark> getBookMarksByChannel(Channel channel);	// 获取频道中的书签
-	
-	public final static String LOGIN = "http://192.168.199.105:3000/login";
-	public final static String HOST = "http://192.168.199.105:3000/";
-	public final static String ME = "users/me";
-	
+
 	public String login(String email,String keyword);
 	public String getUserInfo();
 	
-	public final static String TESTHOST = "http://192.168.199.105";
+	public final static String TESTHOST = "http://192.168.199.105:3000";
 	public final static String BOOKEDCHANNELS = "/api/channel/all";
+	public final static String LOGIN = "/api/account/login";
 	public final static String USERINFO = "/api/user/me";
 }

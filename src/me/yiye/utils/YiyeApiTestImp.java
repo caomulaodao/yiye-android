@@ -175,6 +175,6 @@ public class YiyeApiTestImp implements YiyeApi{
 	}
 	
 	public String getUserInfo() {
-		return NetworkUtil.get(context, YiyeApi.HOST, YiyeApi.ME);
+		return NetworkUtil.get(context, YiyeApi.TESTHOST, YiyeApi.USERINFO);
 	}
 }

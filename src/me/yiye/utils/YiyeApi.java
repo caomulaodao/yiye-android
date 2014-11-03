@@ -19,6 +19,6 @@ public interface YiyeApi {
 	public String login(String email,String keyword);
 	public String getUserInfo();
 	
-	public final static String TESTHOST = "http://10.170.56.238";
+	public final static String TESTHOST = "http://192.168.199.121";
 	public final static String BOOKEDCHANNELS = "/bookedchannels.php";
 }

@@ -1,5 +1,6 @@
 package me.yiye;
 
+import me.yiye.contents.User;
 import me.yiye.utils.MLog;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiImp;
@@ -20,6 +21,8 @@ public class LoginManagerActivity extends BaseActivity {
 	private EditText usernameEditText;
 	private EditText passwordEditText;
 
+	private User user = new User();
+	
 	// 判断username与password是否有输入，若都有启用登陆按钮，否则禁用登陆按钮
 	private boolean usernameflag = false;
 	private boolean passwordflag = false;
@@ -79,20 +82,18 @@ public class LoginManagerActivity extends BaseActivity {
 			public void onClick(View v) {
 				new AsyncTask<Void, Void, String>() {
 					private YiyeApi api;
-					private String usernameString;
-					private String passwordString;
 
 					@Override
 					protected void onPreExecute() {
 						api = new YiyeApiImp(LoginManagerActivity.this);
-						usernameString = usernameEditText.getText().toString();
-						passwordString = passwordEditText.getText().toString();
+						user.username = usernameEditText.getText().toString();
+						user.password = passwordEditText.getText().toString();
 					}
 
 					@Override
 					protected String doInBackground(Void... v) {
-						MLog.d(TAG, "onClick### user " + usernameString + "password " + passwordString);
-						String ret = api.login(usernameString, passwordString);
+						MLog.d(TAG, "onClick### " + user.toString());
+						String ret = api.login(user.username, user.password);
 						MLog.d(TAG, "onClick### login ret:" + ret);
 						ret = api.getUserInfo();
 						MLog.d(TAG, "onClick### getuserinfo ret:" + ret);

@@ -98,6 +98,8 @@ public class LoginManagerActivity extends BaseActivity {
 						MLog.d(TAG, "doInBackground### login ret:" + ret);
 						ret = api.getUserInfo();
 						MLog.d(TAG, "doInBackground### getuserinfo ret:" + ret);
+						// TODO 测试用
+						user.avatar = "http://a.hiphotos.baidu.com/image/w%3D310/sign=6f23d4d17d3e6709be0043fe0bc69fb8/7a899e510fb30f248a02c4f5ca95d143ac4b03af.jpg";
 						return ret;
 					}
 
@@ -107,9 +109,9 @@ public class LoginManagerActivity extends BaseActivity {
 						// if(ret == null) {
 						//     error();
 						//  } else {
-						MainActivity.launch(LoginManagerActivity.this);
 						MLog.d(TAG,"onPostExecute### saveuer:" + user.toString());
 						SQLManager.saveuser(LoginManagerActivity.this,user);
+						MainActivity.launch(LoginManagerActivity.this,user);
 					    // }
 					}
 				}.execute();

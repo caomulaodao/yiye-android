@@ -5,9 +5,10 @@ public class User {
 	public String email;
 	public String username;
 	public String password;
+	public String avatar;
 	
 	@Override
 	public String toString() {
-		return "[user:" + username + ",password:" + password + "]";
+		return "[user:" + username + ",password:" + password + " avatar:" + avatar + "]";
 	}
 }

@@ -27,7 +27,8 @@ public class SQLManager {
 		db.execSQL("DROP TABLE IF EXISTS channel");
 		
 		MLog.d(TAG, "init### create new table");
-		db.execSQL("CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR UNIQUE, password VARCHAR)");
+		db.execSQL("CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR UNIQUE, password VARCHAR," +
+				"avatar VARCHAR)");
 		
 		SharedPreferences.Editor editor = dbSharedPreferences.edit(); 
 		editor.putString("init", "yes"); // 标记已经初始化

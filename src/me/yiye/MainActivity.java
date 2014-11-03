@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.yiye.contents.Channel;
+import me.yiye.contents.User;
 import me.yiye.utils.MLog;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiImp;
@@ -46,6 +47,8 @@ public class MainActivity extends SlidingFragmentActivity {
 			.considerExifParams(true)
 			.build();
 	}
+	
+	private static User user;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -222,6 +225,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		behindMenuListAdapter.notifyDataSetChanged();
 		sm.setMenu(v);
 		
+		// 设置头像
 		ImageView userimageView = (ImageView)v.findViewById(R.id.imageview_main_behind_userimg);
 		userimageView.setOnClickListener(new OnClickListener() {
 			
@@ -230,11 +234,19 @@ public class MainActivity extends SlidingFragmentActivity {
 				LoginManagerActivity.launch(MainActivity.this);
 			}
 		});
+		if(user != null) {
+			ImageLoader.getInstance().displayImage(user.avatar, userimageView,imageoptions);
+		}
 	}
 
 	public static void launch(Context context) {
 		Intent i = new Intent();
 		i.setClass(context,MainActivity.class);
 		context.startActivity(i);
+	}
+	
+	public static void launch(Context context,User user) {
+		MainActivity.user = user;
+		MainActivity.launch(context);
 	}
 }

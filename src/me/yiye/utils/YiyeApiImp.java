@@ -26,7 +26,11 @@ public class YiyeApiImp implements YiyeApi{
 		List<Channel> bookedChannels = new ArrayList<Channel>();
 		String ret = NetworkUtil.get(context, YiyeApi.TESTHOST, YiyeApi.BOOKEDCHANNELS);
 		MLog.d(TAG,"getBookedChannels### ret:" + ret);
-		YiyeApiHelper.addChannelToChannelSet(context, bookedChannels, ret);
+		if(ret != null) {
+			YiyeApiHelper.addChannelToChannelSet(context, bookedChannels, ret);
+		} else {
+			MLog.e(TAG,"getBookedChannels### 获取订阅频道为空");
+		}
 		return bookedChannels;
 	}
 

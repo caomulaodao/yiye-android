@@ -190,6 +190,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		View v = View.inflate(this, R.layout.view_main_behind, null);
 		behindMenuListView = (ListView) v.findViewById(R.id.listview_main_behind_menu);
 
+		// 初始化菜单
 		String[] from = new String[] { "textview_behind_item","imageview_behind_item_sign" };
 		int[] to = new int[] { R.id.textview_behind_item,R.id.imageview_behind_item_sign };
 		
@@ -236,6 +237,8 @@ public class MainActivity extends SlidingFragmentActivity {
 		});
 		if(user != null) {
 			ImageLoader.getInstance().displayImage(user.avatar, userimageView,imageoptions);
+			TextView usernameTextView = (TextView)v.findViewById(R.id.textview_main_behind_username);
+			usernameTextView.setText(user.username);
 		}
 	}
 

@@ -67,8 +67,6 @@ public class YiyeApiImp implements YiyeApi{
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
-
 		return bookmarkList;
 	}
 

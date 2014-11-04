@@ -20,7 +20,7 @@ public class BookMark {
 
 	@Override
 	public String toString() {
-		return "[channelId:" + channelId + " title:" + title + " summary:" + description + " url:" + url + " imgurl:" + image
+		return "[channelId:" + channelId + " title:" + title + " summary:" + description + " url:" + url + " image:" + image
 				+ " postTime:" + postTime + " likeNum:" + likeNum + "]";
 	}
 	

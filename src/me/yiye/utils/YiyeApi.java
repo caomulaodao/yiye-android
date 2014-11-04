@@ -15,9 +15,12 @@ public interface YiyeApi {
 	public String login(String email,String keyword);
 	public String getUserInfo();
 	
-	public final static String TESTHOST = "http://192.168.199.105:3000";
-	public final static String BOOKEDCHANNELS = "/api/channel/all";
-	public final static String LOGIN = "/api/account/login";
-	public final static String USERINFO = "/api/user/me";
-	public final static String BOOKMARKINCHANNEL = "/api/bookmarks/oneDay/";
+
+	public final static String TESTHOST = "http://192.168.1.105:3000/";
+	public final static String BOOKEDCHANNELS = "api/channel/all";
+	public final static String LOGIN = "api/account/login";
+	public final static String USERINFO = "api/user/me";
+	public final static String BOOKMARKINCHANNEL = "api/bookmarks/oneDay/";
+	
+	public final static String PICCDN = "http://yiye.qiniudn.com/";
 }

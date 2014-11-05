@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class SQLManager {
@@ -18,10 +19,11 @@ public class SQLManager {
 		String isInit = dbSharedPreferences.getString("init", "no");
 		
 		if(isInit.equals("yes")) {  // 已经初始化过数据库
+			MLog.i(TAG, "init###db has been init");
 			return;
 		}
 		
-		// 清理工作
+		// 清理工作	
 		MLog.d(TAG, "init### clear the old db");
 		context.deleteDatabase("yiye.db");
 		SQLiteDatabase db = context.openOrCreateDatabase("yiye.db", Context.MODE_PRIVATE, null);
@@ -116,5 +118,22 @@ public class SQLManager {
 			MLog.e(TAG, "saveBookMark### insert error");
 		}
 		db.close();
+	}
+
+	public static void loaduser(Context context,String currentUserName, User user) {
+		SQLiteDatabase db = context.openOrCreateDatabase("yiye.db", Context.MODE_PRIVATE, null);
+		Cursor c = db.rawQuery("select * from user where username=?", new String[] { currentUserName });
+		if (c.moveToFirst()) {
+			user = new User();
+			user.avatar = c.getString(c.getColumnIndex("avatar"));
+			// user.email = c.getString(c.getColumnIndex("email"));
+			user.id = c.getLong(c.getColumnIndex("id"));
+			user.password = c.getString(c.getColumnIndex("password"));
+			user.username = c.getString(c.getColumnIndex("username"));
+		}
+		c.close();
+		db.close();
+		
+		MLog.e(TAG, "loaduser### user:" + user.toString());
 	}
 }

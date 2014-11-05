@@ -29,7 +29,8 @@ public class NetworkUtil {
 			HttpPost httpRequest = new HttpPost(addr);
 			httpRequest.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
 			HttpResponse httpResponse = new DefaultHttpClient().execute(httpRequest);
-			if (httpResponse.getStatusLine().getStatusCode() == 200) {
+			int statusCode = httpResponse.getStatusLine().getStatusCode();
+			if (statusCode == 200) {
 				// 取出回应字串
 				String strResult = EntityUtils.toString(httpResponse.getEntity());
 				Header header = httpResponse.getFirstHeader("Set-Cookie");
@@ -41,10 +42,9 @@ public class NetworkUtil {
 				Editor editor = sharedPreferences.edit();
 				editor.putString("yiye",cookie);
 				editor.commit();
-				
 				return strResult;
 			} else {
-				return "" + httpResponse.getStatusLine().getStatusCode();
+				return statusCode + " error";
 			}
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();

@@ -8,8 +8,10 @@ import me.yiye.utils.MLog;
 import me.yiye.utils.SQLManager;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiImp;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -120,7 +122,9 @@ public class LoginManagerActivity extends BaseActivity {
 						//  } else {
 						MLog.d(TAG,"onPostExecute### saveuer:" + user.toString());
 						SQLManager.saveuser(LoginManagerActivity.this,user);
-						MainActivity.launch(LoginManagerActivity.this,user);
+						setCurrentUser(user);
+						YiyeApplication.user = user;
+						MainActivity.launch(LoginManagerActivity.this);
 					    // }
 					}
 				}.execute();
@@ -128,6 +132,13 @@ public class LoginManagerActivity extends BaseActivity {
 		});
 	}
 
+	private void setCurrentUser(User user) {
+		SharedPreferences userSharedPreferences= this.getSharedPreferences("user", Activity.MODE_PRIVATE);
+		SharedPreferences.Editor editor = userSharedPreferences.edit(); 
+		editor.putString("currentuser", user.username); // 标记已经初始化
+		editor.commit();
+	}
+	
 	public static void launch(Context context) {
 		Intent i = new Intent();
 		i.setClass(context, LoginManagerActivity.class);

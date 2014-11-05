@@ -6,6 +6,7 @@ import java.util.List;
 import me.yiye.contents.BookMark;
 import me.yiye.contents.Channel;
 import me.yiye.contents.ChannelSet;
+import me.yiye.contents.User;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -83,4 +84,9 @@ public class YiyeApiImp implements YiyeApi{
 		return NetworkUtil.get(context, YiyeApi.TESTHOST, YiyeApi.USERINFO);
 	}
 
+	@Override
+	public boolean isOnline(User user) {
+		String ret = login(user.email,user.password);
+		return (ret == null || ret.endsWith("error")? true : false);
+	}
 }

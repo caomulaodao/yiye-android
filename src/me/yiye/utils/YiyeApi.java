@@ -5,6 +5,7 @@ import java.util.List;
 import me.yiye.contents.BookMark;
 import me.yiye.contents.Channel;
 import me.yiye.contents.ChannelSet;
+import me.yiye.contents.User;
 
 public interface YiyeApi {
 	public List<Channel> getBookedChannels(); // 获取订阅的频道
@@ -14,7 +15,7 @@ public interface YiyeApi {
 
 	public String login(String email,String keyword);
 	public String getUserInfo();
-	
+	public boolean isOnline(User user);
 
 	public final static String TESTHOST = "http://192.168.1.105:3000/";
 	public final static String BOOKEDCHANNELS = "api/channel/all";

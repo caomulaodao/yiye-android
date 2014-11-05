@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.yiye.contents.Channel;
-import me.yiye.contents.User;
 import me.yiye.utils.MLog;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiImp;
@@ -48,7 +47,7 @@ public class MainActivity extends SlidingFragmentActivity {
 			.build();
 	}
 	
-	private static User user;
+
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -238,10 +237,11 @@ public class MainActivity extends SlidingFragmentActivity {
 				LoginManagerActivity.launch(MainActivity.this);
 			}
 		});
-		if(user != null) {
-			ImageLoader.getInstance().displayImage(user.avatar, userimageView,imageoptions);
+		
+		if(YiyeApplication.user != null) {
+			ImageLoader.getInstance().displayImage(YiyeApplication.user.avatar, userimageView,imageoptions);
 			TextView usernameTextView = (TextView)v.findViewById(R.id.textview_main_behind_username);
-			usernameTextView.setText(user.username);
+			usernameTextView.setText(YiyeApplication.user.username);
 		}
 	}
 
@@ -249,10 +249,5 @@ public class MainActivity extends SlidingFragmentActivity {
 		Intent i = new Intent();
 		i.setClass(context,MainActivity.class);
 		context.startActivity(i);
-	}
-	
-	public static void launch(Context context,User user) {
-		MainActivity.user = user;
-		MainActivity.launch(context);
 	}
 }

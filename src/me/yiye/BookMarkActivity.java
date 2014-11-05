@@ -138,12 +138,13 @@ public class BookMarkActivity extends BaseActivity {
 	// 下滑标题栏跟点赞栏消失
 	private void initGlobalAction() {
 		final View buttomBarView = findViewById(R.id.view_bookmark_bottom_bar);
+		
 		final GestureDetector webviewGestureDetector = new GestureDetector(this,new SimpleOnGestureListener() {
 
 			@Override
 			public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-				int verticalMinDistance = 30;
-				int minVelocity = 10;
+				int verticalMinDistance = 0;
+				int minVelocity = 0;
 				if ((e1.getY() - e2.getY() > verticalMinDistance && Math.abs(velocityY) > minVelocity)) {
 					// getSupportActionBar().hide();
 					buttomBarView.setVisibility(View.GONE);

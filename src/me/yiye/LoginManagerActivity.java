@@ -24,13 +24,13 @@ import android.widget.EditText;
 public class LoginManagerActivity extends BaseActivity {
 	private final static String TAG = "LoginManagerActivity";
 	private Button loginBtn;
-	private EditText usernameEditText;
+	private EditText emailEditText;
 	private EditText passwordEditText;
 
 	private User user = new User();
 	
-	// 判断username与password是否有输入，若都有启用登陆按钮，否则禁用登陆按钮
-	private boolean usernameflag = false;
+	// 判断email与password是否有输入，若都有启用登陆按钮，否则禁用登陆按钮
+	private boolean emailflag = false;
 	private boolean passwordflag = false;
 
 	@Override
@@ -40,7 +40,7 @@ public class LoginManagerActivity extends BaseActivity {
 		initActionbar("登陆");
 
 		loginBtn = (Button) this.findViewById(R.id.btn_login);
-		usernameEditText = (EditText) this.findViewById(R.id.edittext_login_username);
+		emailEditText = (EditText) this.findViewById(R.id.edittext_login_email);
 		passwordEditText = (EditText) this.findViewById(R.id.edittext_login_password);
 
 		passwordEditText.addTextChangedListener(new TextWatcher() {
@@ -55,7 +55,7 @@ public class LoginManagerActivity extends BaseActivity {
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
 				Editable editable = passwordEditText.getText();
 				passwordflag = editable.length() == 0 ? false : true;
-				if (usernameflag && passwordflag) {
+				if (emailflag && passwordflag) {
 					loginBtn.setEnabled(true);
 				} else {
 					loginBtn.setEnabled(false);
@@ -63,7 +63,7 @@ public class LoginManagerActivity extends BaseActivity {
 			}
 
 		});
-		usernameEditText.addTextChangedListener(new TextWatcher() {
+		emailEditText.addTextChangedListener(new TextWatcher() {
 
 			@Override
 			public void afterTextChanged(Editable s) {}
@@ -73,9 +73,9 @@ public class LoginManagerActivity extends BaseActivity {
 
 			@Override
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-				Editable editable = usernameEditText.getText();
-				usernameflag = editable.length() == 0 ? false : true;
-				if (usernameflag && passwordflag) {
+				Editable editable = emailEditText.getText();
+				emailflag = editable.length() == 0 ? false : true;
+				if (emailflag && passwordflag) {
 					loginBtn.setEnabled(true);
 				} else {
 					loginBtn.setEnabled(false);
@@ -92,22 +92,23 @@ public class LoginManagerActivity extends BaseActivity {
 					@Override
 					protected void onPreExecute() {
 						api = new YiyeApiImp(LoginManagerActivity.this);
-						user.username = usernameEditText.getText().toString();
+						user.email = emailEditText.getText().toString();
 						user.password = passwordEditText.getText().toString();
 					}
 
 					@Override
 					protected String doInBackground(Void... v) {
 						MLog.d(TAG, "doInBackground### " + user.toString());
-						String ret = api.login(user.username, user.password);
+						String ret = api.login(user.email, user.password);
 						MLog.d(TAG, "doInBackground### login ret:" + ret);
 						ret = api.getUserInfo();
 						MLog.d(TAG, "doInBackground### getuserinfo ret:" + ret);
 						try {
 							JSONObject o = new JSONObject(ret);
 							user.avatar = o.getString("avatar");
+							user.username = o.getString("username");
 						} catch (JSONException e) {
-							MLog.e(TAG, "获取头像失败");
+							MLog.e(TAG, "用户信息失败");
 							e.printStackTrace();
 						}
 					
@@ -135,7 +136,7 @@ public class LoginManagerActivity extends BaseActivity {
 	private void setCurrentUser(User user) {
 		SharedPreferences userSharedPreferences= this.getSharedPreferences("user", Activity.MODE_PRIVATE);
 		SharedPreferences.Editor editor = userSharedPreferences.edit(); 
-		editor.putString("currentuser", user.username); // 标记已经初始化
+		editor.putString("currentuser", user.email); // 标记已经初始化
 		editor.commit();
 	}
 	

@@ -35,7 +35,8 @@ public class SQLManager {
 		MLog.d(TAG, "init### create new table");
 		db.execSQL("CREATE TABLE user " +
 				"(id INTEGER PRIMARY KEY AUTOINCREMENT," + 
-				"username VARCHAR UNIQUE," + 
+				"email VARCHAR UNIQUE," +
+				"username VARCHAR," + 
 				"password VARCHAR," +
 				"avatar VARCHAR" + 
 				")");
@@ -72,8 +73,10 @@ public class SQLManager {
 		SQLiteDatabase db = context.openOrCreateDatabase("yiye.db", Context.MODE_PRIVATE, null);
 
 		ContentValues cv = new ContentValues();
+		cv.put("email", user.email);
 		cv.put("username", user.username);
 		cv.put("password", user.password);
+		cv.put("avatar", user.avatar);
 		long id = db.insert("user", null, cv);
 		if(id == -1) {
 			MLog.e(TAG, "saveuser### insert error");
@@ -120,20 +123,22 @@ public class SQLManager {
 		db.close();
 	}
 
-	public static void loaduser(Context context,String currentUserName, User user) {
+	public static User loaduser(Context context,String currentUserName) {
+		User user = null;
 		SQLiteDatabase db = context.openOrCreateDatabase("yiye.db", Context.MODE_PRIVATE, null);
-		Cursor c = db.rawQuery("select * from user where username=?", new String[] { currentUserName });
+		Cursor c = db.rawQuery("select * from user where email=?", new String[] { currentUserName });
 		if (c.moveToFirst()) {
 			user = new User();
 			user.avatar = c.getString(c.getColumnIndex("avatar"));
-			// user.email = c.getString(c.getColumnIndex("email"));
+			user.email = c.getString(c.getColumnIndex("email"));
 			user.id = c.getLong(c.getColumnIndex("id"));
 			user.password = c.getString(c.getColumnIndex("password"));
 			user.username = c.getString(c.getColumnIndex("username"));
+			MLog.d(TAG, "loaduser### user:" + user.toString());
 		}
 		c.close();
 		db.close();
 		
-		MLog.e(TAG, "loaduser### user:" + user.toString());
+		return user;
 	}
 }

@@ -15,7 +15,7 @@
         android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/edittext_login_username"
+        android:id="@+id/edittext_login_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="7dp"

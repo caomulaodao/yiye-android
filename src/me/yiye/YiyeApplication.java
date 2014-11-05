@@ -57,16 +57,18 @@ public class YiyeApplication 	extends Application{
 		}
 		
 		// 从数据库加载用户信息
-		SQLManager.loaduser(context,currentUserName,user);
+		user = SQLManager.loaduser(context,currentUserName);
 		if(user == null) {
+			MLog.e(TAG, "initUser### loaduser 失败");
 			return;
 		}
 		
-		YiyeApi api = new YiyeApiImp(getApplicationContext());
-		if(api.isOnline(user) == false) {
-			MLog.e(TAG, "initUser### 不合法的用户");
-			user = null;
-		}
+		//TODO 验证是否用户是否合法
+		//		YiyeApi api = new YiyeApiImp(getApplicationContext());
+		//		if(api.isOnline(user) == false) {
+		//			MLog.e(TAG, "initUser### 不合法的用户");
+		//			user = null;
+		//		}
 	}
 
 	public static void initImageLoader(Context context) {

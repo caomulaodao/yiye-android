@@ -13,8 +13,8 @@ import android.database.sqlite.SQLiteDatabase;
 public class SQLManager {
 	
 	private final static String TAG = "SQLManager";
+	
 	public static void init(Context context) {
-		
 		SharedPreferences dbSharedPreferences= context.getSharedPreferences("db", Activity.MODE_PRIVATE);
 		String isInit = dbSharedPreferences.getString("init", "no");
 		
@@ -60,18 +60,19 @@ public class SQLManager {
 				"postTime VARCHAR," +
 				"channelId VARCHAR," +
 				"comments VARCHAR" + 
-				")");		
-		SharedPreferences.Editor editor = dbSharedPreferences.edit(); 
-		editor.putString("init", "yes"); // 标记已经初始化
-		editor.commit();
-		db.close();
+				")");
 		
+		// 标记已经初始化
+		SharedPreferences.Editor editor = dbSharedPreferences.edit();
+		editor.putString("init", "yes"); 
+		editor.commit();
+		
+		db.close();
 		MLog.d(TAG, "init### init ok");
 	}
 	
 	public static void saveuser(Context context,User user) {
 		SQLiteDatabase db = context.openOrCreateDatabase("yiye.db", Context.MODE_PRIVATE, null);
-
 		ContentValues cv = new ContentValues();
 		cv.put("email", user.email);
 		cv.put("username", user.username);

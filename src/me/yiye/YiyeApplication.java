@@ -3,8 +3,6 @@ package me.yiye;
 import me.yiye.contents.User;
 import me.yiye.utils.MLog;
 import me.yiye.utils.SQLManager;
-import me.yiye.utils.YiyeApi;
-import me.yiye.utils.YiyeApiImp;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -64,11 +62,6 @@ public class YiyeApplication 	extends Application{
 		}
 		
 		//TODO 验证是否用户是否合法
-		//		YiyeApi api = new YiyeApiImp(getApplicationContext());
-		//		if(api.isOnline(user) == false) {
-		//			MLog.e(TAG, "initUser### 不合法的用户");
-		//			user = null;
-		//		}
 	}
 
 	public static void initImageLoader(Context context) {

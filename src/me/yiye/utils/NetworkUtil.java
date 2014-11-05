@@ -23,10 +23,10 @@ import android.content.SharedPreferences.Editor;
 public class NetworkUtil {
 	public final static String TAG = "NetworkUtil";
 
-	public static String post(Context context,String addr, List<NameValuePair> params) {
-		MLog.d(TAG, "post### addr:" + addr);
+	public static String post(Context context,String url, List<NameValuePair> params) {
+		MLog.d(TAG, "post### " + url);
 		try {
-			HttpPost httpRequest = new HttpPost(addr);
+			HttpPost httpRequest = new HttpPost(url);
 			httpRequest.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
 			HttpResponse httpResponse = new DefaultHttpClient().execute(httpRequest);
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
@@ -53,17 +53,14 @@ public class NetworkUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		return null;
 	}
 	
 	public static String get(Context context,String host,String extra) {
 		String url = host + extra;
-		MLog.d(TAG,"get### host:" + url);
+		MLog.d(TAG,"get### " + url);
 		try {
 			HttpGet httpget = new HttpGet(url);
-			
-			
 			SharedPreferences share = context.getSharedPreferences("cookie", Context.MODE_PRIVATE);
 			String cookie = share.getString("yiye", "");
 			httpget.addHeader("Cookie", cookie);

@@ -3,12 +3,9 @@ package me.yiye;
 import me.yiye.contents.BookMark;
 import me.yiye.customwidget.SmoothProgressBar;
 import me.yiye.utils.MLog;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,11 +21,20 @@ import android.widget.Toast;
 
 public class BookMarkActivity extends BaseActivity {
 	private final static String TAG = "ContentActivity";
+	
 	private static BookMark bookmark;
 	
 	private WebView mainWebView;
+	private SmoothProgressBar loaddingProgressBar;
 	private OnTouchListener webviewTouchListener;
 	
+	
+	private View commentaryView;
+	private View buttomBarView;
+	private ImageButton commentaryBtn;
+	private ImageButton favourBtn;
+	private ImageButton praiseBtn;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,28 +42,37 @@ public class BookMarkActivity extends BaseActivity {
 		initActionbar(bookmark.title);
 		initWebView();
 		initBottomActionBar();
-		initGlobalAction();
+		
+		mainWebView.loadUrl(bookmark.url);
 	}
 	
-	@SuppressLint("SetJavaScriptEnabled")
 	private void initWebView() {
-		final SmoothProgressBar loaddingProgressBar = (SmoothProgressBar) this.findViewById(R.id.progressbar_web);
-		loaddingProgressBar.setMax(100);
 		
+		// 设置webview
 		mainWebView = (WebView) this.findViewById(R.id.webview_bookmark_data);
-
 		WebSettings webSettings = mainWebView.getSettings();
-		// 设置出现缩放工具
-		webSettings.setSupportZoom(true);
-		webSettings.setBuiltInZoomControls(true);
-		webSettings.setLoadWithOverviewMode(true);
-		webSettings.setJavaScriptEnabled(true);
-		webSettings.setUseWideViewPort(true);
-		webSettings.setDisplayZoomControls(false);
+		webSettings.setSupportZoom(true);	// 允许缩放
+		webSettings.setBuiltInZoomControls(true);	// 使用内建的缩放手势
+		webSettings.setLoadWithOverviewMode(true);	// 缩小以适应屏幕
+		webSettings.setJavaScriptEnabled(true);	// 开启javascript（！！有问题 知乎的登陆按钮不起作用)
+		webSettings.setUseWideViewPort(true);	// 双击变大变小
+		webSettings.setDisplayZoomControls(false);	// 去除缩放时右下的缩放按钮
 		// 去除滚动条
 		mainWebView.setHorizontalScrollBarEnabled(false);
 		mainWebView.setVerticalScrollBarEnabled(false);
+		
+		// 防止启动外部浏览器
+		mainWebView.setWebViewClient(new WebViewClient() {
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				view.loadUrl(url);
+				return true;
+			}
+		});
+		
 		// 设置加载进度条
+		loaddingProgressBar = (SmoothProgressBar) this.findViewById(R.id.progressbar_web);
+		loaddingProgressBar.setMax(100);
 		mainWebView.setWebChromeClient(new WebChromeClient() {
 			@Override
 			public void onProgressChanged(WebView view, int newProgress) {
@@ -71,27 +86,42 @@ public class BookMarkActivity extends BaseActivity {
 				super.onProgressChanged(view, newProgress);
 			}
 		});
-
-		// 防止启动外部浏览器
-		mainWebView.setWebViewClient(new WebViewClient() {
-			@Override
-			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				view.loadUrl(url);
-				return true;
-			}
-		});
-
-		mainWebView.loadUrl(bookmark.url);
 	}
 
 	private void initBottomActionBar() {
-		ImageButton commentary = (ImageButton) this.findViewById(R.id.imagebutton_bookmark_commentary);
-		ImageButton favour = (ImageButton) this.findViewById(R.id.imagebutton_bookmark_favour);
-		ImageButton praise = (ImageButton) this.findViewById(R.id.imagebutton_bookmark_praise);
+		commentaryView = (View) this.findViewById(R.id.view_bookmark_commentary);
+		buttomBarView = (View) this.findViewById(R.id.view_bookmark_bottom_bar);
 		
-		final View commentaryView = (View) this.findViewById(R.id.view_bookmark_commentary);
-		final View buttomBarView = (View) this.findViewById(R.id.view_bookmark_bottom_bar);
-		TextView closeBtn = (TextView) this.findViewById(R.id.btn_bookmark_commentary_close);
+		// 底部栏的三个按钮
+		commentaryBtn = (ImageButton) buttomBarView.findViewById(R.id.imagebutton_bookmark_commentary);
+		favourBtn = (ImageButton) buttomBarView.findViewById(R.id.imagebutton_bookmark_favour);
+		praiseBtn = (ImageButton) buttomBarView.findViewById(R.id.imagebutton_bookmark_praise);
+		
+		commentaryBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				commentaryView.setVisibility(View.VISIBLE);
+				buttomBarView.setVisibility(View.GONE);
+				mainWebView.setOnTouchListener(null);
+			}
+		});
+		favourBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(BookMarkActivity.this, "收藏", Toast.LENGTH_LONG).show();
+			}
+		});
+		praiseBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				Toast.makeText(BookMarkActivity.this, "赞", Toast.LENGTH_LONG).show();
+			}
+		});
+		
+		// 评论面板上的关闭按钮
+		TextView closeBtn = (TextView) commentaryView.findViewById(R.id.btn_bookmark_commentary_close);
 		
 		closeBtn.setOnClickListener(new OnClickListener() {
 			
@@ -103,6 +133,7 @@ public class BookMarkActivity extends BaseActivity {
 			}
 		});
 		
+		// 屏蔽评论面板滑动穿透到webview上
 		commentaryView.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
@@ -110,62 +141,6 @@ public class BookMarkActivity extends BaseActivity {
 				return true;
 			}
 		});
-		
-		commentary.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				commentaryView.setVisibility(View.VISIBLE);
-				buttomBarView.setVisibility(View.GONE);
-				mainWebView.setOnTouchListener(null);
-			}
-		});
-		favour.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(BookMarkActivity.this, "收藏", Toast.LENGTH_LONG).show();
-			}
-		});
-		praise.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				Toast.makeText(BookMarkActivity.this, "赞", Toast.LENGTH_LONG).show();
-			}
-		});
-	}
-
-	// 下滑标题栏跟点赞栏消失
-	private void initGlobalAction() {
-		final View buttomBarView = findViewById(R.id.view_bookmark_bottom_bar);
-		
-		final GestureDetector webviewGestureDetector = new GestureDetector(this,new SimpleOnGestureListener() {
-
-			@Override
-			public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-				int verticalMinDistance = 0;
-				int minVelocity = 0;
-				if ((e1.getY() - e2.getY() > verticalMinDistance && Math.abs(velocityY) > minVelocity)) {
-					// getSupportActionBar().hide();
-					buttomBarView.setVisibility(View.GONE);
-				} else {
-					// getSupportActionBar().show();
-					buttomBarView.setVisibility(View.VISIBLE);
-				}
-				return super.onFling(e1, e2, velocityX, velocityY);
-			}
-
-		});
-		
-		webviewTouchListener = new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent me) {
-				return webviewGestureDetector.onTouchEvent(me);
-			}
-		};
-		
-		mainWebView.setOnTouchListener(webviewTouchListener);
 	}
 	
 	// 支持网页回退
@@ -176,10 +151,7 @@ public class BookMarkActivity extends BaseActivity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-
-	/**
-	 * TODO 支持左右滑动回退
-	 */
+	
 	public static void launch(Context context, BookMark bookmark) {
 		if (bookmark == null) {
 			MLog.e(TAG, "launch### bookmark is null");

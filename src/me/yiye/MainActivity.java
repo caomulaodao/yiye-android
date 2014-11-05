@@ -34,20 +34,23 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class MainActivity extends SlidingFragmentActivity {
 	private final static String TAG = "MainActivity";
-	private static DisplayImageOptions imageoptions;
+	private static DisplayImageOptions imageoptions = new DisplayImageOptions.Builder()
+		.showImageOnLoading(R.drawable.img_loading)
+		.showImageForEmptyUri(R.drawable.img_empty)
+		.showImageOnFail(R.drawable.img_failed)
+		.cacheInMemory(true)
+		.cacheOnDisk(true)
+		.considerExifParams(true)
+		.build();
+	final YiyeApi api = new YiyeApiImp(this);
 	
-	static {
-		imageoptions = new DisplayImageOptions.Builder()
-			.showImageOnLoading(R.drawable.img_loading)
-			.showImageForEmptyUri(R.drawable.img_empty)
-			.showImageOnFail(R.drawable.img_failed)
-			.cacheInMemory(true)
-			.cacheOnDisk(true)
-			.considerExifParams(true)
-			.build();
-	}
+	final ChannelsGridAdapter dataadpter = new ChannelsGridAdapter(this);
+	private PullToRefreshGridView pullableView;
+	private GridView mainDataGridView;
 	
-
+	private SimpleAdapter behindMenuListAdapter;
+	private ListView behindMenuListView;
+	private List<HashMap<String, Object>> contents  = new ArrayList<HashMap<String, Object>>();
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		this.setTitle("订阅");
 		setContentView(R.layout.activity_main);
 		setBehindContentView(R.layout.view_main_behind);
+		
 		initActionbar();
 		initSlidingMenu();
 		initAbovePanal();
@@ -82,16 +86,13 @@ public class MainActivity extends SlidingFragmentActivity {
 	}
 
 	private void initAbovePanal() {
-		final YiyeApi api = new YiyeApiImp(this);
+		pullableView = (PullToRefreshGridView) findViewById(R.id.gridview_main_content);
+		// pullableView.getLoadingLayoutProxy().setPullLabel("你妹的");
+		pullableView.getLoadingLayoutProxy().setLoadingDrawable(getResources().getDrawable(R.drawable.star));
 		
-		final ChannelsGridAdapter dataadpter = new ChannelsGridAdapter(this);
-	
-
-		PullToRefreshGridView pullableView = (PullToRefreshGridView) findViewById(R.id.gridview_main_content);
-		GridView mainDataGridView = pullableView.getRefreshableView();
+		mainDataGridView = pullableView.getRefreshableView();
 		mainDataGridView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
 		mainDataGridView.setAdapter(dataadpter);
-
 		mainDataGridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -100,9 +101,7 @@ public class MainActivity extends SlidingFragmentActivity {
 			}
 		});
 		
-		// pullableView.getLoadingLayoutProxy().setPullLabel("你妹的");
-		pullableView.getLoadingLayoutProxy().setLoadingDrawable(getResources().getDrawable(R.drawable.star));
-		
+		// 获取频道数据
 		new AsyncTask<Void, Void, Void>() {
 			@Override
 			protected Void doInBackground(Void... v) {
@@ -112,7 +111,7 @@ public class MainActivity extends SlidingFragmentActivity {
 			
 			@Override
 			protected void onPostExecute(Void v) {
-				MLog.d(TAG, "onPostExecute### data changed");
+				MLog.d(TAG, "onPostExecute### get user book channels");
 				dataadpter.notifyDataSetChanged();
 			}
 		}.execute();
@@ -120,7 +119,6 @@ public class MainActivity extends SlidingFragmentActivity {
 
 	class ChannelsGridAdapter extends BaseAdapter {
 		private Context context;
-
 		private List<Channel> channels;
 		
 		ChannelsGridAdapter(Context context) {
@@ -147,8 +145,8 @@ public class MainActivity extends SlidingFragmentActivity {
 		public View getView(int pos, View convertView, ViewGroup parent) {
 
 			View v;
-			RoundedImageView imageView;
-			TextView textView;
+			RoundedImageView channelLogoImageView;
+			TextView channelNameTextView;
 			TextView newsTextView;
 			Channel c = channels.get(pos);
 			if (convertView == null) {
@@ -159,16 +157,15 @@ public class MainActivity extends SlidingFragmentActivity {
 				v = convertView;
 			}
 			
-			imageView = (RoundedImageView) v.findViewById(R.id.imageview_main_above_item_background);
-			imageView.setAdjustViewBounds(false);
-			imageView.setCornerRadius(4.0f);
-			ImageLoader.getInstance().displayImage(c.logo, imageView,imageoptions);
+			channelLogoImageView = (RoundedImageView) v.findViewById(R.id.imageview_main_above_item_background);
+			channelLogoImageView.setAdjustViewBounds(false);
+			channelLogoImageView.setCornerRadius(4.0f);
+			ImageLoader.getInstance().displayImage(c.logo, channelLogoImageView,imageoptions);
 			
-			textView = (TextView) v.findViewById(R.id.textview_over_item_notice);
-			textView.setText(c.name);
+			channelNameTextView = (TextView) v.findViewById(R.id.textview_over_item_notice);
+			channelNameTextView.setText(c.name);
 			newsTextView = (TextView) v.findViewById(R.id.textview_over_item_news);
 			newsTextView.setText(c.news + "");
-			
 			return v;
 		}
 		
@@ -178,10 +175,6 @@ public class MainActivity extends SlidingFragmentActivity {
 	}
 
 	private void initSlidingMenu() {
-		ListView behindMenuListView;
-		SimpleAdapter behindMenuListAdapter;
-		List<HashMap<String, Object>> contents  = new ArrayList<HashMap<String, Object>>();
-		
 		SlidingMenu sm = this.getSlidingMenu();
 		sm.setShadowWidthRes(R.dimen.shadow_width);
 		sm.setShadowDrawable(R.drawable.shadow);
@@ -238,7 +231,7 @@ public class MainActivity extends SlidingFragmentActivity {
 			}
 		});
 		
-		if(YiyeApplication.user != null) {
+		if(YiyeApplication.user != null) {	// 若已经登陆，设置头像及姓名
 			ImageLoader.getInstance().displayImage(YiyeApplication.user.avatar, userimageView,imageoptions);
 			TextView usernameTextView = (TextView)v.findViewById(R.id.textview_main_behind_username);
 			usernameTextView.setText(YiyeApplication.user.username);

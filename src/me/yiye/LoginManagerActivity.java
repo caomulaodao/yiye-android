@@ -23,16 +23,16 @@ import android.widget.EditText;
 
 public class LoginManagerActivity extends BaseActivity {
 	private final static String TAG = "LoginManagerActivity";
-	private Button loginBtn;
-	private EditText emailEditText;
-	private EditText passwordEditText;
-
-	private User user = new User();
-	
 	// 判断email与password是否有输入，若都有启用登陆按钮，否则禁用登陆按钮
 	private boolean emailflag = false;
 	private boolean passwordflag = false;
-
+	
+	private User user = new User();
+	
+	private Button loginBtn;
+	private EditText emailEditText;
+	private EditText passwordEditText;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -108,7 +108,7 @@ public class LoginManagerActivity extends BaseActivity {
 							user.avatar = o.getString("avatar");
 							user.username = o.getString("username");
 						} catch (JSONException e) {
-							MLog.e(TAG, "用户信息失败");
+							MLog.e(TAG, "get user info failed");
 							e.printStackTrace();
 						}
 					
@@ -118,15 +118,11 @@ public class LoginManagerActivity extends BaseActivity {
 					@Override
 					protected void onPostExecute(String result) {
 						// TODO 登陆认证
-						// if(ret == null) {
-						//     error();
-						//  } else {
 						MLog.d(TAG,"onPostExecute### saveuer:" + user.toString());
 						SQLManager.saveuser(LoginManagerActivity.this,user);
 						setCurrentUser(user);
 						YiyeApplication.user = user;
 						MainActivity.launch(LoginManagerActivity.this);
-					    // }
 					}
 				}.execute();
 			}

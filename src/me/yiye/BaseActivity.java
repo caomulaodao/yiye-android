@@ -22,7 +22,7 @@ class BaseActivity  extends SherlockActivity {
 		titleTextView.setText(title);
 	   
 	   // 右边菜单
-		Button menuBtn = (Button)barview.findViewById(R.id.imageview_actionbar_btn);
+		ImageView menuBtn = (ImageView)barview.findViewById(R.id.imageview_actionbar_btn);
 		menuBtn.setVisibility(View.GONE);
 		
 		// 左边导航按钮

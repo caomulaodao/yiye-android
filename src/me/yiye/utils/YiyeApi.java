@@ -17,7 +17,7 @@ public interface YiyeApi {
 	public String getUserInfo();
 	public boolean isOnline(User user);
 
-	public final static String TESTHOST = "http://192.168.1.105:3000/";
+	public final static String TESTHOST = "http://pre.yiye.me:3000/";
 	public final static String BOOKEDCHANNELS = "api/channel/all";
 	public final static String LOGIN = "api/account/login";
 	public final static String USERINFO = "api/user/me";

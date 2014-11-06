@@ -10,15 +10,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.database.Cursor;
 
 public class YiyeApiHelper {
 	private final static String TAG = "YiyeApiHelper";
-	public String channelId;
-	public String name;
-	public String logo;
-	public String type;
-	public int news;
-	public String lastTime;
+	
+	public static void addChannelToChannelSet(Context context, List<Channel> channelList, Cursor cur) {
+		Channel c =  new Channel();
+		MLog.d(TAG, "addChannelToChannelSet### cursor count:" + cur.getCount());
+		
+		if(cur.moveToFirst()) {
+			for(int i = 0;i < cur.getCount();i ++) {
+				cur.move(i);
+				c = Channel.buildFromCursor(cur);
+				channelList.add(c);
+			}
+		}
+	}
 	
 	public static void addChannelToChannelSet(Context context, List<Channel> channelList, String result) {
 		Channel c = new Channel();
@@ -35,6 +43,19 @@ public class YiyeApiHelper {
 		} catch (JSONException e) {
 			MLog.e(TAG, "addChannelToChannelSet### 解析json失败");
 			e.printStackTrace();
+		}
+	}
+	
+	public static void addBookMarkToChannel(Context context, List<BookMark> bookmarkList, Cursor cur) {
+		BookMark b =  new BookMark();
+		MLog.d(TAG, "addChannelToChannelSet### cursor count:" + cur.getCount());
+		
+		if(cur.moveToFirst()) {
+			for(int i = 0;i < cur.getCount();i ++) {
+				cur.move(i);
+				b = BookMark.buildFromCursor(cur);
+				bookmarkList.add(b);
+			}
 		}
 	}
 	

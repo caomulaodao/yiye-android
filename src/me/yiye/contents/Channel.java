@@ -5,6 +5,8 @@ import me.yiye.utils.MLog;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.database.Cursor;
+
 public class Channel {
 	private final static String TAG = "Channel";
 	public String channelId;
@@ -27,7 +29,19 @@ public class Channel {
 		c.type = o.getString("type");
 		c.lastTime = o.getString("lastTime");
 		c.news = o.getInt("news");
-		MLog.d(TAG, c.toString());
+		MLog.d(TAG, "buildFromJosnObject### " + c.toString());
+		return c;
+	}
+	
+	public static Channel buildFromCursor(Cursor cur) {
+		Channel c = new Channel();
+		c.channelId = cur.getString(cur.getColumnIndex("channelId"));
+		c.name = cur.getString(cur.getColumnIndex("name"));
+		c.logo = cur.getString(cur.getColumnIndex("logo"));
+		c.type = cur.getString(cur.getColumnIndex("type"));
+		c.lastTime = cur.getString(cur.getColumnIndex("lastTime"));
+		c.news = cur.getInt(cur.getColumnIndex("news"));
+		MLog.d(TAG,"buildFromCursor### " + c.toString());
 		return c;
 	}
 }

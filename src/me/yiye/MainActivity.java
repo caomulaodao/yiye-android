@@ -8,6 +8,7 @@ import me.yiye.contents.Channel;
 import me.yiye.utils.MLog;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiImp;
+import me.yiye.utils.YiyeApiOfflineImp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -25,6 +26,8 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar.LayoutParams;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -42,7 +45,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		.cacheOnDisk(true)
 		.considerExifParams(true)
 		.build();
-	final YiyeApi api = new YiyeApiImp(this);
+
 	
 	final ChannelsGridAdapter dataadpter = new ChannelsGridAdapter(this);
 	private PullToRefreshGridView pullableView;
@@ -90,6 +93,14 @@ public class MainActivity extends SlidingFragmentActivity {
 		// pullableView.getLoadingLayoutProxy().setPullLabel("你妹的");
 		pullableView.getLoadingLayoutProxy().setLoadingDrawable(getResources().getDrawable(R.drawable.star));
 		
+		// 下拉刷新数据
+		pullableView.setOnRefreshListener(new OnRefreshListener<GridView>() {
+
+			@Override
+			public void onRefresh(PullToRefreshBase<GridView> refreshView) {
+				freshdata(new YiyeApiImp(MainActivity.this));
+			}
+		});
 		mainDataGridView = pullableView.getRefreshableView();
 		mainDataGridView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
 		mainDataGridView.setAdapter(dataadpter);
@@ -101,25 +112,13 @@ public class MainActivity extends SlidingFragmentActivity {
 			}
 		});
 		
-		// 获取频道数据
-		new AsyncTask<Void, Void, Void>() {
-			@Override
-			protected Void doInBackground(Void... v) {
-				dataadpter.setData(api.getBookedChannels());
-				return null;
-			}
-			
-			@Override
-			protected void onPostExecute(Void v) {
-				MLog.d(TAG, "onPostExecute### get user book channels");
-				dataadpter.notifyDataSetChanged();
-			}
-		}.execute();
+		// 加载离线数据
+		freshdata(new YiyeApiOfflineImp(this));
 	}
 
 	class ChannelsGridAdapter extends BaseAdapter {
 		private Context context;
-		private List<Channel> channels;
+		private List<Channel> channels = new ArrayList<Channel>();
 		
 		ChannelsGridAdapter(Context context) {
 			this.context = context;
@@ -170,6 +169,11 @@ public class MainActivity extends SlidingFragmentActivity {
 		}
 		
 		public void setData(List<Channel> channels){
+			// 保证channels不为空引用 防止加载时出现NullPointer
+			if(channels == null) {
+				return;
+			}
+			
 			this.channels = channels;
 		}
 	}
@@ -242,5 +246,24 @@ public class MainActivity extends SlidingFragmentActivity {
 		Intent i = new Intent();
 		i.setClass(context,MainActivity.class);
 		context.startActivity(i);
+	}
+
+	private void freshdata(final YiyeApi api) {
+		// 获取频道数据
+		new AsyncTask<Void, Void,  List<Channel>>() {
+			@Override
+			protected List<Channel> doInBackground(Void... v) {
+				return api.getBookedChannels();
+			}
+			
+			@Override
+			protected void onPostExecute(List<Channel> list) {
+				MLog.d(TAG, "onPostExecute### get user book channels");
+				dataadpter.setData(list);
+				dataadpter.notifyDataSetChanged();
+				pullableView.onRefreshComplete();
+				super.onPostExecute(list);
+			}
+		}.execute();
 	}
 }

@@ -8,6 +8,7 @@ import me.yiye.contents.Channel;
 import me.yiye.utils.MLog;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiImp;
+import me.yiye.utils.YiyeApiOfflineImp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -21,19 +22,20 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ChannelActivity extends BaseActivity {
 	private final static String TAG = "ChannelActivity";
-	private YiyeApi api = new YiyeApiImp(this);
 	
 	private static Channel channel;
 	
 	private ChannelAdapter bookMarkListViewAdapter;
 	
 	private ListView bookMarkListView;
-	private PullToRefreshListView tmpview;
+	private PullToRefreshListView pullableView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +46,16 @@ public class ChannelActivity extends BaseActivity {
 	}
 
 	private void initChannelListView() {
-		tmpview = (PullToRefreshListView) this.findViewById(R.id.listview_channel_bookmarks);
-		bookMarkListView = tmpview.getRefreshableView();
+		pullableView = (PullToRefreshListView) this.findViewById(R.id.listview_channel_bookmarks);
+		pullableView.setOnRefreshListener(new OnRefreshListener<ListView>() {
+
+			@Override
+			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+				freshdata(new YiyeApiImp(ChannelActivity.this));
+				
+			}
+		});
+		bookMarkListView = pullableView.getRefreshableView();
 		bookMarkListView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
 		bookMarkListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -61,21 +71,7 @@ public class ChannelActivity extends BaseActivity {
 		bookMarkListViewAdapter = new ChannelAdapter(this);
 		bookMarkListView.setAdapter(bookMarkListViewAdapter);
 		
-		// 获取书签数据
-		new AsyncTask<Void, Void, Void>() {
-			@Override
-			protected Void doInBackground(Void... v) {
-				bookMarkListViewAdapter.setData(api.getBookMarksByChannel(channel));
-				return null;
-			}
-			
-			@Override
-			protected void onPostExecute(Void v) {
-				MLog.d(TAG, "onPostExecute### get the data of bookmark.");
-				bookMarkListViewAdapter.notifyDataSetChanged();
-			}
-		}.execute();
-		
+		freshdata(new YiyeApiOfflineImp(this));
 		// 添加列表最下一项的分割线
 		// View v = View.inflate(this, R.layout.item_commom_divider_style, null);
 		// bookMarkListView.addFooterView(v);
@@ -165,6 +161,10 @@ public class ChannelActivity extends BaseActivity {
 		public long getItemId(int id) {
 			return id;
 		}
+	
+		public void clear() {
+			itemList.clear();
+		}
 	}
 
 	private class Item {
@@ -197,5 +197,27 @@ public class ChannelActivity extends BaseActivity {
 	public static void launch(Context context, Channel channel) {
 		ChannelActivity.channel = channel;
 		launch(context);
+	}
+
+	private void freshdata(final YiyeApi api) {
+		
+		bookMarkListViewAdapter.clear();
+		// 获取书签数据
+		new AsyncTask<Void, Void, List<BookMark>>() {
+			@Override
+			protected List<BookMark> doInBackground(Void... v) {
+				return api.getBookMarksByChannel(channel);
+			}
+			
+			@Override
+			protected void onPostExecute(List<BookMark> list) {
+				MLog.d(TAG, "onPostExecute### get the data of bookmark.");
+				bookMarkListViewAdapter.setData(list);
+				bookMarkListViewAdapter.notifyDataSetChanged();
+				pullableView.onRefreshComplete();
+				super.onPostExecute(list);
+				
+			}
+		}.execute();
 	}
 }

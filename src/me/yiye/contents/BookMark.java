@@ -3,6 +3,8 @@ package me.yiye.contents;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.database.Cursor;
+
 import me.yiye.utils.MLog;
 
 
@@ -33,7 +35,20 @@ public class BookMark {
 		b.image = o.getString("image");
 		b.likeNum = o.getInt("likeNum");
 		b.postTime = o.getString("postTime");
-		MLog.d(TAG, b.toString());
+		MLog.d(TAG, "buildBookMarkFromJsonObject### " + b.toString());
+		return b;
+	}
+
+	public static BookMark buildFromCursor(Cursor cur) {
+		BookMark b = new BookMark();
+		b.channelId = cur.getString(cur.getColumnIndex("channelId"));
+		b.title = cur.getString(cur.getColumnIndex("title"));
+		b.description = cur.getString(cur.getColumnIndex("description"));
+		b.url = cur.getString(cur.getColumnIndex("url"));
+		b.image = cur.getString(cur.getColumnIndex("image"));
+		b.likeNum = cur.getInt(cur.getColumnIndex("likeNum"));
+		b.postTime = cur.getString(cur.getColumnIndex("postTime"));
+		MLog.d(TAG, "buildFromCursor### " + b.toString());
 		return b;
 	}
 }

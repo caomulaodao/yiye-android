@@ -1,5 +1,6 @@
 package me.yiye.utils;
 
+import me.yiye.YiyeApplication;
 import me.yiye.contents.BookMark;
 import me.yiye.contents.Channel;
 import me.yiye.contents.User;
@@ -47,8 +48,9 @@ public class SQLManager {
 				"logo VARCHAR," +
 				"type VARCHAR," +
 				"news INTEGER," +
-				"lastTime VARCHAR" +
-				")");		
+				"lastTime VARCHAR," +
+				"ownerId INTEGER" +
+				")");
 		db.execSQL("CREATE TABLE bookmark " +
 				"(id INTEGER PRIMARY KEY AUTOINCREMENT," + 
 				"title VARCHAR UNIQUE," + 
@@ -97,6 +99,7 @@ public class SQLManager {
 		cv.put("name", c.name);
 		cv.put("news", c.news);
 		cv.put("type", c.type);
+		cv.put("ownerId", YiyeApplication.user.id);
 		long id = db.insert("channel", null, cv);
 		if(id == -1) {
 			MLog.e(TAG, "saveChannel### insert error");
@@ -142,4 +145,5 @@ public class SQLManager {
 		
 		return user;
 	}
+
 }

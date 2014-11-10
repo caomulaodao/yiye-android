@@ -12,16 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.jfeinstein.jazzyviewpager.JazzyViewPager;
+
 public class V2MainActivity extends FragmentActivity {
 
-	private ViewPager mViewPager;
+	private JazzyViewPager mViewPager;
 	private AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_v2);
 
-		mViewPager = (ViewPager) findViewById(R.id.main_pager);
+		mViewPager = (JazzyViewPager) findViewById(R.id.main_pager);
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 		mViewPager.setAdapter(mAppSectionsPagerAdapter);
 
@@ -32,7 +34,7 @@ public class V2MainActivity extends FragmentActivity {
 				
 			}
 		});
-
+		
 	}
 
 	public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
@@ -44,11 +46,13 @@ public class V2MainActivity extends FragmentActivity {
 		@Override
 		public Fragment getItem(int i) {
 			switch (i) {
+			case 0:
+				return new ChannelsFragment();
+			case 1:
+				return new SearchFragment();
 			default:
 				// The other sections of the app are dummy placeholders.
-				Fragment fragment = new DummySectionFragment();
-				Bundle args = new Bundle();
-				return fragment;
+				return new DummySectionFragment();
 			}
 		}
 
@@ -71,4 +75,5 @@ public class V2MainActivity extends FragmentActivity {
 			return rootView;
 		}
 	}
+
 }

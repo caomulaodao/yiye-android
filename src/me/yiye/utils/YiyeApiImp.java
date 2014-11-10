@@ -41,7 +41,7 @@ public class YiyeApiImp implements YiyeApi{
 	@Override
 	public List<ChannelSet> getChannelSets() {
 		// TODO Auto-generated method stub 
-		return null;
+		return new ArrayList<ChannelSet>();
 	}
 
 	@Override

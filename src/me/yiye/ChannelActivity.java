@@ -55,6 +55,7 @@ public class ChannelActivity extends BaseActivity {
 				freshdata(new YiyeApiImp(ChannelActivity.this));
 			}
 		});
+		
 		bookMarkListView = pullableView.getRefreshableView();
 		bookMarkListView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
 		bookMarkListView.setOnItemClickListener(new OnItemClickListener() {
@@ -87,6 +88,7 @@ public class ChannelActivity extends BaseActivity {
 
 		public void setData(List<BookMark> bookMarkList) {
 			//TODO 实现数据按时间分段
+			itemList.clear();
 			String currentDate = null;
 			for (BookMark bm : bookMarkList) {
 				if (currentDate == null || !currentDate.equals(bm.postTime)) {
@@ -161,10 +163,6 @@ public class ChannelActivity extends BaseActivity {
 		public long getItemId(int id) {
 			return id;
 		}
-	
-		public void clear() {
-			itemList.clear();
-		}
 	}
 
 	private class Item {
@@ -201,7 +199,6 @@ public class ChannelActivity extends BaseActivity {
 
 	private void freshdata(final YiyeApi api) {
 		
-		bookMarkListViewAdapter.clear();
 		// 获取书签数据
 		new AsyncTask<Void, Void, List<BookMark>>() {
 			@Override

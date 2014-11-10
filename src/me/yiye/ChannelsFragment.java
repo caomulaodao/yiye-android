@@ -46,7 +46,7 @@ public class ChannelsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
-		View v = inflater.inflate(R.layout.activity_main, null, false);
+		View v = inflater.inflate(R.layout.activity_channels, null, false);
 		init(v);
 		
 		return v;
@@ -162,5 +162,5 @@ public class ChannelsFragment extends Fragment {
 		}.execute();
 	}
 	
-
+	
 }

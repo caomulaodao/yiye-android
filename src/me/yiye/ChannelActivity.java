@@ -47,12 +47,12 @@ public class ChannelActivity extends BaseActivity {
 
 	private void initChannelListView() {
 		pullableView = (PullToRefreshListView) this.findViewById(R.id.listview_channel_bookmarks);
+		pullableView.getLoadingLayoutProxy().setLoadingDrawable(getResources().getDrawable(R.drawable.star));
 		pullableView.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
 			@Override
 			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
 				freshdata(new YiyeApiImp(ChannelActivity.this));
-				
 			}
 		});
 		bookMarkListView = pullableView.getRefreshableView();

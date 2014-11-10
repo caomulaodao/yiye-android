@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jfeinstein.jazzyviewpager.JazzyViewPager;
+import com.jfeinstein.jazzyviewpager.JazzyViewPager.TransitionEffect;
 
 public class MainActivity extends FragmentActivity {
 
@@ -25,6 +26,7 @@ public class MainActivity extends FragmentActivity {
 		setContentView(R.layout.activity_main);
 
 		mViewPager = (JazzyViewPager) findViewById(R.id.main_pager);
+		mViewPager.setTransitionEffect(TransitionEffect.Stack);
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 		mViewPager.setAdapter(mAppSectionsPagerAdapter);
 
@@ -36,6 +38,7 @@ public class MainActivity extends FragmentActivity {
 			}
 		});
 		
+	
 	}
 
 	public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
@@ -52,8 +55,7 @@ public class MainActivity extends FragmentActivity {
 			case 1:
 				return new SearchFragment();
 			default:
-				// The other sections of the app are dummy placeholders.
-				return new DummySectionFragment();
+				return new PersonalFragment();
 			}
 		}
 
@@ -65,15 +67,6 @@ public class MainActivity extends FragmentActivity {
 		@Override
 		public CharSequence getPageTitle(int position) {
 			return position + "";
-		}
-	}
-
-	public static class DummySectionFragment extends Fragment {
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			TextView rootView = new TextView(this.getActivity());
-			rootView.setText("for furture");
-			return rootView;
 		}
 	}
 	

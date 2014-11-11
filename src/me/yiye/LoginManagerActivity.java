@@ -123,6 +123,7 @@ public class LoginManagerActivity extends BaseActivity {
 						setCurrentUser(user);
 						YiyeApplication.user = user;
 						MainActivity.launch(LoginManagerActivity.this);
+						finish();
 					}
 				}.execute();
 			}

@@ -16,15 +16,11 @@ public class YiyeApiHelper {
 	private final static String TAG = "YiyeApiHelper";
 	
 	public static void addChannelToChannelSet(Context context, List<Channel> channelList, Cursor cur) {
-		Channel c =  new Channel();
+		Channel c = new Channel();
 		MLog.d(TAG, "addChannelToChannelSet### cursor count:" + cur.getCount());
-		
-		if(cur.moveToFirst()) {
-			for(int i = 0;i < cur.getCount();i ++) {
-				cur.move(i);
-				c = Channel.buildFromCursor(cur);
-				channelList.add(c);
-			}
+		for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext()) {
+			c = Channel.buildFromCursor(cur);
+			channelList.add(c);
 		}
 	}
 	
@@ -47,15 +43,12 @@ public class YiyeApiHelper {
 	}
 	
 	public static void addBookMarkToChannel(Context context, List<BookMark> bookmarkList, Cursor cur) {
-		BookMark b =  new BookMark();
+		BookMark b = new BookMark();
 		MLog.d(TAG, "addChannelToChannelSet### cursor count:" + cur.getCount());
-		
-		if(cur.moveToFirst()) {
-			for(int i = 0;i < cur.getCount();i ++) {
-				cur.move(i);
-				b = BookMark.buildFromCursor(cur);
-				bookmarkList.add(b);
-			}
+
+		for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext()) {
+			b = BookMark.buildFromCursor(cur);
+			bookmarkList.add(b);
 		}
 	}
 	

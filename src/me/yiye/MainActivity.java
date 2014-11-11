@@ -1,5 +1,6 @@
 package me.yiye;
 
+import me.yiye.customwidget.SwitchBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +9,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.jfeinstein.jazzyviewpager.JazzyViewPager;
 import com.jfeinstein.jazzyviewpager.JazzyViewPager.TransitionEffect;
@@ -21,6 +18,8 @@ public class MainActivity extends FragmentActivity {
 	private JazzyViewPager mViewPager;
 	private AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 
+	private SwitchBar mSwitchBar;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -34,10 +33,11 @@ public class MainActivity extends FragmentActivity {
 
 			@Override
 			public void onPageSelected(int index) {
-				
+				mSwitchBar.setSelect(index);
 			}
 		});
 		
+		mSwitchBar = (SwitchBar)findViewById(R.id.switchbar_main);
 	
 	}
 

@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.jfeinstein.jazzyviewpager.JazzyViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_pager"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent" >
+
+    <com.jfeinstein.jazzyviewpager.JazzyViewPager
+        android:id="@+id/main_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <me.yiye.customwidget.SwitchBar
+        android:id="@+id/switchbar_main"
+        android:layout_gravity="bottom" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</FrameLayout>

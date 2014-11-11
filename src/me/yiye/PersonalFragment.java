@@ -1,6 +1,7 @@
 package me.yiye;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -35,6 +36,8 @@ public class PersonalFragment extends Fragment{
 	}
 	
 	private void init(View v) {
+		
+		
 		loginBtn =  (Button) v.findViewById(R.id.btn_personal_login);
 		loginBtn.setOnClickListener(new OnClickListener() {
 			
@@ -50,7 +53,7 @@ public class PersonalFragment extends Fragment{
 			@Override
 			public void onClick(View v) {		
 				new AlertDialog.Builder(PersonalFragment.this.getActivity())
-					.setTitle("关于")
+					.setTitle("关于一叶")
 					.setMessage("囧囧有序的施工中")
 					.setPositiveButton("确定", null)
 					.show();
@@ -69,6 +72,24 @@ public class PersonalFragment extends Fragment{
 			ImageLoader.getInstance().displayImage(YiyeApplication.user.avatar, userimageView, imageoptions);
 			TextView usernameTextView = (TextView) v.findViewById(R.id.textview_personal_username);
 			usernameTextView.setText(YiyeApplication.user.username);
+			loginBtn.setText("注销");
+			loginBtn.setTextColor(getActivity().getResources().getColor(R.color.Purple500));
+			loginBtn.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					new AlertDialog.Builder(PersonalFragment.this.getActivity()) 
+						.setTitle("额，还没做好，注销不能")
+						.setMessage("我们的工程师度假去了。。")
+						.setPositiveButton("就这样吧(ノ=Д=)ノ┻━┻ ", null)
+						.setNegativeButton("强行登陆！！！", new  DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
+								LoginManagerActivity.launch(PersonalFragment.this.getActivity());
+							}})
+						.show();
+				}
+			});
 		}
 	}
 }

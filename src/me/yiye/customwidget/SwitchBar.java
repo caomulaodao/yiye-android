@@ -13,19 +13,23 @@ public class SwitchBar extends LinearLayout {
 	private TextView findTextView;
 	private TextView personalTextView;
 	private int pos = 0;
+	private Context context;
 
 	public SwitchBar(Context context) {
 		super(context);
+		this.context = context;
 		init(context);
 	}
 
 	public SwitchBar(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		this.context = context;
 		init(context);
 	}
 
 	public SwitchBar(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		this.context = context;
 		init(context);
 	}
 
@@ -41,13 +45,13 @@ public class SwitchBar extends LinearLayout {
 		clearSelect();
 		switch (pos) {
 		case 0:
-			channelTextView.setTextColor(Color.RED);
+			channelTextView.setTextColor(context.getResources().getColor(R.color.Purple500));
 			break;
 		case 1:
-			findTextView.setTextColor(Color.RED);
+			findTextView.setTextColor(context.getResources().getColor(R.color.Purple500));
 			break;
 		case 2:
-			personalTextView.setTextColor(Color.RED);
+			personalTextView.setTextColor(context.getResources().getColor(R.color.Purple500));
 			break;
 		default:
 			break;
@@ -56,13 +60,13 @@ public class SwitchBar extends LinearLayout {
 	}
 
 	private void clearSelect() {
-		channelTextView.setTextColor(Color.BLACK);
-		findTextView.setTextColor(Color.BLACK);
-		personalTextView.setTextColor(Color.BLACK);
+		channelTextView.setTextColor(context.getResources().getColor(R.color.Grey900));
+		findTextView.setTextColor(context.getResources().getColor(R.color.Grey900));
+		personalTextView.setTextColor(context.getResources().getColor(R.color.Grey900));
 	}
 
-	public void setOnClickLisener(int pos,OnClickListener listener) {
-		switch(pos) {
+	public void setOnClickLisener(int pos, OnClickListener listener) {
+		switch (pos) {
 		case 0:
 			channelTextView.setOnClickListener(listener);
 			break;

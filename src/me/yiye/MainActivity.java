@@ -101,6 +101,7 @@ public class MainActivity extends FragmentActivity {
 
 	public static void launch(Context context) {
 		Intent i = new Intent();
+		
 		i.setClass(context, MainActivity.class);
 		context.startActivity(i);
 	}

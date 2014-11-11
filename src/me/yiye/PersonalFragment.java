@@ -4,10 +4,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -52,8 +53,8 @@ public class PersonalFragment extends Fragment{
 
 		if (YiyeApplication.user != null) { // 若已经登陆，设置头像及姓名
 			ImageLoader.getInstance().displayImage(YiyeApplication.user.avatar, userimageView, imageoptions);
-			// TextView usernameTextView = (TextView) v.findViewById(R.id.textview_main_behind_username);
-			// usernameTextView.setText(YiyeApplication.user.username);
+			TextView usernameTextView = (TextView) v.findViewById(R.id.textview_personal_username);
+			usernameTextView.setText(YiyeApplication.user.username);
 		}
 	}
 }

@@ -8,12 +8,12 @@
         android:id="@+id/imageview_personal_header"
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/person_header_test" />
 
-     <!--<ImageView -->
-     
-    <me.yiye.customwidget.CircularImage 
+    <!-- me.yiye.customwidget.CircularImage -->
+
+    <ImageView
         android:id="@+id/imageview_personal_userimg"
         android:layout_width="90dp"
         android:layout_height="90dp"
@@ -23,41 +23,82 @@
         android:layout_marginTop="-45dp"
         android:src="@drawable/miaotouxiang" />
 
-    <Button
-        android:id="@+id/btn_personal_myfavor"
+    <TextView 
+        android:id="@+id/textview_personal_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/imageview_personal_userimg"
+        android:text="用户名"
+        android:layout_toRightOf="@id/imageview_personal_userimg"
+        android:textSize="22sp"
+        android:textColor="@color/Grey900"
+        android:layout_margin="10dp"
+        />    
+        
+        <LinearLayout
+        android:id="@+id/view_personnal_group1"
         android:layout_width="match_parent"
-        android:layout_height="33dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/imageview_personal_header"
         android:layout_marginTop="88dp"
-        android:background="@drawable/section_btn_style"
-        android:gravity="center"
-        android:text="我的收藏" />
+        android:background="@color/PUERWHITE"
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/btn_personal_about"
+        <Button
+            android:id="@+id/btn_personal_myfavor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/section_btn_style"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="我的收藏"
+            android:textColor="@color/Grey700"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="33dp"
-        android:layout_below="@id/btn_personal_myfavor"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_personnal_group1"
         android:layout_marginTop="26dp"
-        android:background="@drawable/section_btn_style"
-        android:gravity="center"
-        android:text="关于" />
+        android:background="@color/PUERWHITE"
+        android:orientation="vertical" >
 
-    <View
-        android:id="@+id/view_personal_divider1"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/btn_personal_about"
-        android:background="@drawable/divider_style" />
+        <Button
+            android:id="@+id/btn_personal_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/section_btn_style"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="关于"
+            android:textColor="@color/Grey700"
+            android:textSize="14sp" />
 
-    <Button
-        android:id="@+id/btn_personal_login"
-        android:layout_width="match_parent"
-        android:layout_height="33dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/view_personal_divider1"
-        android:background="@drawable/section_btn_style"
-        android:gravity="center"
-        android:text="登陆" />
+        <View
+            android:id="@+id/view_personal_divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/btn_personal_about"
+            android:layout_gravity="center"
+            android:background="@drawable/divider_style"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+             />
+
+        <Button
+            android:id="@+id/btn_personal_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/section_btn_style"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="登陆"
+            android:textColor="@color/Grey700"
+            android:textSize="14sp" />
+    </LinearLayout>
 
 </RelativeLayout>

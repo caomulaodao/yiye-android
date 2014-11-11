@@ -9,6 +9,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 import com.jfeinstein.jazzyviewpager.JazzyViewPager;
 import com.jfeinstein.jazzyviewpager.JazzyViewPager.TransitionEffect;
@@ -19,11 +22,12 @@ public class MainActivity extends FragmentActivity {
 	private AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 
 	private SwitchBar mSwitchBar;
-	
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		initActionbar("一叶");
 		mViewPager = (JazzyViewPager) findViewById(R.id.main_pager);
 		mViewPager.setTransitionEffect(TransitionEffect.Stack);
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
@@ -36,9 +40,34 @@ public class MainActivity extends FragmentActivity {
 				mSwitchBar.setSelect(index);
 			}
 		});
+
+		mSwitchBar = (SwitchBar) findViewById(R.id.switchbar_main);
+
+		mSwitchBar.setOnClickLisener(0, new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				mViewPager.setCurrentItem(0);
+			}
+		});
 		
-		mSwitchBar = (SwitchBar)findViewById(R.id.switchbar_main);
-	
+		mSwitchBar.setOnClickLisener(1, new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				mViewPager.setCurrentItem(1);
+			}
+		});
+		
+		mSwitchBar.setOnClickLisener(2, new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				mViewPager.setCurrentItem(2);
+			}
+		});
+		
+
 	}
 
 	public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
@@ -69,11 +98,21 @@ public class MainActivity extends FragmentActivity {
 			return position + "";
 		}
 	}
-	
+
 	public static void launch(Context context) {
 		Intent i = new Intent();
 		i.setClass(context, MainActivity.class);
 		context.startActivity(i);
 	}
 
+	// 自定义的Actionbar
+	protected void initActionbar(String title) {
+		View barview = View.inflate(this,R.layout.view_main_actionbar,null);
+		getActionBar().setCustomView(barview);
+		getActionBar().setDisplayShowCustomEnabled(true);
+		
+		// 标题
+		TextView titleTextView = (TextView) barview.findViewById(R.id.textview_actionbar_title);
+		titleTextView.setText(title);
+	}
 }

@@ -1,5 +1,6 @@
 package me.yiye;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ public class PersonalFragment extends Fragment{
 		.considerExifParams(true)
 		.build();
 	private Button loginBtn;
+	private Button aboutBtn;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +42,18 @@ public class PersonalFragment extends Fragment{
 			public void onClick(View v) {
 				LoginManagerActivity.launch(PersonalFragment.this.getActivity());
 				
+			}
+		});
+		
+		aboutBtn = (Button) v.findViewById(R.id.btn_personal_about);
+		aboutBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {		
+				new AlertDialog.Builder(PersonalFragment.this.getActivity())
+					.setTitle("关于")
+					.setMessage("囧囧有序的施工中")
+					.setPositiveButton("确定", null)
+					.show();
 			}
 		});
 		

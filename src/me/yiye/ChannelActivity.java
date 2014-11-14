@@ -133,8 +133,10 @@ public class ChannelActivity extends BaseActivity {
 
 			ImageView contentImageView;
 			TextView titleTextView;
-			TextView descriptionTextView;
-
+			// TextView descriptionTextView;
+			TextView praiseTextView; 
+			TextView uploaderTextView;
+			
 			if (c.getType() == Item.SECTION) {
 				titleTextView = (TextView) v.findViewById(R.id.textview_bookmark_section_title_item);
 				titleTextView.setText(c.getBookmark().postTime);
@@ -147,8 +149,14 @@ public class ChannelActivity extends BaseActivity {
 				titleTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_title);
 				titleTextView.setText(c.getBookmark().title);
 
-				descriptionTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_content);
-				descriptionTextView.setText(c.getBookmark().description);
+				// descriptionTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_content);
+				// descriptionTextView.setText(c.getBookmark().description);
+				
+				praiseTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_praise);
+				praiseTextView.setText("赞 " + c.getBookmark().likeNum);
+				
+				uploaderTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_uploader);
+				uploaderTextView.setText("上传者 " + c.getBookmark().postUser);
 			}
 			return v;
 		}

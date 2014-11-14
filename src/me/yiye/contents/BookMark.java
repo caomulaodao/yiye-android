@@ -23,7 +23,7 @@ public class BookMark {
 	@Override
 	public String toString() {
 		return "[channelId:" + channelId + " title:" + title + " summary:" + description + " url:" + url + " image:" + image
-				+ " postTime:" + postTime + " likeNum:" + likeNum + "]";
+				+ " postTime:" + postTime + " postUser:" + postUser + " likeNum:" + likeNum + "]";
 	}
 	
 	public static BookMark buildBookMarkFromJsonObject(JSONObject o) throws JSONException {
@@ -35,6 +35,9 @@ public class BookMark {
 		b.image = o.getString("image");
 		b.likeNum = o.getInt("likeNum");
 		b.postTime = o.getString("postTime");
+		
+		JSONObject user = o.getJSONObject("postUser");
+		b.postUser = user.getString("username");
 		MLog.d(TAG, "buildBookMarkFromJsonObject### " + b.toString());
 		return b;
 	}
@@ -48,6 +51,7 @@ public class BookMark {
 		b.image = cur.getString(cur.getColumnIndex("image"));
 		b.likeNum = cur.getInt(cur.getColumnIndex("likeNum"));
 		b.postTime = cur.getString(cur.getColumnIndex("postTime"));
+		b.postUser = cur.getString(cur.getColumnIndex("postUser"));
 		MLog.d(TAG, "buildFromCursor### " + b.toString());
 		return b;
 	}

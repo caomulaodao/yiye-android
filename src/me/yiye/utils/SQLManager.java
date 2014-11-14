@@ -120,6 +120,7 @@ public class SQLManager {
 		cv.put("title",b.title);
 		cv.put("url", b.url);
 		cv.put("likeNum", b.likeNum);
+		cv.put("postUser", b.postUser);
 		long id = db.insert("bookmark", null, cv);
 		if(id == -1) {
 			MLog.e(TAG, "saveBookMark### insert error");

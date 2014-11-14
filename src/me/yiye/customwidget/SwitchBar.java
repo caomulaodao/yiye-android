@@ -2,8 +2,8 @@ package me.yiye.customwidget;
 
 import me.yiye.R;
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,6 +12,11 @@ public class SwitchBar extends LinearLayout {
 	private TextView channelTextView;
 	private TextView findTextView;
 	private TextView personalTextView;
+	
+	private View channelView;
+	private View findView;
+	private View personalView;
+	
 	private int pos = 0;
 	private Context context;
 
@@ -38,6 +43,10 @@ public class SwitchBar extends LinearLayout {
 		channelTextView = (TextView) findViewById(R.id.textview_main_switchbar_channel);
 		findTextView = (TextView) findViewById(R.id.textview_main_switchbar_find);
 		personalTextView = (TextView) findViewById(R.id.textview_main_switchbar_personal);
+		
+		channelView = findViewById(R.id.view_main_switchbar_channel);
+		findView = findViewById(R.id.view_main_switchbar_find);
+		personalView = findViewById(R.id.view_main_switchbar_personal);
 		setSelect(pos);
 	}
 
@@ -68,13 +77,13 @@ public class SwitchBar extends LinearLayout {
 	public void setOnClickLisener(int pos, OnClickListener listener) {
 		switch (pos) {
 		case 0:
-			channelTextView.setOnClickListener(listener);
+			channelView.setOnClickListener(listener);
 			break;
 		case 1:
-			findTextView.setOnClickListener(listener);
+			findView.setOnClickListener(listener);
 			break;
 		case 2:
-			personalTextView.setOnClickListener(listener);
+			personalView.setOnClickListener(listener);
 			break;
 		}
 	}

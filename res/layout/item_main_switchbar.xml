@@ -7,28 +7,70 @@
     android:paddingBottom="5dp"
     android:paddingTop="5dp" >
 
-    <TextView
-        android:id="@+id/textview_main_switchbar_channel"
+    <LinearLayout
+        android:id="@+id/view_main_switchbar_channel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="center"
-        android:text="频道" />
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textview_main_switchbar_find"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="发现" />
+        <ImageView
+            android:id="@+id/imageview_main_switchbar_channel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/nav_channel" />
 
-    <TextView
-        android:id="@+id/textview_main_switchbar_personal"
+        <TextView
+            android:id="@+id/textview_main_switchbar_channel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="频道" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/view_main_switchbar_find"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="center"
-        android:text="我" />
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/imageview_main_switchbar_find"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/nav_find" />
+
+        <TextView
+            android:id="@+id/textview_main_switchbar_find"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="发现" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/view_main_switchbar_personal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/imageview_main_switchbar_personal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/nav_personal" />
+
+        <TextView
+            android:id="@+id/textview_main_switchbar_personal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="我" />
+    </LinearLayout>
 
 </LinearLayout>

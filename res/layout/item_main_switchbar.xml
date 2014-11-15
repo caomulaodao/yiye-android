@@ -16,9 +16,10 @@
 
         <ImageView
             android:id="@+id/imageview_main_switchbar_channel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_gravity="center"
+            android:scaleType="centerInside"
             android:src="@drawable/nav_channel" />
 
         <TextView
@@ -26,7 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="频道" />
+            android:text="频道"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -38,9 +40,10 @@
 
         <ImageView
             android:id="@+id/imageview_main_switchbar_find"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_gravity="center"
+            android:scaleType="centerInside"
             android:src="@drawable/nav_find" />
 
         <TextView
@@ -48,7 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="发现" />
+            android:text="发现"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -60,9 +64,10 @@
 
         <ImageView
             android:id="@+id/imageview_main_switchbar_personal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_gravity="center"
+            android:scaleType="centerInside"
             android:src="@drawable/nav_personal" />
 
         <TextView
@@ -70,7 +75,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="我" />
+            android:text="我"
+            android:textSize="14sp" />
     </LinearLayout>
 
 </LinearLayout>

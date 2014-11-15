@@ -14,33 +14,35 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/bookmarklistitem_style" >
 
-        <ImageView
-            android:id="@+id/imageview_bookmark_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_margin="10dp"
-            android:maxHeight="20dp"
-            android:maxWidth="70dp"
-            android:src="@drawable/ic_launcher" />
-
         <TextView
             android:id="@+id/textview_bookmark_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/imageview_bookmark_item"
-            android:paddingTop="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:text="科技"
             android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/imageview_bookmark_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/textview_bookmark_item_title"
+            android:layout_marginRight="10dp"
+            android:maxHeight="20dp"
+            android:maxWidth="70dp"
+            android:src="@drawable/ic_launcher" />
 
         <TextView
             android:id="@+id/textview_bookmark_item_uploader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/imageview_bookmark_item"
+            android:layout_alignLeft="@id/textview_bookmark_item_title"
             android:layout_below="@id/imageview_bookmark_item"
+            android:layout_marginTop="10dp"
             android:paddingBottom="20dp"
             android:text="上传者： axlecho"
             android:textSize="12sp" />
@@ -49,11 +51,8 @@
             android:id="@+id/textview_bookmark_item_praise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/textview_bookmark_item_uploader"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/textview_bookmark_item_uploader"
-            android:paddingBottom="20dp"
+            android:layout_alignLeft="@id/imageview_bookmark_item"
+            android:layout_alignTop="@id/textview_bookmark_item_uploader"
             android:text="赞 5"
             android:textSize="12sp" />
     </RelativeLayout>

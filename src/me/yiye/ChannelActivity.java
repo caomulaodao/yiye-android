@@ -48,7 +48,6 @@ public class ChannelActivity extends BaseActivity {
 	private void initChannelListView() {
 		pullableView = (PullToRefreshListView) this.findViewById(R.id.listview_channel_bookmarks);
 		pullableView.getLoadingLayoutProxy().setLoadingDrawable(getResources().getDrawable(R.drawable.star));
-		
 		pullableView.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
 			@Override
@@ -58,15 +57,12 @@ public class ChannelActivity extends BaseActivity {
 		});
 		
 		bookMarkListView = pullableView.getRefreshableView();
-		// bookMarkListView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
+		bookMarkListView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
 		bookMarkListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
-				Item it = bookMarkListViewAdapter.getItem(pos - 1);
-				if (it.type == Item.ITEM) {
-					BookMarkActivity.launch(ChannelActivity.this, it.getBookmark());
-				}
+					BookMarkActivity.launch(ChannelActivity.this, bookMarkListViewAdapter.getItem(pos - 1));
 			}
 		});
 		
@@ -74,13 +70,14 @@ public class ChannelActivity extends BaseActivity {
 		bookMarkListView.setAdapter(bookMarkListViewAdapter);
 		
 		freshdata(new YiyeApiOfflineImp(this));
+		
 		// 添加列表最下一项的分割线
 		// View v = View.inflate(this, R.layout.item_commom_divider_style, null);
 		// bookMarkListView.addFooterView(v);
 	}
 
 	private class ChannelAdapter extends BaseAdapter {
-		private List<Item> itemList = new ArrayList<Item>();
+		private List<BookMark> itemList = new ArrayList<BookMark>();
 		private Context context;
 
 		public ChannelAdapter(Context context) {
@@ -88,19 +85,7 @@ public class ChannelActivity extends BaseActivity {
 		}
 
 		public void setData(List<BookMark> bookMarkList) {
-			//TODO 实现数据按时间分段
-			itemList.clear();
-			String currentDate = null;
-			for (BookMark bm : bookMarkList) {
-				if (currentDate == null || !currentDate.equals(bm.postTime)) {
-					Item it = new Item(Item.SECTION, bm);
-					currentDate = bm.postTime;
-					itemList.add(it);
-				}
-
-				Item it = new Item(Item.ITEM, bm);
-				itemList.add(it);
-			}
+			itemList = bookMarkList;
 		}
 
 		@Override
@@ -109,25 +94,16 @@ public class ChannelActivity extends BaseActivity {
 		}
 
 		@Override
-		public Item getItem(int pos) {
+		public BookMark getItem(int pos) {
 			return itemList.get(pos);
 		}
 
 		@Override
-		public int getItemViewType(int pos) {
-			return getItem(pos).type;
-		}
-
-		@Override
 		public View getView(int pos, View convertView, ViewGroup parent) {
-			Item c = itemList.get(pos);
+			BookMark b = itemList.get(pos);
 			View v;
 			if (convertView == null) {
-				if (c.type == Item.ITEM) {
-					v = View.inflate(context, R.layout.item_bookmark_style, null);
-				} else {
-					v = View.inflate(context, R.layout.item_bookmark_section_style, null);
-				}
+				v = View.inflate(context, R.layout.item_bookmark_style, null);
 			} else {
 				v = convertView;
 			}
@@ -135,63 +111,33 @@ public class ChannelActivity extends BaseActivity {
 			ImageView contentImageView;
 			TextView titleTextView;
 			// TextView descriptionTextView;
-			TextView praiseTextView; 
+			TextView praiseTextView;
 			TextView uploaderTextView;
-			
-			if (c.getType() == Item.SECTION) {
-				titleTextView = (TextView) v.findViewById(R.id.textview_bookmark_section_title_item);
-				titleTextView.setText(c.getBookmark().postTime);
-			} else {
-				contentImageView = (ImageView) v.findViewById(R.id.imageview_bookmark_item);
-				contentImageView.setAdjustViewBounds(false);
-				contentImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				ImageLoader.getInstance().displayImage(YiyeApi.PICCDN + c.getBookmark().image, contentImageView, YiyeApplication.imageoptions);
 
-				titleTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_title);
-				titleTextView.setText(c.getBookmark().title);
+			contentImageView = (ImageView) v.findViewById(R.id.imageview_bookmark_item);
+			contentImageView.setAdjustViewBounds(false);
+			contentImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+			ImageLoader.getInstance().displayImage(YiyeApi.PICCDN + b.image, contentImageView,
+					YiyeApplication.imageoptions);
 
-				// descriptionTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_content);
-				// descriptionTextView.setText(c.getBookmark().description);
-				
-				praiseTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_praise);
-				praiseTextView.setText("赞 " + c.getBookmark().likeNum);
-				
-				uploaderTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_uploader);
-				uploaderTextView.setText("上传者 " + c.getBookmark().postUser);
-			}
+			titleTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_title);
+			titleTextView.setText(b.title);
+
+			// descriptionTextView = (TextView)
+			// v.findViewById(R.id.textview_bookmark_item_content);
+			// descriptionTextView.setText(c.getBookmark().description);
+
+			praiseTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_praise);
+			praiseTextView.setText("赞 " + b.likeNum);
+
+			uploaderTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_uploader);
+			uploaderTextView.setText("上传者 " + b.postUser);
 			return v;
 		}
 
 		@Override
-		public int getViewTypeCount() {
-			return 2;
-		}
-
-
-		@Override
 		public long getItemId(int id) {
 			return id;
-		}
-	}
-
-	private class Item {
-		public static final int ITEM = 0;
-		public static final int SECTION = 1;
-
-		private final int type;
-		private final BookMark bookmark;
-
-		public int getType() {
-			return type;
-		}
-
-		public BookMark getBookmark() {
-			return bookmark;
-		}
-
-		public Item(int type, BookMark bookmark) {
-			this.type = type;
-			this.bookmark = bookmark;
 		}
 	}
 

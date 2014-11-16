@@ -47,4 +47,5 @@
     <color name="activitybackgroud">@color/Grey100</color>
     <color name="pulllistviewheaderbackgroud">@color/Grey900</color>
 
+    <color name="E3GRAY"> #e3e3e3 </color>
 </resources>

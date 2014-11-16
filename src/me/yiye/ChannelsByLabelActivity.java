@@ -60,7 +60,7 @@ public class ChannelsByLabelActivity extends BaseActivity{
 				
 				@Override
 				public void onClick(View v) {
-					v.setBackgroundColor(getResources().getColor(R.color.GREENSEA));
+					v.setBackgroundColor(getResources().getColor(R.color.Teal300));
 					currentLabel.setBackgroundColor(getResources().getColor(R.color.Grey300));
 					currentLabel = (TextView) v;
 					Toast.makeText(ChannelsByLabelActivity.this, currentLabel.getText(), Toast.LENGTH_LONG).show();
@@ -76,7 +76,7 @@ public class ChannelsByLabelActivity extends BaseActivity{
 		}
 		
 		currentLabel = labels.get(0);
-		currentLabel.setBackgroundColor(getResources().getColor(R.color.GREENSEA));
+		currentLabel.setBackgroundColor(getResources().getColor(R.color.Teal300));
 		
 		labelContainer.invalidate();
 	}

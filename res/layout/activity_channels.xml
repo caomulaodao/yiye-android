@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pulllistviewheaderbackgroud"
     android:orientation="vertical" >
 
     <com.handmark.pulltorefresh.library.PullToRefreshGridView
@@ -15,6 +14,10 @@
         android:horizontalSpacing="5dp"
         android:numColumns="2"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="5dp" />
+        android:verticalSpacing="5dp"
+        ptr:ptrHeaderBackground="@color/pulllistviewheaderbackgroud"
+        ptr:ptrHeaderSubTextColor="@color/PUERWHITE"
+        ptr:ptrHeaderTextColor="@color/PUERWHITE"
+        ptr:ptrRefreshableViewBackground="@color/pulllistviewheaderbackgroud" />
 
 </LinearLayout>

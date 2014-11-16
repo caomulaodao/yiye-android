@@ -58,15 +58,12 @@ public class YiyeApiImp implements YiyeApi{
 		try {
 			JSONObject o = new JSONObject(ret);
 			JSONArray list = o.getJSONArray("list");
-			
 			MLog.d(TAG, "getBookMarksByChannel### " + list.toString());
-			if(ret != null) {
-				YiyeApiHelper.addBookMarkToBookMarkList(context, bookmarkList,list.toString());
-			} else {
-				MLog.e(TAG, "getBookMarksByChannel### 获取频道中的书签失败");
-			}
+			YiyeApiHelper.addBookMarkToBookMarkList(context, bookmarkList,list.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			MLog.e(TAG, "getBookMarksByChannel### 获取频道中的书签为空");
 		}
 		return bookmarkList;
 	}

@@ -65,11 +65,11 @@ public class SwitchBar extends LinearLayout {
 		switch (pos) {
 		case 0:
 			channelTextView.setTextColor(context.getResources().getColor(R.color.Purple500));
-			channelImageView.setImageResource(R.drawable.nav_channel_select);
+			 channelImageView.setImageResource(R.drawable.nav_channel_select);
 			break;
 		case 1:
 			findTextView.setTextColor(context.getResources().getColor(R.color.Purple500));
-			findImageView.setImageResource(R.drawable.nav_find_select);
+			 findImageView.setImageResource(R.drawable.nav_find_select);
 			break;
 		case 2:
 			personalTextView.setTextColor(context.getResources().getColor(R.color.Purple500));
@@ -85,7 +85,7 @@ public class SwitchBar extends LinearLayout {
 		channelTextView.setTextColor(context.getResources().getColor(R.color.Grey900));
 		findTextView.setTextColor(context.getResources().getColor(R.color.Grey900));
 		personalTextView.setTextColor(context.getResources().getColor(R.color.Grey900));
-		
+
 		channelImageView.setImageResource(R.drawable.nav_channel);
 		findImageView.setImageResource(R.drawable.nav_find);
 		personalImageView.setImageResource(R.drawable.nav_personal);

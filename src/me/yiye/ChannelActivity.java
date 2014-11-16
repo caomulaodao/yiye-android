@@ -48,6 +48,7 @@ public class ChannelActivity extends BaseActivity {
 	private void initChannelListView() {
 		pullableView = (PullToRefreshListView) this.findViewById(R.id.listview_channel_bookmarks);
 		pullableView.getLoadingLayoutProxy().setLoadingDrawable(getResources().getDrawable(R.drawable.star));
+		
 		pullableView.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
 			@Override
@@ -57,7 +58,7 @@ public class ChannelActivity extends BaseActivity {
 		});
 		
 		bookMarkListView = pullableView.getRefreshableView();
-		bookMarkListView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
+		// bookMarkListView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
 		bookMarkListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

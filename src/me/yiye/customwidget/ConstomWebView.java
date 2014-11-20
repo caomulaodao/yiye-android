@@ -24,27 +24,27 @@ public class ConstomWebView extends WebView {
 	@Override
 	protected void onDraw(Canvas c) {
 		c.save();
-		float tH = visibleHeaderHeight();
+		float tH = getVisibleHeaderHeight();
 		if(tH > 0) {
 	      c.translate(0, tH);
 		}
 		
-		tH = visibleFooterHeight();
+		tH = getVisibleFooterHeight();
 		// MLog.d(TAG,"onDraw### visibleFooterHeight onfooter:" + tH);
-		if(tH < 0) {
-			c.translate(0,tH);
+		if(tH > 0) {
+			c.translate(0, - tH);
 		}
 		
 		super.onDraw(c);
 		c.restore();
 	}
 	
-	private float visibleHeaderHeight(){
+	public float getVisibleHeaderHeight(){
 		return headerHeight-getScrollY();
 	} 
 
-	private float visibleFooterHeight() {
-		return - footerHeight - getScrollY() - getHeight() + getContentHeight() * getScale();
+	public float getVisibleFooterHeight() {
+		return footerHeight + getScrollY() + getHeight() - getContentHeight() * getScale();
 	}
 	
 	public ConstomWebView(Context context) {

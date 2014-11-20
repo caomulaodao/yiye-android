@@ -102,7 +102,7 @@ public class BookMarkActivity extends BaseActivity {
 					return;
 				}
 				
-				if(t > oldt) {
+				if(t > oldt && mainWebView.getVisibleHeaderHeight() < 0 && mainWebView.getVisibleFooterHeight() < 0) {
 					BookMarkActivity.this.getSupportActionBar().hide();
 					BookMarkActivity.this.findViewById(R.id.view_bookmark_bottom_bar).setVisibility(View.GONE);
 				} else {
@@ -112,7 +112,7 @@ public class BookMarkActivity extends BaseActivity {
 			}
 		});
 		
-		// Calculate ActionBar height
+		// 计算actionbar的高度
 		int actionbarHeight = 0;
 		TypedValue tv = new TypedValue();
 		if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
@@ -120,12 +120,14 @@ public class BookMarkActivity extends BaseActivity {
 			actionbarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
 		}
 		
+		// 计算bottombar的高度
 		int w = 0;
 		int h = 0;
 		BookMarkActivity.this.findViewById(R.id.view_bookmark_bottom_bar).measure(w, h);
 		int bottombarHeight = BookMarkActivity.this.findViewById(R.id.view_bookmark_bottom_bar).getMeasuredHeight(); 
 		MLog.d(TAG,"initWebView### bottombar height:" + bottombarHeight);
 		
+		// 给webview设置header&&footer的高度
 		mainWebView.setHeaderHeight(actionbarHeight);
 		mainWebView.setFooterHeight(bottombarHeight);
 		

@@ -1,6 +1,8 @@
 package me.yiye;
 
 import me.yiye.contents.BookMark;
+import me.yiye.customwidget.ConstomWebView;
+import me.yiye.customwidget.ConstomWebView.OnScrollListener;
 import me.yiye.customwidget.SmoothProgressBar;
 import me.yiye.utils.MLog;
 import android.content.Context;
@@ -15,16 +17,17 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class BookMarkActivity extends BaseActivity {
-	private final static String TAG = "ContentActivity";
+	private final static String TAG = "BookMarkActivity";
 	
 	private static BookMark bookmark;
 	
-	private WebView mainWebView;
+	private ConstomWebView mainWebView;
 	private SmoothProgressBar loaddingProgressBar;
 	private OnTouchListener webviewTouchListener;
 	
@@ -49,7 +52,7 @@ public class BookMarkActivity extends BaseActivity {
 	private void initWebView() {
 		
 		// 设置webview
-		mainWebView = (WebView) this.findViewById(R.id.webview_bookmark_data);
+		mainWebView = (ConstomWebView) this.findViewById(R.id.webview_bookmark_data);
 		WebSettings webSettings = mainWebView.getSettings();
 		webSettings.setSupportZoom(true);	// 允许缩放
 		webSettings.setBuiltInZoomControls(true);	// 使用内建的缩放手势
@@ -84,6 +87,45 @@ public class BookMarkActivity extends BaseActivity {
 					loaddingProgressBar.setProgress(newProgress);
 				}
 				super.onProgressChanged(view, newProgress);
+			}
+		});
+		
+		
+		// 监听webview的滑动行为 在滑动到顶部与底部作特殊处理
+		mainWebView.setOnScrollListener(new OnScrollListener() {
+
+			@Override
+			public void onSChanged(int l, int t, int oldl, int oldt) {
+				MLog.d(TAG,"onSChanged### l:" + l + " t:" + t + " oldl:" + oldl + " oldt:" + oldt);
+
+				if (mainWebView.getContentHeight() * mainWebView.getScale() == (mainWebView.getHeight() + mainWebView.getScrollY())) {
+					BookMarkActivity.this.getSupportActionBar().show();
+					BookMarkActivity.this.findViewById(R.id.view_bookmark_bottom_bar).setVisibility(View.VISIBLE);
+					return;
+				}
+
+				// 到顶部增加margin
+				if (t == 0) {
+					FrameLayout.LayoutParams rl = (FrameLayout.LayoutParams) mainWebView.getLayoutParams();  
+					int marginTop = (int)(BookMarkActivity.this.getSupportActionBar().getHeight() + 0.5f);//转换为像素单位，55为自己要指定的dip值，0.5f为固定值  
+					rl.setMargins(rl.leftMargin,marginTop,rl.rightMargin,rl.bottomMargin);
+					mainWebView.setLayoutParams(rl);  
+				}
+				
+				// 向下滑动
+				if(oldt == 0 &&t != 0) {
+					FrameLayout.LayoutParams rl = (FrameLayout.LayoutParams) mainWebView.getLayoutParams();  
+					rl.setMargins(0,0,0,0);
+					mainWebView.setLayoutParams(rl); 
+				}
+				
+				if(t > oldt) {
+					BookMarkActivity.this.getSupportActionBar().hide();
+					BookMarkActivity.this.findViewById(R.id.view_bookmark_bottom_bar).setVisibility(View.GONE);
+				} else {
+					BookMarkActivity.this.getSupportActionBar().show();
+					BookMarkActivity.this.findViewById(R.id.view_bookmark_bottom_bar).setVisibility(View.VISIBLE);
+				}
 			}
 		});
 	}

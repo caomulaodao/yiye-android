@@ -45,7 +45,7 @@
         <activity
             android:name=".BookMarkActivity"
             android:launchMode="singleTask"
-            android:theme="@style/CustomActivityTheme" >
+            android:theme="@style/bookmarkstyle" >
         </activity>
         <activity
             android:name=".ChannelActivity"

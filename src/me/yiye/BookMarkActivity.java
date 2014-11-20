@@ -8,6 +8,7 @@ import me.yiye.utils.MLog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,7 +18,6 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +45,6 @@ public class BookMarkActivity extends BaseActivity {
 		initActionbar(bookmark.title);
 		initWebView();
 		initBottomActionBar();
-		
 		mainWebView.loadUrl(bookmark.url);
 	}
 	
@@ -90,7 +89,6 @@ public class BookMarkActivity extends BaseActivity {
 			}
 		});
 		
-		
 		// 监听webview的滑动行为 在滑动到顶部与底部作特殊处理
 		mainWebView.setOnScrollListener(new OnScrollListener() {
 
@@ -103,21 +101,6 @@ public class BookMarkActivity extends BaseActivity {
 					BookMarkActivity.this.findViewById(R.id.view_bookmark_bottom_bar).setVisibility(View.VISIBLE);
 					return;
 				}
-
-				// 到顶部增加margin
-				if (t == 0) {
-					FrameLayout.LayoutParams rl = (FrameLayout.LayoutParams) mainWebView.getLayoutParams();  
-					int marginTop = (int)(BookMarkActivity.this.getSupportActionBar().getHeight() + 0.5f);//转换为像素单位，55为自己要指定的dip值，0.5f为固定值  
-					rl.setMargins(rl.leftMargin,marginTop,rl.rightMargin,rl.bottomMargin);
-					mainWebView.setLayoutParams(rl);  
-				}
-				
-				// 向下滑动
-				if(oldt == 0 &&t != 0) {
-					FrameLayout.LayoutParams rl = (FrameLayout.LayoutParams) mainWebView.getLayoutParams();  
-					rl.setMargins(0,0,0,0);
-					mainWebView.setLayoutParams(rl); 
-				}
 				
 				if(t > oldt) {
 					BookMarkActivity.this.getSupportActionBar().hide();
@@ -128,6 +111,24 @@ public class BookMarkActivity extends BaseActivity {
 				}
 			}
 		});
+		
+		// Calculate ActionBar height
+		int actionbarHeight = 0;
+		TypedValue tv = new TypedValue();
+		if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
+		{
+			actionbarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
+		}
+		
+		int w = 0;
+		int h = 0;
+		BookMarkActivity.this.findViewById(R.id.view_bookmark_bottom_bar).measure(w, h);
+		int bottombarHeight = BookMarkActivity.this.findViewById(R.id.view_bookmark_bottom_bar).getMeasuredHeight(); 
+		MLog.d(TAG,"initWebView### bottombar height:" + bottombarHeight);
+		
+		mainWebView.setHeaderHeight(actionbarHeight);
+		mainWebView.setFooterHeight(bottombarHeight);
+		
 	}
 
 	private void initBottomActionBar() {

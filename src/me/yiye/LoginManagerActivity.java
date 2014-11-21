@@ -1,14 +1,16 @@
 package me.yiye;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import me.yiye.contents.User;
 import me.yiye.utils.MLog;
 import me.yiye.utils.SQLManager;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiImp;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,13 +28,13 @@ public class LoginManagerActivity extends BaseActivity {
 	// 判断email与password是否有输入，若都有启用登陆按钮，否则禁用登陆按钮
 	private boolean emailflag = false;
 	private boolean passwordflag = false;
-	
+
 	private User user = new User();
-	
+
 	private Button loginBtn;
 	private EditText emailEditText;
 	private EditText passwordEditText;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,10 +48,12 @@ public class LoginManagerActivity extends BaseActivity {
 		passwordEditText.addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void afterTextChanged(Editable arg0) {}
+			public void afterTextChanged(Editable arg0) {
+			}
 
 			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {}
+			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+			}
 
 			@Override
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
@@ -66,10 +70,12 @@ public class LoginManagerActivity extends BaseActivity {
 		emailEditText.addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void afterTextChanged(Editable s) {}
+			public void afterTextChanged(Editable s) {
+			}
 
 			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {}
+			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+			}
 
 			@Override
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
@@ -88,12 +94,14 @@ public class LoginManagerActivity extends BaseActivity {
 			public void onClick(View v) {
 				new AsyncTask<Void, Void, String>() {
 					private YiyeApi api;
-
+					private ProgressDialog loginingDialog; 
 					@Override
 					protected void onPreExecute() {
 						api = new YiyeApiImp(LoginManagerActivity.this);
 						user.email = emailEditText.getText().toString();
 						user.password = passwordEditText.getText().toString();
+
+						loginingDialog = ProgressDialog.show(LoginManagerActivity.this, "tip", "logining...");  
 					}
 
 					@Override
@@ -111,15 +119,16 @@ public class LoginManagerActivity extends BaseActivity {
 							MLog.e(TAG, "get user info failed");
 							e.printStackTrace();
 						}
-					
+
 						return ret;
 					}
 
 					@Override
 					protected void onPostExecute(String result) {
 						// TODO 登陆认证
-						MLog.d(TAG,"onPostExecute### saveuer:" + user.toString());
-						SQLManager.saveuser(LoginManagerActivity.this,user);
+						loginingDialog.dismiss();
+						MLog.d(TAG, "onPostExecute### saveuer:" + user.toString());
+						SQLManager.saveuser(LoginManagerActivity.this, user);
 						setCurrentUser(user);
 						YiyeApplication.user = user;
 						MainActivity.launch(LoginManagerActivity.this);
@@ -131,12 +140,12 @@ public class LoginManagerActivity extends BaseActivity {
 	}
 
 	private void setCurrentUser(User user) {
-		SharedPreferences userSharedPreferences= this.getSharedPreferences("user", Activity.MODE_PRIVATE);
-		SharedPreferences.Editor editor = userSharedPreferences.edit(); 
+		SharedPreferences userSharedPreferences = this.getSharedPreferences("user", Activity.MODE_PRIVATE);
+		SharedPreferences.Editor editor = userSharedPreferences.edit();
 		editor.putString("currentuser", user.email); // 标记已经初始化
 		editor.commit();
 	}
-	
+
 	public static void launch(Context context) {
 		Intent i = new Intent();
 		i.setClass(context, LoginManagerActivity.class);

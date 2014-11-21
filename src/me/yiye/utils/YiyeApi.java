@@ -16,7 +16,6 @@ public interface YiyeApi {
 	public String login(String email,String keyword);
 	public String getUserInfo();
 	public boolean isOnline(User user);
-
 	public final static String TESTHOST = "http://pre.yiye.me:3000/";
 	public final static String BOOKEDCHANNELS = "api/channel/all";
 	public final static String LOGIN = "api/account/login";

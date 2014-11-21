@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jfeinstein.jazzyviewpager.JazzyViewPager;
@@ -18,7 +19,7 @@ import com.jfeinstein.jazzyviewpager.JazzyViewPager.TransitionEffect;
 
 public class MainActivity extends FragmentActivity {
 
-	private JazzyViewPager mViewPager;
+	private static JazzyViewPager mViewPager;
 	private AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 
 	private SwitchBar mSwitchBar;
@@ -29,7 +30,8 @@ public class MainActivity extends FragmentActivity {
 
 		initActionbar("一叶");
 		mViewPager = (JazzyViewPager) findViewById(R.id.main_pager);
-		mViewPager.setTransitionEffect(TransitionEffect.Stack);
+		mViewPager.setFadeEnabled(true);
+		mViewPager.setTransitionEffect(TransitionEffect.Standard);
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 		mViewPager.setAdapter(mAppSectionsPagerAdapter);
 
@@ -96,6 +98,13 @@ public class MainActivity extends FragmentActivity {
 		@Override
 		public CharSequence getPageTitle(int position) {
 			return position + "";
+		}
+		
+		@Override
+		public Object instantiateItem(ViewGroup container, final int position) {
+		    Object obj = super.instantiateItem(container, position);
+		    mViewPager.setObjectForPosition(obj, position);
+		    return obj;
 		}
 	}
 

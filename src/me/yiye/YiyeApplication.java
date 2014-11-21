@@ -2,6 +2,7 @@ package me.yiye;
 
 import me.yiye.contents.User;
 import me.yiye.utils.MLog;
+import me.yiye.utils.NetworkUtil;
 import me.yiye.utils.SQLManager;
 import android.app.Activity;
 import android.app.Application;
@@ -42,6 +43,9 @@ public class YiyeApplication 	extends Application{
 		
 		// 初始化数据库
 		SQLManager.init(getApplicationContext());
+		
+		// 初始化网络
+		NetworkUtil.init();
 		
 		// 加载用户信息
 		initUser(getApplicationContext());

@@ -27,14 +27,16 @@ public class YiyeApiImp implements YiyeApi{
 	
 	@Override
 	public List<Channel> getBookedChannels() {
-		List<Channel> bookedChannels = new ArrayList<Channel>();
 		String ret = NetworkUtil.get(context, YiyeApi.TESTHOST, YiyeApi.BOOKEDCHANNELS);
-		MLog.d(TAG,"getBookedChannels### ret:" + ret);
-		if(ret != null) {
-			YiyeApiHelper.addChannelToChannelSet(context, bookedChannels, ret);
-		} else {
-			MLog.e(TAG,"getBookedChannels### 获取订阅频道为空");
+		
+		if(ret == null) {
+			MLog.e(TAG, "getBookedChannels### network return null");
+			return null;
 		}
+		
+		MLog.d(TAG, "getBookedChannels###network ret:" + ret);
+		List<Channel> 		bookedChannels = new ArrayList<Channel>();
+		YiyeApiHelper.addChannelToChannelSet(context, bookedChannels, ret);
 		return bookedChannels;
 	}
 
@@ -52,18 +54,23 @@ public class YiyeApiImp implements YiyeApi{
 
 	@Override
 	public List<BookMark> getBookMarksByChannel(Channel channel) {
+		
+		String ret = NetworkUtil.get(context, YiyeApi.TESTHOST + YiyeApi.BOOKMARKINCHANNEL + channel.channelId, "");
+		if(ret== null) {
+			MLog.e(TAG, "getBookMarksByChannel### network return null");
+			return null;
+		}
+		
 		List<BookMark> bookmarkList = new ArrayList<BookMark>();
-		String ret = NetworkUtil.get(context, YiyeApi.TESTHOST + YiyeApi.BOOKMARKINCHANNEL  + channel.channelId, "");
-		MLog.d(TAG,"getBookMarksByChannel### ret:" + ret);
+		
+		MLog.d(TAG, "getBookMarksByChannel### ret:" + ret);
 		try {
 			JSONObject o = new JSONObject(ret);
 			JSONArray list = o.getJSONArray("list");
 			MLog.d(TAG, "getBookMarksByChannel### " + list.toString());
-			YiyeApiHelper.addBookMarkToBookMarkList(context, bookmarkList,list.toString());
+			YiyeApiHelper.addBookMarkToBookMarkList(context, bookmarkList, list.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
-		} catch (NullPointerException e) {
-			MLog.e(TAG, "getBookMarksByChannel### 获取频道中的书签为空");
 		}
 		return bookmarkList;
 	}
@@ -73,7 +80,7 @@ public class YiyeApiImp implements YiyeApi{
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("email", email));
 		params.add(new BasicNameValuePair("password", keyword));
-		return NetworkUtil.post(context,YiyeApi.TESTHOST + YiyeApi.LOGIN,params);
+		return NetworkUtil.post(context, YiyeApi.TESTHOST + YiyeApi.LOGIN, params);
 	}
 
 	@Override
@@ -85,5 +92,10 @@ public class YiyeApiImp implements YiyeApi{
 	public boolean isOnline(User user) {
 		String ret = login(user.email,user.password);
 		return (ret == null || ret.endsWith("error")? true : false);
+	}
+
+	@Override
+	public String getError() {
+		return NetworkUtil.getError();
 	}
 }

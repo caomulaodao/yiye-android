@@ -21,6 +21,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
@@ -158,17 +159,28 @@ public class ChannelActivity extends BaseActivity {
 		new AsyncTask<Void, Void, List<BookMark>>() {
 			@Override
 			protected List<BookMark> doInBackground(Void... v) {
-				return api.getBookMarksByChannel(channel);
+				List<BookMark> ret = api.getBookMarksByChannel(channel);
+				if(ret == null) {
+					cancel(false); // 网络异常 跳到onCancelled处理异常
+				}
+				return ret;
 			}
 			
 			@Override
 			protected void onPostExecute(List<BookMark> list) {
+				super.onPostExecute(list);
 				MLog.d(TAG, "onPostExecute### get the data of bookmark.");
+
 				bookMarkListViewAdapter.setData(list);
 				bookMarkListViewAdapter.notifyDataSetChanged();
 				pullableView.onRefreshComplete();
-				super.onPostExecute(list);
-				
+			}
+
+			@Override
+			protected void onCancelled() {
+				Toast.makeText(ChannelActivity.this, api.getError(), Toast.LENGTH_LONG).show();
+				pullableView.onRefreshComplete();
+				super.onCancelled();
 			}
 		}.execute();
 	}

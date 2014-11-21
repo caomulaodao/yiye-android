@@ -69,4 +69,9 @@ public class YiyeApiOfflineImp implements YiyeApi{
 		return false;
 	}
 
+	@Override
+	public String getError() {
+		return null;
+	}
+
 }

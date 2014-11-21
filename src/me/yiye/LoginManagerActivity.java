@@ -20,8 +20,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginManagerActivity extends BaseActivity {
 	private final static String TAG = "LoginManagerActivity";
@@ -108,9 +110,16 @@ public class LoginManagerActivity extends BaseActivity {
 					protected String doInBackground(Void... v) {
 						MLog.d(TAG, "doInBackground### " + user.toString());
 						String ret = api.login(user.email, user.password);
+						
+						if(ret == null) {
+							cancel(false); // 网络异常 跳到onCancelled处理异常
+							return ret;
+						}
+						
 						MLog.d(TAG, "doInBackground### login ret:" + ret);
 						ret = api.getUserInfo();
 						MLog.d(TAG, "doInBackground### getuserinfo ret:" + ret);
+						
 						try {
 							JSONObject o = new JSONObject(ret);
 							user.avatar = o.getString("avatar");
@@ -131,9 +140,24 @@ public class LoginManagerActivity extends BaseActivity {
 						SQLManager.saveuser(LoginManagerActivity.this, user);
 						setCurrentUser(user);
 						YiyeApplication.user = user;
+						
+						// 关闭软键盘
+						InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);  
+						if (imm.isActive()) { 
+							imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_NOT_ALWAYS); 
+						}						
 						MainActivity.launch(LoginManagerActivity.this);
 						finish();
 					}
+
+					@Override
+					protected void onCancelled() {
+						loginingDialog.dismiss();
+						Toast.makeText(LoginManagerActivity.this, api.getError(), Toast.LENGTH_LONG).show();
+						super.onCancelled();
+					}
+					
+					
 				}.execute();
 			}
 		});
@@ -152,4 +176,5 @@ public class LoginManagerActivity extends BaseActivity {
 		context.startActivity(i);
 	}
 
+	
 }

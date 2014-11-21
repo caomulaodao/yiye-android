@@ -23,4 +23,6 @@ public interface YiyeApi {
 	public final static String BOOKMARKINCHANNEL = "api/bookmarks/oneDay/";
 	
 	public final static String PICCDN = "http://yiye.qiniudn.com/";
+	
+	public String getError();
 }

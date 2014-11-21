@@ -20,6 +20,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
@@ -148,7 +149,11 @@ public class ChannelsFragment extends Fragment {
 		new AsyncTask<Void, Void,  List<Channel>>() {
 			@Override
 			protected List<Channel> doInBackground(Void... v) {
-				return api.getBookedChannels();
+				List<Channel> ret = api.getBookedChannels();
+				if(ret == null) {
+					cancel(false); // 网络异常 跳到onCancelled处理异常
+				}
+				return ret;
 			}
 			
 			@Override
@@ -158,6 +163,13 @@ public class ChannelsFragment extends Fragment {
 				dataadpter.notifyDataSetChanged();
 				pullableView.onRefreshComplete();
 				super.onPostExecute(list);
+			}
+			
+			@Override
+			protected void onCancelled() {
+				Toast.makeText(ChannelsFragment.this.getActivity(), api.getError(), Toast.LENGTH_LONG).show(); // 异常提示
+				pullableView.onRefreshComplete();
+				super.onCancelled();
 			}
 		}.execute();
 	}

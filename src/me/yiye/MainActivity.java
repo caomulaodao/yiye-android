@@ -30,7 +30,7 @@ public class MainActivity extends FragmentActivity {
 
 		initActionbar("一叶");
 		mViewPager = (JazzyViewPager) findViewById(R.id.main_pager);
-		mViewPager.setFadeEnabled(true);
+		// mViewPager.setFadeEnabled(true);
 		mViewPager.setTransitionEffect(TransitionEffect.Standard);
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 		mViewPager.setAdapter(mAppSectionsPagerAdapter);

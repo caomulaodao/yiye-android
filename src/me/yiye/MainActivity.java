@@ -23,12 +23,11 @@ public class MainActivity extends FragmentActivity {
 	private AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 
 	private SwitchBar mSwitchBar;
-
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
 		initActionbar("一叶");
+		
 		mViewPager = (JazzyViewPager) findViewById(R.id.main_pager);
 		// mViewPager.setFadeEnabled(true);
 		mViewPager.setTransitionEffect(TransitionEffect.Standard);
@@ -68,8 +67,6 @@ public class MainActivity extends FragmentActivity {
 				mViewPager.setCurrentItem(2);
 			}
 		});
-		
-
 	}
 
 	public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {

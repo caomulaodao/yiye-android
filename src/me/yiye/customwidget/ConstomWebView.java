@@ -1,6 +1,5 @@
 package me.yiye.customwidget;
 
-import me.yiye.utils.MLog;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
@@ -89,10 +88,18 @@ public class ConstomWebView extends WebView {
 
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent me) {
-		// 修改触摸偏移
-		me.offsetLocation(0, -headerHeight);
 		
-
+		// 修改触摸偏移
+		float visibleHeaderHeight = getVisibleHeaderHeight();
+		if(visibleHeaderHeight > 0) {
+			me.offsetLocation(0, - visibleHeaderHeight);
+		}
+		
+//		float visibaleFooterHeight = getVisibleFooterHeight();
+//		if(footerHeight > 0) {
+//			me.offsetLocation(0, visibaleFooterHeight);
+//		}
+		
 		return super.dispatchTouchEvent(me);
 	}
 }

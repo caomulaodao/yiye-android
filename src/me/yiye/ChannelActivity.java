@@ -114,7 +114,8 @@ public class ChannelActivity extends BaseActivity {
 			// TextView descriptionTextView;
 			TextView praiseTextView;
 			TextView uploaderTextView;
-
+			TextView uploadTimeTextView;
+			
 			contentImageView = (ImageView) v.findViewById(R.id.imageview_bookmark_item);
 			contentImageView.setAdjustViewBounds(false);
 			contentImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -133,6 +134,9 @@ public class ChannelActivity extends BaseActivity {
 
 			uploaderTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_uploader);
 			uploaderTextView.setText("上传者 " + b.postUser);
+			
+			uploadTimeTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_uploadtime);
+			uploadTimeTextView.setText("上传时间 " + b.postTime);
 			return v;
 		}
 

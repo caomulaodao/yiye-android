@@ -43,16 +43,26 @@
             android:layout_alignLeft="@id/textview_bookmark_item_title"
             android:layout_below="@id/imageview_bookmark_item"
             android:layout_marginTop="10dp"
-            android:paddingBottom="20dp"
             android:text="上传者： axlecho"
             android:textSize="12sp" />
 
+                <TextView
+            android:id="@+id/textview_bookmark_item_uploadtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/textview_bookmark_item_title"
+            android:layout_below="@id/textview_bookmark_item_uploader"
+            android:layout_marginTop="5dp"
+            android:paddingBottom="20dp"
+            android:text="上传时间： 11-11"
+            android:textSize="12sp" />
+                
         <TextView
             android:id="@+id/textview_bookmark_item_praise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/imageview_bookmark_item"
-            android:layout_alignTop="@id/textview_bookmark_item_uploader"
+            android:layout_alignTop="@id/textview_bookmark_item_uploadtime"
             android:text="赞 5"
             android:textSize="12sp" />
     </RelativeLayout>

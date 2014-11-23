@@ -27,6 +27,8 @@ public class PersonalFragment extends Fragment{
 	private Button loginBtn;
 	private Button aboutBtn;
 	
+	private Button findBtn;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
@@ -60,6 +62,14 @@ public class PersonalFragment extends Fragment{
 			}
 		});
 		
+		findBtn = (Button) v.findViewById(R.id.btn_personal_find);
+		findBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				SearchActivity.launch(getActivity());
+			}
+		});
 		setUserInfo(v);
 	}
 	

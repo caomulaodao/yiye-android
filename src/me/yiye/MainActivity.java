@@ -22,14 +22,20 @@ public class MainActivity extends FragmentActivity {
 	private static JazzyViewPager mViewPager;
 	private AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 
+	private static ChannelsFragment mChannelsFragment;
+	private static PersonalFragment mPersonalFragment;
+	
 	private SwitchBar mSwitchBar;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		initActionbar("一叶");
 		
+		mChannelsFragment = new ChannelsFragment();
+		mPersonalFragment = new PersonalFragment();
+		
 		mViewPager = (JazzyViewPager) findViewById(R.id.main_pager);
-		// mViewPager.setFadeEnabled(true);
+//		mViewPager.setFadeEnabled(true);
 		mViewPager.setTransitionEffect(TransitionEffect.Standard);
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 		mViewPager.setAdapter(mAppSectionsPagerAdapter);
@@ -59,14 +65,6 @@ public class MainActivity extends FragmentActivity {
 				mViewPager.setCurrentItem(1);
 			}
 		});
-		
-		mSwitchBar.setOnClickLisener(2, new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				mViewPager.setCurrentItem(2);
-			}
-		});
 	}
 
 	public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
@@ -79,17 +77,15 @@ public class MainActivity extends FragmentActivity {
 		public Fragment getItem(int i) {
 			switch (i) {
 			case 0:
-				return new ChannelsFragment();
-			case 1:
-				return new SearchFragment();
+				return mChannelsFragment;
 			default:
-				return new PersonalFragment();
+				return mPersonalFragment;
 			}
 		}
 
 		@Override
 		public int getCount() {
-			return 3;
+			return 2;
 		}
 
 		@Override

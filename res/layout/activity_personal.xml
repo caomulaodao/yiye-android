@@ -23,24 +23,23 @@
         android:layout_marginTop="-45dp"
         android:src="@drawable/miaotouxiang" />
 
-    <TextView 
+    <TextView
         android:id="@+id/textview_personal_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/imageview_personal_userimg"
-        android:text="用户名"
-        android:layout_toRightOf="@id/imageview_personal_userimg"
-        android:textSize="22sp"
-        android:textColor="@color/Grey900"
         android:layout_margin="10dp"
-        />    
-        
-        <LinearLayout
+        android:layout_toRightOf="@id/imageview_personal_userimg"
+        android:text="用户名"
+        android:textColor="@color/Grey900"
+        android:textSize="22sp" />
+
+    <LinearLayout
         android:id="@+id/view_personnal_group1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/imageview_personal_header"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="66dp"
         android:background="@color/PUERWHITE"
         android:orientation="vertical" >
 
@@ -53,6 +52,27 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="我的收藏"
+            android:textColor="@color/Grey700"
+            android:textSize="14sp" />
+
+        <View
+            android:id="@+id/view_personal_divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/divider_style" />
+
+        <Button
+            android:id="@+id/btn_personal_find"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/section_btn_style"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="发现"
             android:textColor="@color/Grey700"
             android:textSize="14sp" />
     </LinearLayout>
@@ -78,15 +98,13 @@
             android:textSize="14sp" />
 
         <View
-            android:id="@+id/view_personal_divider1"
+            android:id="@+id/view_personal_divider2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/btn_personal_about"
             android:layout_gravity="center"
-            android:background="@drawable/divider_style"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-             />
+            android:background="@drawable/divider_style" />
 
         <Button
             android:id="@+id/btn_personal_login"

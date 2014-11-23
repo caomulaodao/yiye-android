@@ -1,6 +1,7 @@
 package me.yiye;
 
 import me.yiye.customwidget.SwitchBar;
+import me.yiye.utils.MLog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,28 +19,22 @@ import com.jfeinstein.jazzyviewpager.JazzyViewPager;
 import com.jfeinstein.jazzyviewpager.JazzyViewPager.TransitionEffect;
 
 public class MainActivity extends FragmentActivity {
-
-	private static JazzyViewPager mViewPager;
-	private AppSectionsPagerAdapter mAppSectionsPagerAdapter;
-
-	private static ChannelsFragment mChannelsFragment;
-	private static PersonalFragment mPersonalFragment;
+	private final static String TAG = "MainActivity";
 	
+	private JazzyViewPager mViewPager;
+	private AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 	private SwitchBar mSwitchBar;
+	
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		initActionbar("一叶");
 		
-		mChannelsFragment = new ChannelsFragment();
-		mPersonalFragment = new PersonalFragment();
-		
 		mViewPager = (JazzyViewPager) findViewById(R.id.main_pager);
 //		mViewPager.setFadeEnabled(true);
 		mViewPager.setTransitionEffect(TransitionEffect.Standard);
-		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
-		mViewPager.setAdapter(mAppSectionsPagerAdapter);
-
+		
 		mViewPager.setOnPageChangeListener(new SimpleOnPageChangeListener() {
 
 			@Override
@@ -67,7 +62,20 @@ public class MainActivity extends FragmentActivity {
 		});
 	}
 
-	public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
+
+	// 由于Activity为Singletask启动，在登陆结束后跳转不会执行OnCreate，
+	//所以onStart里刷新数据
+	@Override
+	protected void onStart() {
+		MLog.d(TAG,"onCreate### new a pager adapter");
+		mViewPager.setCurrentItem(0,false);
+		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
+		mViewPager.setAdapter(mAppSectionsPagerAdapter);
+		super.onStart();
+	}
+
+
+	public class AppSectionsPagerAdapter extends FragmentPagerAdapter {
 
 		public AppSectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
@@ -77,9 +85,10 @@ public class MainActivity extends FragmentActivity {
 		public Fragment getItem(int i) {
 			switch (i) {
 			case 0:
-				return mChannelsFragment;
+				return new ChannelsFragment();
 			default:
-				return mPersonalFragment;
+				MLog.d(TAG, "getItem### new a personalfragment");
+				return new PersonalFragment();
 			}
 		}
 
@@ -103,7 +112,6 @@ public class MainActivity extends FragmentActivity {
 
 	public static void launch(Context context) {
 		Intent i = new Intent();
-		
 		i.setClass(context, MainActivity.class);
 		context.startActivity(i);
 	}

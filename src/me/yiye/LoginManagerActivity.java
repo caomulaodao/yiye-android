@@ -136,11 +136,10 @@ public class LoginManagerActivity extends BaseActivity {
 					protected void onPostExecute(String result) {
 						// TODO 登陆认证
 						loginingDialog.dismiss();
-						MLog.d(TAG, "onPostExecute### saveuer:" + user.toString());
 						SQLManager.saveuser(LoginManagerActivity.this, user);
 						setCurrentUser(user);
 						YiyeApplication.user = user;
-						
+						MLog.d(TAG, "onPostExecute### saveuer:" + user.toString());
 						// 关闭软键盘
 						InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);  
 						if (imm.isActive()) { 

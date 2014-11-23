@@ -1,5 +1,6 @@
 package me.yiye;
 
+import me.yiye.utils.MLog;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class PersonalFragment extends Fragment{
+	private final static String TAG = "PersonalFragment";
+	
 	private static DisplayImageOptions imageoptions = new DisplayImageOptions.Builder()
 		.showImageOnLoading(R.drawable.img_loading)
 		.showImageForEmptyUri(R.drawable.img_empty)
@@ -71,6 +74,8 @@ public class PersonalFragment extends Fragment{
 				SearchActivity.launch(getActivity());
 			}
 		});
+		
+		MLog.d(TAG, "init### setting user info");
 		setUserInfo(v);
 	}
 	

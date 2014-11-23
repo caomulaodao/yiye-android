@@ -29,10 +29,11 @@ public class PersonalFragment extends Fragment{
 	
 	private Button findBtn;
 	
+	private View v;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
-		View v = inflater.inflate(R.layout.activity_personal, null, false);
+		v = inflater.inflate(R.layout.activity_personal, null, false);
 		init(v);
 		return v;
 	}

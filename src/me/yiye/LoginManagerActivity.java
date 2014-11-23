@@ -145,7 +145,8 @@ public class LoginManagerActivity extends BaseActivity {
 						InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);  
 						if (imm.isActive()) { 
 							imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_NOT_ALWAYS); 
-						}						
+						}				
+						
 						MainActivity.launch(LoginManagerActivity.this);
 						finish();
 					}

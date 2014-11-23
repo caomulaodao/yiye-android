@@ -22,17 +22,12 @@ public class MainActivity extends FragmentActivity {
 	private static JazzyViewPager mViewPager;
 	private AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 
-	private static ChannelsFragment mChannelsFragment;
-	private static PersonalFragment mPersonalFragment;
 	
 	private SwitchBar mSwitchBar;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		initActionbar("一叶");
-		
-		mChannelsFragment = new ChannelsFragment();
-		mPersonalFragment = new PersonalFragment();
 		
 		mViewPager = (JazzyViewPager) findViewById(R.id.main_pager);
 //		mViewPager.setFadeEnabled(true);
@@ -77,9 +72,9 @@ public class MainActivity extends FragmentActivity {
 		public Fragment getItem(int i) {
 			switch (i) {
 			case 0:
-				return mChannelsFragment;
+				return new ChannelsFragment();
 			default:
-				return mPersonalFragment;
+				return new PersonalFragment();
 			}
 		}
 
@@ -103,7 +98,6 @@ public class MainActivity extends FragmentActivity {
 
 	public static void launch(Context context) {
 		Intent i = new Intent();
-		
 		i.setClass(context, MainActivity.class);
 		context.startActivity(i);
 	}

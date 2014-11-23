@@ -8,7 +8,6 @@ import me.yiye.utils.MLog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -87,50 +86,19 @@ public class BookMarkActivity extends BaseActivity {
 				}
 				super.onProgressChanged(view, newProgress);
 			}
-		});
+		});	
 		
-		// 监听webview的滑动行为 在滑动到顶部与底部作特殊处理
 		mainWebView.setOnScrollListener(new OnScrollListener() {
-
+			
 			@Override
 			public void onSChanged(int l, int t, int oldl, int oldt) {
-				MLog.d(TAG,"onSChanged### l:" + l + " t:" + t + " oldl:" + oldl + " oldt:" + oldt);
-
-				if (mainWebView.getContentHeight() * mainWebView.getScale() == (mainWebView.getHeight() + mainWebView.getScrollY())) {
-					BookMarkActivity.this.getSupportActionBar().show();
-					BookMarkActivity.this.findViewById(R.id.view_bookmark_bottom_bar).setVisibility(View.VISIBLE);
-					return;
-				}
-				
-				if(t > oldt && mainWebView.getVisibleHeaderHeight() < 0 && mainWebView.getVisibleFooterHeight() < 0) {
-					BookMarkActivity.this.getSupportActionBar().hide();
+				if(mainWebView.isAtBottom()) {
 					BookMarkActivity.this.findViewById(R.id.view_bookmark_bottom_bar).setVisibility(View.GONE);
 				} else {
-					BookMarkActivity.this.getSupportActionBar().show();
 					BookMarkActivity.this.findViewById(R.id.view_bookmark_bottom_bar).setVisibility(View.VISIBLE);
 				}
 			}
 		});
-		
-		// 计算actionbar的高度
-		int actionbarHeight = 0;
-		TypedValue tv = new TypedValue();
-		if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
-		{
-			actionbarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
-		}
-		
-		// 计算bottombar的高度
-		int w = 0;
-		int h = 0;
-		BookMarkActivity.this.findViewById(R.id.view_bookmark_bottom_bar).measure(w, h);
-		int bottombarHeight = BookMarkActivity.this.findViewById(R.id.view_bookmark_bottom_bar).getMeasuredHeight(); 
-		MLog.d(TAG,"initWebView### bottombar height:" + bottombarHeight);
-		
-		// 给webview设置header&&footer的高度
-		mainWebView.setHeaderHeight(actionbarHeight);
-		mainWebView.setFooterHeight(bottombarHeight);
-		
 	}
 
 	private void initBottomActionBar() {

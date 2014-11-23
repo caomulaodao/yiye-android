@@ -85,7 +85,6 @@ public class ConstomWebView extends WebView {
 						// send these in dispatchTouchEvent
 	}
 
-
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent me) {
 		
@@ -101,5 +100,13 @@ public class ConstomWebView extends WebView {
 //		}
 		
 		return super.dispatchTouchEvent(me);
+	}
+
+	public boolean isAtTop() {
+		return getScrollY() == 0;
+	}
+	
+	public boolean isAtBottom() {
+		return getScrollY() + getHeight() == getContentHeight() * getScale();
 	}
 }

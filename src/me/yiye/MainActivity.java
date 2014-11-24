@@ -31,7 +31,7 @@ public class MainActivity extends FragmentActivity {
 		setContentView(R.layout.activity_main);
 		initActionbar("一叶");
 		
-		mViewPager = (JazzyViewPager) findViewById(R.id.main_pager);
+		mViewPager = (JazzyViewPager) findViewById(R.id.viewpager_main);
 //		mViewPager.setFadeEnabled(true);
 		mViewPager.setTransitionEffect(TransitionEffect.Standard);
 		
@@ -85,7 +85,7 @@ public class MainActivity extends FragmentActivity {
 		public Fragment getItem(int i) {
 			switch (i) {
 			case 0:
-				return new ChannelsFragment();
+				return new PacketFragment();
 			default:
 				MLog.d(TAG, "getItem### new a personalfragment");
 				return new PersonalFragment();

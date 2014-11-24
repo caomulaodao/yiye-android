@@ -16,7 +16,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_action_search"
-            android:hint="发现网络之美"
+            android:hint="@string/idea"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:singleLine="true" />
@@ -29,8 +29,8 @@
             android:layout_margin="4dp"
             android:layout_toRightOf="@id/edittext_search_keyword"
             android:background="@drawable/btn_style"
-            android:text="搜索"
-            android:textColor="@color/PUERWHITE"
+            android:text="@string/seach_describe"
+            android:textColor="@color/WHITE"
             android:textSize="18sp"
             android:visibility="gone" />
     </RelativeLayout>

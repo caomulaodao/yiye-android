@@ -5,27 +5,26 @@
         AppBaseTheme from BOTH res/values/styles.xml and
         res/values-v11/styles.xml on API 14+ devices.
     -->
+
+
     <!-- the theme applied to the application or activity -->
-    <style name="CustomActivityTheme" parent="@android:style/Theme.Holo.Light">
-        <item name="android:actionBarStyle">@style/my_actionbar_style</item>
+    <style name="NormalActivityTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/NormalActionBarStyle</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_action_back</item>
     </style>
 
-    <style name="HomeActivityTheme" parent="@CustomActivityTheme">
-        <item name="android:homeAsUpIndicator">@drawable/home_slide_normal</item>
-    </style>
-
-    <style name="my_actionbar_style" parent="@android:style/Widget.Holo.Light.ActionBar">
+    <style name="NormalActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@color/Teal500</item>
-        <item name="android:titleTextStyle">@style/my_actionbar_title_style</item>
+        <item name="android:titleTextStyle">@style/NormalActionBarTitleStyle</item>
         <item name="android:displayOptions"></item>
         <item name="displayOptions"></item>
         <item name="android:icon">@android:color/transparent</item>
     </style>
 
-    <style name="my_actionbar_title_style">
-        <item name="android:textColor">@color/PUERWHITE</item>
-        <item name="android:textSize">20sp</item>
+    <style name="NormalActionBarTitleStyle">
+        <item name="android:textColor">@color/WHITE</item>
+        <item name="android:textSize">@dimen/actionbar_font_size</item>
     </style>
+
 </resources>

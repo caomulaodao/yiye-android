@@ -9,8 +9,7 @@
         android:id="@+id/linearlayout_labels_labelsparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-    </me.yiye.customwidget.AutoNewLineLinearLayout>
+        android:orientation="horizontal" />
 
     <include
         android:layout_marginTop="10dp"

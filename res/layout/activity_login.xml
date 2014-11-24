@@ -11,7 +11,7 @@
         android:layout_marginLeft="7dp"
         android:layout_marginTop="7dp"
         android:focusable="false"
-        android:text="电话，邮箱地址或用户名"
+        android:text="@string/useremail_describe"
         android:textSize="18sp" />
 
     <EditText
@@ -34,7 +34,7 @@
         android:layout_marginLeft="7dp"
         android:layout_marginTop="2dp"
         android:focusable="false"
-        android:text="密码"
+        android:text="@string/password_describe"
         android:textSize="18sp" />
 
     <EditText
@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="9dp"
-        android:background="#c3c3c3"
+        android:background="@color/Grey400"
         android:focusable="false" />
 
     <Button
@@ -63,7 +63,7 @@
         android:layout_marginTop="9dp"
         android:background="@drawable/btn_style"
         android:enabled="false"
-        android:text="登录"
-        android:textColor="@color/PUERWHITE" />
+        android:text="@string/login_describe"
+        android:textColor="@color/WHITE" />
 
 </LinearLayout>

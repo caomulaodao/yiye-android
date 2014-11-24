@@ -176,6 +176,4 @@ public class LoginManagerActivity extends BaseActivity {
 		i.setClass(context, LoginManagerActivity.class);
 		context.startActivity(i);
 	}
-
-	
 }

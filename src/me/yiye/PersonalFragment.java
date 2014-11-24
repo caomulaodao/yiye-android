@@ -36,7 +36,7 @@ public class PersonalFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
-		v = inflater.inflate(R.layout.activity_personal, null, false);
+		v = inflater.inflate(R.layout.fragment_personal, null, false);
 		init(v);
 		return v;
 	}
@@ -60,13 +60,13 @@ public class PersonalFragment extends Fragment{
 			public void onClick(View v) {		
 				new AlertDialog.Builder(PersonalFragment.this.getActivity())
 					.setTitle("关于一叶")
-					.setMessage("囧囧有序的施工中")
+					.setMessage(PersonalFragment.this.getActivity().getResources().getString(R.string.notdone_decribe))
 					.setPositiveButton("确定", null)
 					.show();
 			}
 		});
 		
-		findBtn = (Button) v.findViewById(R.id.btn_personal_find);
+		findBtn = (Button) v.findViewById(R.id.btn_personal_discover);
 		findBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -88,13 +88,13 @@ public class PersonalFragment extends Fragment{
 			ImageLoader.getInstance().displayImage(YiyeApplication.user.avatar, userimageView, imageoptions);
 			TextView usernameTextView = (TextView) v.findViewById(R.id.textview_personal_username);
 			usernameTextView.setText(YiyeApplication.user.username);
-			loginBtn.setText("注销");
+			loginBtn.setText(getActivity().getResources().getString(R.string.logout_describe));
 			loginBtn.setTextColor(getActivity().getResources().getColor(R.color.Purple500));
 			loginBtn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					new AlertDialog.Builder(PersonalFragment.this.getActivity()) 
-						.setTitle("额，还没做好，注销不能")
+						.setTitle(PersonalFragment.this.getActivity().getResources().getString(R.string.notdone_decribe))
 						.setMessage("我们的工程师度假去了。。")
 						.setPositiveButton("就这样吧(ノ=Д=)ノ┻━┻ ", null)
 						.setNegativeButton("强行登陆！！！", new  DialogInterface.OnClickListener() {

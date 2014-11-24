@@ -6,7 +6,7 @@
     <item android:drawable="@color/Grey300" android:state_focused="true"/>
 
     <!-- default drawable -->
-    <item android:drawable="@drawable/shadowtest" />
+    <item android:drawable="@drawable/bookmarkitem_shadow" />
 
 </selector>
 

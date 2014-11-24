@@ -38,7 +38,7 @@ public class ChannelsByLabelActivity extends BaseActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.activity_channelsbylabel);
+		this.setContentView(R.layout.activity_packetbylabel);
 		initActionbar(topic.getTitle());
 		initLabels();
 		initChannelsListView();

@@ -16,11 +16,10 @@
 
 <resources>
 
-    <dimen name="slidingmenu_offset">80dp</dimen>
-    <dimen name="list_padding">10dp</dimen>
-    <dimen name="shadow_width">4dp</dimen>
-
-    <dimen name="content_margin">10dp</dimen>
     <integer name="num_cols">1</integer>
 
+    <dimen name="actionbar_font_size">20sp</dimen>
+    <dimen name="content_margin">10dp</dimen>
+    <dimen name="content_marginex">16dp</dimen>
+    
 </resources>

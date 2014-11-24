@@ -29,8 +29,8 @@ import com.makeramen.RoundedImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class ChannelsFragment extends Fragment {
-	private final static String TAG = "ChannelsFragmet";
+public class PacketFragment extends Fragment {
+	private final static String TAG = "PacketFragment";
 	private static DisplayImageOptions imageoptions = new DisplayImageOptions.Builder()
 		.showImageOnLoading(R.drawable.img_loading)
 		.showImageForEmptyUri(R.drawable.img_empty)
@@ -47,7 +47,7 @@ public class ChannelsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
-		View v = inflater.inflate(R.layout.activity_channels, null, false);
+		View v = inflater.inflate(R.layout.fragment_packet, null, false);
 		init(v);
 		
 		return v;
@@ -57,14 +57,14 @@ public class ChannelsFragment extends Fragment {
 		dataadpter = new ChannelsGridAdapter(this.getActivity());
 		pullableView = (PullToRefreshGridView) v.findViewById(R.id.gridview_main_content);
 		// pullableView.getLoadingLayoutProxy().setPullLabel("你妹的");
-		pullableView.getLoadingLayoutProxy().setLoadingDrawable(getResources().getDrawable(R.drawable.star));
+		pullableView.getLoadingLayoutProxy().setLoadingDrawable(getResources().getDrawable(R.drawable.ic_star));
 		
 		// 下拉刷新数据
 		pullableView.setOnRefreshListener(new OnRefreshListener<GridView>() {
 
 			@Override
 			public void onRefresh(PullToRefreshBase<GridView> refreshView) {
-				freshdata(new YiyeApiImp(ChannelsFragment.this.getActivity()));
+				freshdata(new YiyeApiImp(PacketFragment.this.getActivity()));
 			}
 		});
 		mainDataGridView = pullableView.getRefreshableView();
@@ -74,7 +74,7 @@ public class ChannelsFragment extends Fragment {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int pos,long id) {
-				ChannelActivity.launch(ChannelsFragment.this.getActivity(),dataadpter.getItem(pos));
+				ChannelActivity.launch(PacketFragment.this.getActivity(),dataadpter.getItem(pos));
 			}
 		});
 		
@@ -115,14 +115,14 @@ public class ChannelsFragment extends Fragment {
 			TextView newsTextView;
 			Channel c = channels.get(pos);
 			if (convertView == null) {
-				v = View.inflate(context, R.layout.item_main_above_style, null);
+				v = View.inflate(context, R.layout.item_packet_style, null);
 				v.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT, 300));
-				v.setBackgroundResource(R.drawable.girditem_style);
+				v.setBackgroundResource(R.drawable.packetitem_style);
 			} else {
 				v = convertView;
 			}
 			
-			channelLogoImageView = (RoundedImageView) v.findViewById(R.id.imageview_main_above_item_background);
+			channelLogoImageView = (RoundedImageView) v.findViewById(R.id.imageview_packet_item_background);
 			channelLogoImageView.setAdjustViewBounds(false);
 			channelLogoImageView.setCornerRadius(4.0f);
 			ImageLoader.getInstance().displayImage(c.logo, channelLogoImageView,imageoptions);
@@ -167,7 +167,7 @@ public class ChannelsFragment extends Fragment {
 			
 			@Override
 			protected void onCancelled() {
-				Toast.makeText(ChannelsFragment.this.getActivity(), api.getError(), Toast.LENGTH_LONG).show(); // 异常提示
+				Toast.makeText(PacketFragment.this.getActivity(), api.getError(), Toast.LENGTH_LONG).show(); // 异常提示
 				pullableView.onRefreshComplete();
 				super.onCancelled();
 			}

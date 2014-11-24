@@ -16,8 +16,8 @@
         android:stretchMode="columnWidth"
         android:verticalSpacing="5dp"
         ptr:ptrHeaderBackground="@color/pulllistviewheaderbackgroud"
-        ptr:ptrHeaderSubTextColor="@color/PUERWHITE"
-        ptr:ptrHeaderTextColor="@color/PUERWHITE"
+        ptr:ptrHeaderSubTextColor="@color/WHITE"
+        ptr:ptrHeaderTextColor="@color/WHITE"
         ptr:ptrRefreshableViewBackground="@color/pulllistviewheaderbackgroud" />
 
 </LinearLayout>

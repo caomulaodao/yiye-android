@@ -13,8 +13,8 @@
         android:divider="@null"
         android:footerDividersEnabled="true"
         ptr:ptrHeaderBackground="@color/pulllistviewheaderbackgroud"
-        ptr:ptrHeaderSubTextColor="@color/PUERWHITE"
-        ptr:ptrHeaderTextColor="@color/PUERWHITE"
+        ptr:ptrHeaderSubTextColor="@color/WHITE"
+        ptr:ptrHeaderTextColor="@color/WHITE"
         ptr:ptrRefreshableViewBackground="@color/pulllistviewheaderbackgroud" >
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
 

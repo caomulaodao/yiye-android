@@ -31,7 +31,7 @@ public class ResultActivity extends BaseActivity {
 		
 		resultListView = (ListView) this.findViewById(R.id.listview_result);
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		map.put("img", R.drawable.balidao);
+		map.put("img", R.drawable.ic_launcher);
 		map.put("tittle", "科技");
 		map.put("content", "iphone android google 一页");
 		resultList.add(map);

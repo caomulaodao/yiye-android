@@ -25,4 +25,6 @@ public interface YiyeApi {
 	public final static String PICCDN = "http://yiye.qiniudn.com/";
 	
 	public String getError();
+	
+	public final static String EORRORNOLOGIN = "请先登录或注册";
 }

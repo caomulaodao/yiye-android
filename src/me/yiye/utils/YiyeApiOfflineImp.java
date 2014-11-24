@@ -15,6 +15,8 @@ import android.database.sqlite.SQLiteDatabase;
 public class YiyeApiOfflineImp implements YiyeApi{
 
 	private Context context;
+	
+	private String errorString = null;
 	public YiyeApiOfflineImp(Context context) {
 		this.context = context;
 	}
@@ -23,6 +25,7 @@ public class YiyeApiOfflineImp implements YiyeApi{
 	public List<Channel> getBookedChannels() {
 		List<Channel> channelList = new ArrayList<Channel>();
 		if(YiyeApplication.user == null) {
+			errorString = YiyeApi.EORRORNOLOGIN;
 			return null;
 		}
 		SQLiteDatabase db = context.openOrCreateDatabase("yiye.db", Context.MODE_PRIVATE, null);
@@ -71,7 +74,7 @@ public class YiyeApiOfflineImp implements YiyeApi{
 
 	@Override
 	public String getError() {
-		return null;
+		return errorString;
 	}
 
 }

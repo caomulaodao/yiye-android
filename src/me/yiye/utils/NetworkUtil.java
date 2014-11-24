@@ -1,15 +1,11 @@
 package me.yiye.utils;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.SocketTimeoutException;
 import java.util.List;
 
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -20,6 +16,7 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -75,11 +72,8 @@ public class NetworkUtil {
 		} catch (SocketTimeoutException e) {
 			errorString = "连接超时";
 			MLog.e(TAG, "post### socket time out");
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
+			errorString = "网络出错";
 			e.printStackTrace();
 		}
 		return null;
@@ -94,16 +88,26 @@ public class NetworkUtil {
 			String cookie = share.getString("yiye", "");
 			httpget.addHeader("Cookie", cookie);
 			HttpResponse ret = httpClient.execute(httpget);
-			return EntityUtils.toString(ret.getEntity(), "utf-8");
+			if(ret.getStatusLine().getStatusCode() == 200) { 
+				return EntityUtils.toString(ret.getEntity(), "utf-8");
+			} else {
+				MLog.e(TAG, "get### return status code:" + ret.getStatusLine().getStatusCode());
+				if(ret.getStatusLine().getStatusCode() == 401) {
+					JSONObject jo = new JSONObject(EntityUtils.toString(ret.getEntity(), "utf-8"));
+					String info = jo.getString("info");
+					errorString = info;
+				}
+				return null;
+			}
+			
 		} catch (ConnectTimeoutException e) {
 			errorString = "连接超时";
 			MLog.e(TAG, "post### connect time out");
 		} catch (SocketTimeoutException e) {
 			errorString = "连接超时";
 			MLog.e(TAG, "post### socket time out");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
+			errorString = "网络出错";
 			e.printStackTrace();
 		}
 		return null;

@@ -64,7 +64,15 @@ public class NetworkUtil {
 				editor.commit();
 				return strResult;
 			} else {
-				return statusCode + " error";
+				MLog.e(TAG, "post### return status code:" + httpResponse.getStatusLine().getStatusCode());
+				String  retString = EntityUtils.toString(httpResponse.getEntity());
+				MLog.e(TAG,"post### extra info:" + retString);
+				if(httpResponse.getStatusLine().getStatusCode() == 401) {
+					JSONObject jo = new JSONObject(retString);
+					String info = jo.getString("message");
+					errorString = info;
+				}
+				return null;
 			}
 		} catch (ConnectTimeoutException e) {
 			errorString = "连接超时";

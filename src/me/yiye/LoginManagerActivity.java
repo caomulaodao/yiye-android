@@ -135,10 +135,11 @@ public class LoginManagerActivity extends BaseActivity {
 
 					@Override
 					protected void onPostExecute(String result) {
-						// TODO 登陆认证
+						// Note!! 此处的验证结果放到了NetworkUtil判断（因为返回码不一样），此处仅成功登录的执行流程
+						// 错误处理均放到onCancelled里
 						loginingDialog.dismiss();
 						SQLManager.saveuser(LoginManagerActivity.this, user);
-						setCurrentUser(user);
+						setCurrentUserToSharedPreferences(user);
 						YiyeApplication.user = user;
 						MLog.d(TAG, "onPostExecute### saveuer:" + user.toString());
 						// 关闭软键盘
@@ -164,7 +165,7 @@ public class LoginManagerActivity extends BaseActivity {
 		});
 	}
 
-	private void setCurrentUser(User user) {
+	private void setCurrentUserToSharedPreferences(User user) {
 		SharedPreferences userSharedPreferences = this.getSharedPreferences("user", Activity.MODE_PRIVATE);
 		SharedPreferences.Editor editor = userSharedPreferences.edit();
 		editor.putString("currentuser", user.email); // 标记已经初始化

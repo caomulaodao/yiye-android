@@ -63,6 +63,8 @@ public class YiyeApplication 	extends Application{
 		if(user == null) {
 			MLog.e(TAG, "initUser### loaduser 失败");
 			return;
+		} else {
+			MLog.i(TAG, "initUser### loaduser ok user:" + user.toString());
 		}
 		
 		//TODO 验证是否用户是否合法

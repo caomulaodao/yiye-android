@@ -80,11 +80,23 @@ public class SQLManager {
 		cv.put("username", user.username);
 		cv.put("password", user.password);
 		cv.put("avatar", user.avatar);
-		long id = db.insert("user", null, cv);
-		if(id == -1) {
-			MLog.e(TAG, "saveuser### insert error");
+		
+		
+		
+		Cursor c = db.rawQuery("select id from user where email=?", new String[] { user.email });
+		if(c.getCount() == 0) {
+			long id = db.insert("user", null, cv);
+			if(id == -1) {
+				MLog.e(TAG, "saveuser### insert error");
+			} else {
+				user.id = id;
+			}
 		} else {
-			user.id = id;
+			if (c.moveToFirst()) {
+				user.id = c.getLong(c.getColumnIndex("id"));
+				String[] args = {String.valueOf(user.id)};
+				db.update("user", cv, "id=?", args);
+			}
 		}
 		db.close();
 	}

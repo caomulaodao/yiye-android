@@ -14,6 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class YiyeApiOfflineImp implements YiyeApi{
 
+	private final static String TAG = "YiyeApiOfflineImp";
 	private Context context;
 	
 	private String errorString = null;
@@ -25,8 +26,11 @@ public class YiyeApiOfflineImp implements YiyeApi{
 	public List<Channel> getBookedChannels() {
 		List<Channel> channelList = new ArrayList<Channel>();
 		if(YiyeApplication.user == null) {
+			MLog.e(TAG,"getBookedChannels### user is null");
 			errorString = YiyeApi.EORRORNOLOGIN;
 			return null;
+		} else {
+			MLog.i(TAG, "getBookedChannels### user:" + YiyeApplication.user.toString());
 		}
 		SQLiteDatabase db = context.openOrCreateDatabase("yiye.db", Context.MODE_PRIVATE, null);
 		Cursor c = db.rawQuery("select * from channel where ownerId=?",new String[]{"" + YiyeApplication.user.id});

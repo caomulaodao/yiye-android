@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@drawable/content_bottom_style"
-        android:visibility="visible" >
+        android:visibility="gone" >
 
         <ImageButton
             android:id="@+id/imagebutton_bookmark_commentary"

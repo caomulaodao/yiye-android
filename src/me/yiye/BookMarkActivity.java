@@ -87,18 +87,6 @@ public class BookMarkActivity extends BaseActivity {
 				super.onProgressChanged(view, newProgress);
 			}
 		});	
-		
-		mainWebView.setOnScrollListener(new OnScrollListener() {
-			
-			@Override
-			public void onSChanged(int l, int t, int oldl, int oldt) {
-				if(mainWebView.isAtBottom()) {
-					BookMarkActivity.this.findViewById(R.id.view_bookmark_bottom_bar).setVisibility(View.GONE);
-				} else {
-					BookMarkActivity.this.findViewById(R.id.view_bookmark_bottom_bar).setVisibility(View.VISIBLE);
-				}
-			}
-		});
 	}
 
 	private void initBottomActionBar() {

@@ -102,8 +102,9 @@ public class LoginManagerActivity extends BaseActivity {
 						api = new YiyeApiImp(LoginManagerActivity.this);
 						user.email = emailEditText.getText().toString();
 						user.password = passwordEditText.getText().toString();
-
-						loginingDialog = ProgressDialog.show(LoginManagerActivity.this, "tip", "logining...");  
+						loginingDialog = new ProgressDialog(LoginManagerActivity.this);
+						loginingDialog.setMessage("登陆中...");
+						loginingDialog.show();
 					}
 
 					@Override

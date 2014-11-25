@@ -20,14 +20,16 @@ public class BookMark {
 	public String channelId;
 	public String comments;
 
+	public String id;
 	@Override
 	public String toString() {
-		return "[channelId:" + channelId + " title:" + title + " summary:" + description + " url:" + url + " image:" + image
+		return "[id:" + id + " channelId:" + channelId + " title:" + title + " summary:" + description + " url:" + url + " image:" + image
 				+ " postTime:" + postTime + " postUser:" + postUser + " likeNum:" + likeNum + "]";
 	}
 	
 	public static BookMark buildBookMarkFromJsonObject(JSONObject o) throws JSONException {
 		BookMark b = new BookMark();
+		b.id = o.getString("_id");
 		b.channelId = o.getString("channelId");
 		b.title = o.getString("title");
 		b.description = o.getString("description");
@@ -44,6 +46,7 @@ public class BookMark {
 
 	public static BookMark buildFromCursor(Cursor cur) {
 		BookMark b = new BookMark();
+		b.id = cur.getString(cur.getColumnIndex("id"));
 		b.channelId = cur.getString(cur.getColumnIndex("channelId"));
 		b.title = cur.getString(cur.getColumnIndex("title"));
 		b.description = cur.getString(cur.getColumnIndex("description"));

@@ -52,7 +52,7 @@ public class SQLManager {
 				"ownerId INTEGER" +
 				")");
 		db.execSQL("CREATE TABLE bookmark " +
-				"(id INTEGER PRIMARY KEY AUTOINCREMENT," + 
+				"(id VARCHAR PRIMARY KEY," + 
 				"title VARCHAR UNIQUE," + 
 				"description VARCHAR," +
 				"url VARCHAR," +
@@ -104,6 +104,7 @@ public class SQLManager {
 	public static void saveChannel(Context context,Channel c) {
 		MLog.d(TAG, "saveChannel###channel:" + c.toString());
 		SQLiteDatabase db = context.openOrCreateDatabase("yiye.db", Context.MODE_PRIVATE, null);
+		
 		ContentValues cv = new ContentValues();
 		cv.put("channelId",c.channelId);
 		cv.put("lastTime", c.lastTime);
@@ -112,9 +113,21 @@ public class SQLManager {
 		cv.put("news", c.news);
 		cv.put("type", c.type);
 		cv.put("ownerId", YiyeApplication.user.id);
-		long id = db.insert("channel", null, cv);
-		if(id == -1) {
-			MLog.e(TAG, "saveChannel### insert error");
+		
+		
+		// 判断本地是否已有此频道，没有时插入，有就更新
+		Cursor cur = db.rawQuery("select channelId from channel where channelId=?", new String[] { c.channelId });
+		if(cur.getCount() == 0) {
+			long id = db.insert("channel", null, cv);
+			if(id == -1) {
+				MLog.e(TAG, "saveChannel### insert error");
+			}
+		} else {
+			MLog.d(TAG,"saveChannel### update channel:" + c.channelId);
+			if(cur.moveToFirst()) {
+				String[] args = {String.valueOf(c.channelId)};
+				db.update("channel", cv, "channelId=?", args);
+			}
 		}
 		db.close();
 	}
@@ -133,10 +146,24 @@ public class SQLManager {
 		cv.put("url", b.url);
 		cv.put("likeNum", b.likeNum);
 		cv.put("postUser", b.postUser);
-		long id = db.insert("bookmark", null, cv);
-		if(id == -1) {
-			MLog.e(TAG, "saveBookMark### insert error");
+		cv.put("id", b.id);
+		
+		// 判断本地是否已有此频道，没有时插入，有就更新
+		Cursor cur = db.rawQuery("select id from bookmark where id=?", new String[] { "" + b.id });
+		if(cur.getCount() == 0) {
+			long ret = db.insert("bookmark", null, cv);
+			if(ret == -1) {
+				MLog.e(TAG, "saveBookMark### insert error");
+			}
+		} else {
+			MLog.d(TAG,"saveBookmarkl### update bookmark:" + b.id);
+			if(cur.moveToFirst()) {
+				String[] args = {String.valueOf(b.channelId)};
+				db.update("bookmark", cv, "id=?", args);
+			}
 		}
+		
+
 		db.close();
 	}
 

@@ -18,6 +18,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ImageSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -134,17 +137,25 @@ public class ChannelActivity extends BaseActivity {
 			// v.findViewById(R.id.textview_bookmark_item_content);
 			// descriptionTextView.setText(c.getBookmark().description);
 
+			SpannableStringBuilder ssb = new SpannableStringBuilder();
+			ssb.append('\uFFFC'); // 替换字符
+			ssb.setSpan(new ImageSpan(ChannelActivity.this,R.drawable.ic_good), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			ssb.append(" " + b.likeNum);
 			praiseTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_praise);
-			praiseTextView.setText("赞 " + b.likeNum);
+			praiseTextView.setText(ssb);
 
+			ssb = new SpannableStringBuilder();
+			ssb.append('\uFFFC'); // 替换字符
+			ssb.setSpan(new ImageSpan(ChannelActivity.this,R.drawable.ic_uploader), 0,1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			ssb.append(" " + b.postUser);
 			uploaderTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_uploader);
-			uploaderTextView.setText("上传者 " + b.postUser);
+			uploaderTextView.setText(ssb);
 			
 			uploadTimeTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_uploadtime);
 			
 			DateFormat fmt= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.CHINA);
 			DateFormat fmt2 = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
-			String timeString = null;
+			String timeString =  b.postTime;
 			try {
 				Date time = fmt.parse(b.postTime);
 				timeString = fmt2.format(time);
@@ -152,11 +163,11 @@ public class ChannelActivity extends BaseActivity {
 				e.printStackTrace();
 			}
 			
-			if(timeString!= null) {
-				uploadTimeTextView.setText(timeString);
-			} else {
-				uploadTimeTextView.setText("上传时间 " + b.postTime);
-			}
+			ssb = new SpannableStringBuilder();
+			ssb.append('\uFFFC');
+			ssb.setSpan(new ImageSpan(ChannelActivity.this,R.drawable.ic_clock), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			ssb.append(timeString);
+			uploadTimeTextView.setText(ssb);
 			return v;
 		}
 

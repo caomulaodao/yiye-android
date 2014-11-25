@@ -27,7 +27,7 @@ public class YiyeApiOfflineImp implements YiyeApi{
 		List<Channel> channelList = new ArrayList<Channel>();
 		if(YiyeApplication.user == null) {
 			MLog.e(TAG,"getBookedChannels### user is null");
-			errorString = YiyeApi.EORRORNOLOGIN;
+			errorString = YiyeApi.ERRORNOLOGIN;
 			return null;
 		} else {
 			MLog.i(TAG, "getBookedChannels### user:" + YiyeApplication.user.toString());
@@ -63,16 +63,23 @@ public class YiyeApiOfflineImp implements YiyeApi{
 
 	@Override
 	public String login(String email, String keyword) {
+		errorString = YiyeApi.ERRORNOLOGIN;
 		return null;
 	}
 
+	public String logout() {
+		errorString = YiyeApi.ERRORNOLOGIN;
+		return null;
+	}
 	@Override
 	public String getUserInfo() {
+		errorString = YiyeApi.ERRORNOLOGIN;
 		return null;
 	}
 
 	@Override
 	public boolean isOnline(User user) {
+		errorString = YiyeApi.ERRORNOLOGIN;
 		return false;
 	}
 
@@ -80,5 +87,4 @@ public class YiyeApiOfflineImp implements YiyeApi{
 	public String getError() {
 		return errorString;
 	}
-
 }

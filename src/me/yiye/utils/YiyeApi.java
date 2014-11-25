@@ -14,11 +14,13 @@ public interface YiyeApi {
 	public List<BookMark> getBookMarksByChannel(Channel channel);	// 获取频道中的书签
 
 	public String login(String email,String keyword);
+	public String logout();
 	public String getUserInfo();
 	public boolean isOnline(User user);
 	public final static String TESTHOST = "http://pre.yiye.me:3000/";
 	public final static String BOOKEDCHANNELS = "api/channel/all";
 	public final static String LOGIN = "api/account/login";
+	public final static String LOGOUT = "api/account/logout";
 	public final static String USERINFO = "api/user/me";
 	public final static String BOOKMARKINCHANNEL = "api/bookmarks/oneDay/";
 	
@@ -26,5 +28,5 @@ public interface YiyeApi {
 	
 	public String getError();
 	
-	public final static String EORRORNOLOGIN = "请先登录或注册";
+	public final static String ERRORNOLOGIN = "请先登录或注册";
 }

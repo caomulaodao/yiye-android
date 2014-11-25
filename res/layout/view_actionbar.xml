@@ -38,6 +38,10 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/default_actionbar_title"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:paddingLeft="48dp"
+        android:paddingRight="48dp"
         android:textColor="@color/WHITE"
         android:textSize="20sp" />
 

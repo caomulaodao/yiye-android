@@ -84,6 +84,11 @@ public class YiyeApiImp implements YiyeApi{
 	}
 
 	@Override
+	public String logout() {
+		return NetworkUtil.get(context,YiyeApi.TESTHOST,YiyeApi.LOGOUT);
+	}
+	
+	@Override
 	public String getUserInfo() {
 		return NetworkUtil.get(context, YiyeApi.TESTHOST, YiyeApi.USERINFO);
 	}

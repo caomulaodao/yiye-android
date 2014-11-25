@@ -49,11 +49,11 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/textview_bookmark_item_praise"
+            android:id="@+id/textview_bookmark_item_good"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/textview_bookmark_item_uploader"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/textview_bookmark_item_uploader"
             android:text="@string/default_bookmark_good"
             android:textSize="12sp" />

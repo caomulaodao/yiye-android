@@ -141,7 +141,7 @@ public class ChannelActivity extends BaseActivity {
 			ssb.append('\uFFFC'); // 替换字符
 			ssb.setSpan(new ImageSpan(ChannelActivity.this,R.drawable.ic_good), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			ssb.append(" " + b.likeNum);
-			praiseTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_praise);
+			praiseTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_good);
 			praiseTextView.setText(ssb);
 
 			ssb = new SpannableStringBuilder();

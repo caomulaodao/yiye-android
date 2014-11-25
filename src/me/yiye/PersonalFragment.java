@@ -91,37 +91,19 @@ public class PersonalFragment extends Fragment{
 		});
 		
 		MLog.d(TAG, "init### setting user info");
-		setUserInfo(v);
+		setUserInfo();
 	}
 	
-	private void setUserInfo(View v) {
+	private void setUserInfo() {
 		
 		// 设置头像
 		ImageView userimageView = (ImageView) v.findViewById(R.id.imageview_personal_userimg);
-
+		TextView usernameTextView = (TextView) v.findViewById(R.id.textview_personal_username);
 		if (YiyeApplication.user != null) { // 若已经登陆，设置头像及姓名
-			ImageLoader.getInstance().displayImage(YiyeApplication.user.avatar, userimageView, imageoptions);
-			TextView usernameTextView = (TextView) v.findViewById(R.id.textview_personal_username);
+			ImageLoader.getInstance().displayImage(YiyeApi.PICCDN + YiyeApplication.user.avatar, userimageView, imageoptions);
 			usernameTextView.setText(YiyeApplication.user.username);
 			loginBtn.setText(getActivity().getResources().getString(R.string.logout_describe));
 			loginBtn.setTextColor(getActivity().getResources().getColor(R.color.Purple500));
-//			loginBtn.setOnClickListener(new OnClickListener() {
-//				@Override
-//				public void onClick(View v) {
-//					new AlertDialog.Builder(PersonalFragment.this.getActivity()) 
-//						.setTitle(PersonalFragment.this.getActivity().getResources().getString(R.string.notdone_decribe))
-//						.setMessage("我们的工程师度假去了。。")
-//						.setPositiveButton("就这样吧(ノ=Д=)ノ┻━┻ ", null)
-//						.setNegativeButton("强行登陆！！！", new  DialogInterface.OnClickListener() {
-//
-//							@Override
-//							public void onClick(DialogInterface arg0, int arg1) {
-//								LoginManagerActivity.launch(PersonalFragment.this.getActivity());
-//							}})
-//						.show();
-//				}
-//			});
-			
 			loginBtn.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -165,8 +147,7 @@ public class PersonalFragment extends Fragment{
 							cleanCurrentUserFromSharedPreferences();
 							cleanCookies();
 							YiyeApplication.user = null;
-							MainActivity.launch(PersonalFragment.this.getActivity());
-							PersonalFragment.this.getActivity().finish();
+							setUserInfo();
 						}
 
 						@Override
@@ -180,7 +161,19 @@ public class PersonalFragment extends Fragment{
 					}.execute();
 				}
 			});
-			
+		} else {
+			userimageView.setImageResource(R.drawable.ic_launcher);
+			usernameTextView.setText(this.getActivity().getResources().getString(R.string.username_no_authentication));
+			loginBtn.setText(this.getActivity().getResources().getString(R.string.login_describe));
+			loginBtn.setTextColor(this.getActivity().getResources().getColor(R.color.Grey700));
+			loginBtn.setOnClickListener(new OnClickListener() {				
+				
+				@Override
+				public void onClick(View v) {
+					LoginManagerActivity.launch(PersonalFragment.this.getActivity());
+					
+				}
+			});
 		}
 	}
 

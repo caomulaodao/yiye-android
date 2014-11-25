@@ -127,8 +127,7 @@ public class ChannelActivity extends BaseActivity {
 			contentImageView = (ImageView) v.findViewById(R.id.imageview_bookmark_item);
 			contentImageView.setAdjustViewBounds(false);
 			contentImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			ImageLoader.getInstance().displayImage(YiyeApi.PICCDN + b.image, contentImageView,
-					YiyeApplication.imageoptions);
+			ImageLoader.getInstance().displayImage(YiyeApi.PICCDN + b.image, contentImageView,YiyeApplication.imageoptions);
 
 			titleTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_title);
 			titleTextView.setText(b.title);

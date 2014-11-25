@@ -1,7 +1,12 @@
 package me.yiye;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import me.yiye.contents.BookMark;
 import me.yiye.contents.Channel;
@@ -136,7 +141,22 @@ public class ChannelActivity extends BaseActivity {
 			uploaderTextView.setText("上传者 " + b.postUser);
 			
 			uploadTimeTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_uploadtime);
-			uploadTimeTextView.setText("上传时间 " + b.postTime);
+			
+			DateFormat fmt= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.CHINA);
+			DateFormat fmt2 = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
+			String timeString = null;
+			try {
+				Date time = fmt.parse(b.postTime);
+				timeString = fmt2.format(time);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			if(timeString!= null) {
+				uploadTimeTextView.setText(timeString);
+			} else {
+				uploadTimeTextView.setText("上传时间 " + b.postTime);
+			}
 			return v;
 		}
 

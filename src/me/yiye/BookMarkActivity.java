@@ -57,6 +57,7 @@ public class BookMarkActivity extends BaseActivity {
 		webSettings.setJavaScriptEnabled(true);	// 开启javascript（！！有问题 知乎的登陆按钮不起作用)
 		webSettings.setUseWideViewPort(true);	// 双击变大变小
 		webSettings.setDisplayZoomControls(false);	// 去除缩放时右下的缩放按钮
+		webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 		// 去除滚动条
 		mWebView.setHorizontalScrollBarEnabled(false);
 		mWebView.setVerticalScrollBarEnabled(false);
